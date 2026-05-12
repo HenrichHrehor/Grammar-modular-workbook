@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <title>Past Continuous – Study Material</title>
+  <style>
+    @page { size: A4; margin: 12mm; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f7;
+      margin: 0;
+      padding: 0;
+    }
+
+    .sheet {
+      width: 100%;
+      background: #ffffff;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    h1 { text-align: center; font-size: 22px; margin: 0; }
+    .subtitle { text-align: center; font-size: 13px; color: #555; margin-bottom: 5px; }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      gap: 10px;
+    }
+
+    .date-input {
+      font-size: 12px;
+      padding: 2px 4px;
+    }
+
+    .print-btn {
+      padding: 5px 10px;
+      font-size: 12px;
+      border: none;
+      border-radius: 4px;
+      background: #0077cc;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+
+    .box {
+      width: 98%;
+      margin: 0 auto;
+      border-radius: 6px;
+      padding: 8px;
+      border: 1px solid #d0d4e0;
+      background: #f9fafc;
+      font-size: 12.5px;
+      line-height: 1.32;
+      box-sizing: border-box;
+    }
+
+    .highlight { background: #fff8e1; border-color: #ffecb3; }
+    .example { background: #e8f5e9; border-color: #c8e6c9; }
+
+    .formula {
+      font-family: Consolas, monospace;
+      background: #eef2ff;
+      padding: 2px 4px;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 2px 0;
+      font-size: 12px;
+    }
+
+    .list { margin-left: 15px; }
+    .list li { margin-bottom: 2px; }
+
+    @media print {
+      body { background: #ffffff; }
+      .print-btn { display: none; }
+      .date-input { border: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sheet">
+
+    <div class="top-bar">
+      <div><strong>Meno:</strong> Martin Krajňák</div>
+      <div><strong>Dátum:</strong> <input type="date" class="date-input"></div>
+      <button class="print-btn" onclick="window.print()">Tlačiť</button>
+    </div>
+
+    <h1>Past Continuous</h1>
+    <div class="subtitle">also called Past Progressive – used for actions in progress in the past</div>
+
+    <div class="grid">
+
+<!-- 1. WHAT PAST CONTINUOUS IS USED FOR -->
+<div class="box highlight">
+  <h2>1. What is Past Continuous used for? 🕰️</h2>
+  <p>Past Continuous describes actions that were <strong>in progress</strong> at a <strong>specific moment in the past</strong>.</p>
+
+  <ul class="list">
+    <li>an action happening at a specific time in the past</li>
+    <li>two actions happening at the same time</li>
+    <li>a long action interrupted by a short action</li>
+    <li>temporary situations in the past</li>
+  </ul>
+
+  <p><strong>Examples:</strong></p>
+  <ul class="list">
+    <li><span class="formula">I was playing football at 6 pm.</span></li>
+    <li><span class="formula">She was studying while he was cooking.</span></li>
+    <li><span class="formula">They were watching TV when the phone rang.</span></li>
+  </ul>
+</div>
+
+<!-- 2. FORM OF THE VERB -->
+<div class="box">
+  <h2>2. Verb form in Past Continuous 🎯</h2>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+
+    <div>
+      <p><strong>Structure:</strong></p>
+      <p><span class="formula">was / were + verb-ing</span></p>
+
+      <p><strong>Examples:</strong></p>
+      <ul class="list">
+        <li><span class="formula">I was playing</span></li>
+        <li><span class="formula">You were playing</span></li>
+        <li><span class="formula">We were playing</span></li>
+        <li><span class="formula">They were playing</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <p><strong>Third person singular:</strong></p>
+      <ul class="list">
+        <li><span class="formula">He was playing</span></li>
+        <li><span class="formula">She was playing</span></li>
+        <li><span class="formula">It was playing</span></li>
+      </ul>
+
+      <p>The auxiliary verb <strong>was/were</strong> shows the past.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- 3. AFFIRMATIVE / NEGATIVE / QUESTION -->
+<div class="box">
+  <h2>3. Affirmative, Negative and Question forms ➕➖❓</h2>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+
+    <div>
+      <p><strong>Affirmative (+)</strong></p>
+      <ul class="list">
+        <li><span class="formula">I was playing.</span></li>
+        <li><span class="formula">They were playing.</span></li>
+      </ul>
+
+      <p><strong>Negative (–)</strong></p>
+      <ul class="list">
+        <li><span class="formula">I was not playing.</span></li>
+        <li><span class="formula">He was not playing.</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <p><strong>Question (?)</strong></p>
+      <ul class="list">
+        <li><span class="formula">Was I playing?</span></li>
+        <li><span class="formula">Were they playing?</span></li>
+      </ul>
+
+      <p><strong>Important:</strong> the verb always ends in <span class="formula">-ing</span>.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- 4. WORD ORDER -->
+<div class="box" style="page-break-before: always; break-before: page;">
+  <h2>4. Word order in Past Continuous 🧩</h2>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+
+    <div>
+      <p><strong>Affirmative:</strong></p>
+      <ul class="list">
+        <li>Subject + was/were + verb-ing</li>
+        <li><span class="formula">I was playing football.</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <p><strong>Negative and questions:</strong></p>
+      <ul class="list">
+        <li>Subject + was/were + not + verb-ing</li>
+        <li><span class="formula">She was not playing.</span></li>
+        <li>was/were + Subject + verb-ing?</li>
+        <li><span class="formula">Were you playing?</span></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <p>English depends on word order — the auxiliary verb must be in the correct place.</p>
+</div>
+
+<!-- 5. TIME EXPRESSIONS -->
+<div class="box">
+  <h2>5. Time expressions used with Past Continuous ⏰</h2>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+
+    <div>
+      <p><strong>Common expressions:</strong></p>
+      <ul class="list">
+        <li>at 6 pm – <span class="formula">I was playing at 6 pm.</span></li>
+        <li>yesterday at this time – <span class="formula">She was studying yesterday at this time.</span></li>
+        <li>all evening – <span class="formula">We were playing all evening.</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <p><strong>Interrupted actions:</strong></p>
+      <ul class="list">
+        <li>when – <span class="formula">I was playing when the phone rang.</span></li>
+        <li>while – <span class="formula">They were playing while I was cooking.</span></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <p>These expressions show that the action was in progress in the past.</p>
+</div>
+
+<!-- 6. SPELLING RULES FOR -ING -->
+<div class="box example">
+  <h2>6. Spelling rules for -ing ✏️</h2>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+
+    <div>
+      <p><strong>Most verbs:</strong></p>
+      <ul class="list">
+        <li><span class="formula">play → playing</span></li>
+        <li><span class="formula">read → reading</span></li>
+      </ul>
+
+      <p><strong>Verbs ending in -e:</strong></p>
+      <ul class="list">
+        <li><span class="formula">make → making</span></li>
+        <li><span class="formula">write → writing</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <p><strong>Short vowel + consonant → double consonant:</strong></p>
+      <ul class="list">
+        <li><span class="formula">run → running</span></li>
+        <li><span class="formula">sit → sitting</span></li>
+      </ul>
+
+      <p><strong>Ending in -ie → -ying:</strong></p>
+      <ul class="list">
+        <li><span class="formula">lie → lying</span></li>
+        <li><span class="formula">die → dying</span></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <p>These rules explain why “playing” looks different from “running” or “making”.</p>
+</div>
+
+    </div>
+  </div>
+</body>
+</html>
+
+

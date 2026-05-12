@@ -1,0 +1,61 @@
+{
+  "project_metadata": {
+    "name": "English Grammar Learning Hub",
+    "focus": "Present Simple Modular Component",
+    "version": "1.0.0",
+    "author": "Henrich Hrehor ©"
+  },
+  "introduction": "A modular, web-based educational platform designed for English language learners. This system provides a central hub for students to access grammar theory, practice exercises, and level-specific (B1/B2) content, while offering educators a protected environment for assessment and answer management.",
+  "features": [
+    {
+      "ui_ux": "✨ Beautiful gradient header with workbook title",
+      "content": "📖 Overview section explaining Present Simple usage",
+      "navigation": "🎯 4 navigation cards (Grammar, Exercises, B1, B2) with hover effects",
+      "accountability": "✓ Progress tracker with checklist for student accountability",
+      "utility": "🖨️ Print This Page button and 📅 Calendar date picker for worksheets",
+      "responsiveness": "📱 Fully responsive design for mobile/desktop"
+    }
+  ],
+  "folder_structure": {
+    "root": "Your Folder/",
+    "files": [
+      {
+        "file": "present-simple-contents.html",
+        "role": "Central Hub",
+        "description": "The entry point for students. Contains the main navigation and progress tracker."
+      },
+      {
+        "file": "present-simple-grammar.html",
+        "role": "Theory Reference",
+        "description": "Publicly accessible grammar rules and usage guide."
+      },
+      {
+        "file": "present-simple-exercises.html",
+        "role": "Public Practice",
+        "description": "Standard practice exercises with open access for students."
+      },
+      {
+        "file": "present-simple-exercises-protected.html",
+        "role": "Secure Assessment",
+        "description": "Password-protected version of exercises (Default: teacher123) to control access to answers."
+      },
+      {
+        "file": "SETUP-GUIDE.md",
+        "role": "Documentation",
+        "description": "Instructions for file linking, password configuration, and deployment."
+      }
+    ]
+  },
+  "technical_requirements": {
+    "front_end": [
+      "HTML5/CSS3 with A4 Print optimization",
+      "Vanilla JavaScript for UI interactions (Answer toggles, navigation)",
+      "CSS Animations for smooth transitions"
+    ],
+    "back_end_logic": [
+      "Modular dataset expansion for additional B1/B2 test content",
+      "Client-side password protection for 'Protected' modules"
+    ]
+  },
+  "purpose": "To serve as a central hub where students can navigate seamlessly between theory and practice, while allowing teachers to build a scalable dataset of printable and digital learning materials."
+}

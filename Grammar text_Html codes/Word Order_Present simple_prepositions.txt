@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Sentence – Word Order & Prepositions</title>
+  <style>
+    /* Global print settings for A4 */
+    @page { size: A4; margin: 0; } /* Set margin to 0 here, apply 12mm padding to .sheet */
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f7;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Control Panel for interactive elements (not printed) */
+    .control-panel {
+      background: #e0e5ed;
+      padding: 10px 20px;
+      border-bottom: 1px solid #c8d0db;
+      margin-bottom: 20px; /* Space between control panel and first sheet */
+      display: flex; /* Use flex for layout */
+      justify-content: space-between; /* Space out items */
+      align-items: center;
+      flex-wrap: wrap; /* Allow wrapping on smaller screens */
+      gap: 10px; /* Gap between elements */
+    }
+
+    .control-panel .top-bar-controls { /* Use a distinct class for these controls */
+      display: flex;
+      align-items: center;
+      gap: 15px; /* Gap between Meno, Datum */
+      flex-wrap: wrap;
+    }
+
+    .control-panel .print-buttons {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    /* Styles for the printable sheets */
+    .sheet {
+      width: 210mm; /* A4 width */
+      min-height: 297mm; /* A4 height, will expand as needed */
+      margin: 0 auto 20px auto; /* Center sheets, add space between them */
+      background: #ffffff;
+      padding: 12mm; /* A4 margins applied as padding */
+      box-shadow: 0 0 8px rgba(0,0,0,0.1); /* Soft shadow for visual separation */
+      box-sizing: border-box; /* Include padding in width/height */
+      display: flex; /* Maintain flex layout for inner content */
+      flex-direction: column;
+      gap: 8px; /* Gap between major sections */
+    }
+
+    /* General elements within the sheets */
+    h1 { text-align: center; font-size: 22px; margin: 0; }
+    .subtitle { text-align: center; font-size: 13px; color: #555; margin-bottom: 5px; }
+
+    .top-bar { /* Top bar within each sheet (for printing) */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      gap: 10px;
+      margin-bottom: 8px; /* Space below the top bar */
+    }
+
+    .date-input { /* Styles for the input in the control panel */
+      font-size: 12px;
+      padding: 2px 4px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    
+    .date-display { /* Placeholder for date on printable sheets */
+      font-size: 12px;
+      display: none; /* Hidden by default, shown when printed */
+    }
+
+    .print-btn { /* Styles for print buttons in control panel */
+      padding: 5px 10px;
+      font-size: 12px;
+      border: none;
+      border-radius: 4px;
+      background: #0077cc;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .print-btn:hover {
+      background: #005f99;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+
+    .box {
+      width: 98%;
+      margin: 0 auto;
+      border-radius: 6px;
+      padding: 8px;
+      border: 1px solid #d0d4e0;
+      background: #f9fafc;
+      font-size: 12.5px;
+      line-height: 1.32;
+      box-sizing: border-box;
+    }
+
+    .highlight { background: #fff8e1; border-color: #ffecb3; }
+    .example { background: #e8f5e9; border-color: #c8e6c9; }
+
+    .formula {
+      font-family: Consolas, monospace;
+      background: #eef2ff;
+      padding: 2px 4px;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 2px 0;
+      font-size: 12px;
+    }
+
+    .list { margin-left: 15px; }
+    .list li { margin-bottom: 2px; }
+
+    /* Print-specific styles */
+    @media print {
+      body {
+        background: #ffffff;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Hide the control panel entirely when printing */
+      .control-panel {
+        display: none !important;
+      }
+
+      /* Reset margins/shadows for sheets during print */
+      .sheet {
+        width: 100%;
+        min-height: auto; /* Let content define height for print */
+        margin: 0; /* No margin between printed pages, page-break-after handles separation */
+        box-shadow: none; /* No shadow on print */
+        page-break-after: always; /* Force a new page after each .sheet */
+        padding: 12mm; /* A4 margins */
+      }
+      .sheet:last-child {
+        page-break-after: auto; /* No page break after the very last sheet */
+      }
+
+      /* Only display the date value, not the input field */
+      .date-input { display: none; }
+      .date-display { display: inline-block; } /* Show the date text */
+      
+      /* Ensure other elements like print buttons are hidden */
+      .print-btn { display: none; }
+      
+      /* Reset any page-break-before on individual boxes that might interfere */
+      .box[style*="page-break-before"],
+      .box[style*="break-before"] {
+          page-break-before: auto !important;
+          break-before: auto !important;
+      }
+    }
+  </style>
+  <script>
+    // Function to update the displayed date on all sheets
+    function updateDateDisplay() {
+      const dateInput = document.querySelector('.control-panel .date-input');
+      const dateDisplays = document.querySelectorAll('.sheet .date-display');
+      dateDisplays.forEach(span => {
+        span.textContent = dateInput.value;
+      });
+    }
+
+    // Function to print a specific page
+    function printSelectedPage(pageNum) {
+      const printableArea = document.querySelector('.printable-area');
+      const allSheets = printableArea.querySelectorAll('.sheet');
+      const controlPanel = document.querySelector('.control-panel');
+
+      // Update date before printing
+      updateDateDisplay();
+
+      // Temporarily hide all sheets
+      allSheets.forEach(sheet => {
+        sheet.style.display = 'none';
+      });
+
+      // Show only the selected sheet
+      const targetSheet = document.getElementById(`page-content-${pageNum}`);
+      if (targetSheet) {
+        targetSheet.style.display = 'flex'; // Use flex as it's the default for .sheet
+      } else {
+        console.error(`Page content for page ${pageNum} not found.`);
+        return;
+      }
+
+      // Hide control panel during print
+      if (controlPanel) {
+        controlPanel.style.display = 'none';
+      }
+
+      window.print();
+
+      // Restore original display styles
+      if (controlPanel) {
+        controlPanel.style.display = 'flex'; // Restore flex display for control-panel
+      }
+      allSheets.forEach(sheet => {
+        sheet.style.display = 'flex'; // Restore flex display for sheets
+      });
+    }
+
+    // Function to print all pages
+    function printAllPages() {
+      const printableArea = document.querySelector('.printable-area');
+      const allSheets = printableArea.querySelectorAll('.sheet');
+      const controlPanel = document.querySelector('.control-panel');
+
+      // Update date before printing
+      updateDateDisplay();
+
+      // Ensure all sheets are visible for "print all"
+      allSheets.forEach(sheet => {
+        sheet.style.display = 'flex'; // Make sure all are visible with flex
+      });
+
+      // Hide control panel during print
+      if (controlPanel) {
+        controlPanel.style.display = 'none';
+      }
+
+      window.print();
+
+      // Restore control panel
+      if (controlPanel) {
+        controlPanel.style.display = 'flex';
+      }
+    }
+
+    // Initialize date and event listeners when the DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+      const dateInput = document.querySelector('.control-panel .date-input');
+      // Set initial date to today for convenience
+      const today = new Date();
+      dateInput.value = today.toISOString().split('T')[0];
+      updateDateDisplay(); // Update display immediately after setting initial value
+
+      // Listen for changes in the date input
+      dateInput.addEventListener('change', updateDateDisplay);
+    });
+  </script>
+</head>
+
+<body>
+  <!-- CONTROL PANEL (Visible in browser, hidden during print) -->
+  <div class="control-panel">
+    <div class="top-bar-controls">
+      <div><strong>Meno:</strong> Hugo</div>
+      <div><strong>Dátum:</strong> <input type="date" class="date-input"></div>
+    </div>
+    <div class="print-buttons">
+      <button class="print-btn" onclick="printSelectedPage(1)">Tlačiť stranu 1</button>
+      <button class="print-btn" onclick="printSelectedPage(2)">Tlačiť stranu 2</button>
+      <button class="print-btn" onclick="printSelectedPage(3)">Tlačiť stranu 3</button>
+      <button class="print-btn" onclick="printAllPages()">Tlačiť všetko</button>
+    </div>
+  </div>
+
+  <!-- PRINTABLE AREA (Contains all sheets) -->
+  <div class="printable-area">
+
+    <!-- PAGE 1 CONTENT -->
+    <div class="sheet" id="page-content-1">
+      <div class="top-bar">
+        <div><strong>Meno:</strong> Hugo</div>
+        <div style="color: #888;">Strana 1 / 3</div>
+        <div><strong>Dátum:</strong> <span class="date-display"></span></div>
+      </div>
+
+      <h1>Simple Sentence Structure</h1>
+      <div class="subtitle">Word Order: Subject + Verb (Present Simple) + Prepositions</div>
+
+      <div class="grid">
+
+        <!-- 1. THE FOUNDATION OF ENGLISH SENTENCES -->
+        <div class="box highlight">
+          <h2>1. The foundation of English sentences 🏗️</h2>
+          <p>Every English sentence needs <strong>a subject and a verb</strong>. This is the minimum requirement.</p>
+          <ul class="list">
+            <li><strong>Subject</strong> = who or what does the action (I, you, he, the cat, Martin…)</li>
+            <li><strong>Verb</strong> = the action or state (play, go, is, have…)</li>
+            <li>English relies on <strong>fixed word order</strong>, not on changing word endings</li>
+          </ul>
+          <p>The basic pattern: <span class="formula">Subject + Verb</span></p>
+          <ul class="list">
+            <li><span class="formula">I play.</span></li>
+            <li><span class="formula">She reads.</span></li>
+            <li><span class="formula">They go.</span></li>
+          </ul>
+        </div>
+
+        <!-- 2. SUBJECT + VERB PATTERN -->
+        <div class="box">
+          <h2>2. Subject + Verb pattern in Present Simple 📐</h2>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+
+            <div>
+              <p><strong>Regular verbs – base form or +s:</strong></p>
+              <ul class="list">
+                <li><span class="formula">I work.</span></li>
+                <li><span class="formula">You play.</span></li>
+                <li><span class="formula">He watches.</span> (3rd person singular)</li>
+                <li><span class="formula">We study.</span></li>
+                <li><span class="formula">She lives.</span> (3rd person singular)</li>
+              </ul>
+            </div>
+
+            <div>
+              <p><strong>Irregular verbs – special forms:</strong></p>
+              <ul class="list">
+                <li><span class="formula">I am.</span> (be)</li>
+                <li><span class="formula">You have.</span></li>
+                <li><span class="formula">He is.</span> (be – 3rd person)</li>
+                <li><span class="formula">She goes.</span> (go – 3rd person)</li>
+                <li><span class="formula">It does.</span> (do – 3rd person)</li>
+              </ul>
+            </div>
+
+          </div>
+
+          <p><strong>Key principle:</strong> In Present Simple, only 3rd person singular (he, she, it) changes the verb form.</p>
+        </div>
+
+        <!-- 3. ADDING OBJECTS AND COMPLEMENTS -->
+        <div class="box">
+          <h2>3. Expanding the sentence: Subject + Verb + Object 📦</h2>
+
+          <p>Most sentences need more than just a subject and verb. We add <strong>objects</strong> or <strong>complements</strong>.</p>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+
+            <div>
+              <p><strong>Regular verbs with objects:</strong></p>
+              <ul class="list">
+                <li><span class="formula">I play football.</span></li>
+                <li><span class="formula">You watch movies.</span></li>
+                <li><span class="formula">He likes pizza.</span></li>
+                <li><span class="formula">We need help.</span></li>
+                <li><span class="formula">They clean the house.</span></li>
+              </ul>
+            </div>
+
+            <div>
+              <p><strong>Irregular verbs with objects:</strong></p>
+              <ul class="list">
+                <li><span class="formula">I have a dog.</span></li>
+                <li><span class="formula">You know the answer.</span></li>
+                <li><span class="formula">She makes breakfast.</span></li>
+                <li><span class="formula">He does homework.</span></li>
+                <li><span class="formula">We are students.</span></li>
+              </ul>
+            </div>
+
+          </div>
+
+          <p><strong>Word order is strict:</strong> Subject → Verb → Object (never change this order in affirmative sentences!)</p>
+        </div>
+
+      </div>
+    </div> <!-- End of Page 1 -->
+
+    <!-- PAGE 2 CONTENT -->
+    <div class="sheet" id="page-content-2">
+      <div class="top-bar">
+        <div><strong>Meno:</strong> Hugo</div>
+        <div style="color: #888;">Strana 2 / 3</div>
+        <div><strong>Dátum:</strong> <span class="date-display"></span></div>
+      </div>
+
+      <div class="grid">
+        <!-- 4. PREPOSITIONS OF PLACE: IN, ON, AT -->
+        <div class="box example">
+          <h2>4. Basic prepositions of place: IN, ON, AT 📍</h2>
+
+          <p>Prepositions show <strong>where</strong> something is or happens. The three most common are IN, ON, and AT.</p>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+
+            <div>
+              <p><strong>IN – inside, enclosed spaces:</strong></p>
+              <ul class="list">
+                <li><span class="formula">in the room</span></li>
+                <li><span class="formula">in the city</span></li>
+                <li><span class="formula">in Slovakia</span></li>
+                <li><span class="formula">in the box</span></li>
+                <li><span class="formula">in the garden</span></li>
+              </ul>
+            </div>
+
+            <div>
+              <p><strong>ON – surface contact:</strong></p>
+              <ul class="list">
+                <li><span class="formula">on the table</span></li>
+                <li><span class="formula">on the wall</span></li>
+                <li><span class="formula">on the floor</span></li>
+                <li><span class="formula">on the street</span></li>
+                <li><span class="formula">on the phone</span></li>
+              </ul>
+            </div>
+
+            <div>
+              <p><strong>AT – specific points/locations:</strong></p>
+              <ul class="list">
+                <li><span class="formula">at school</span></li>
+                <li><span class="formula">at home</span></li>
+                <li><span class="formula">at work</span></li>
+                <li><span class="formula">at the door</span></li>
+                <li><span class="formula">at the station</span></li>
+              </ul>
+            </div>
+
+          </div>
+
+          <p><strong>Remember:</strong> IN = inside something, ON = on a surface, AT = at a specific point or place</p>
+        </div>
+
+        <!-- 5. SENTENCES WITH PREPOSITIONS -->
+        <div class="box">
+          <h2>5. Subject + Verb + Preposition combinations 🔗</h2>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+
+            <div>
+              <p><strong>Using regular verbs:</strong></p>
+              <ul class="list">
+                <li><span class="formula">I live in Košice.</span></li>
+                <li><span class="formula">You work at home.</span></li>
+                <li><span class="formula">He plays on the computer.</span></li>
+                <li><span class="formula">She studies in the library.</span></li>
+                <li><span class="formula">We wait at the bus stop.</span></li>
+                <li><span class="formula">They walk in the park.</span></li>
+              </ul>
+            </div>
+
+            <div>
+              <p><strong>Using irregular verbs:</strong></p>
+              <ul class="list">
+                <li><span class="formula">I am in the classroom.</span></li>
+                <li><span class="formula">You have books on the shelf.</span></li>
+                <li><span class="formula">He goes to school.</span></li>
+                <li><span class="formula">She is at work.</span></li>
+                <li><span class="formula">We are in Slovakia.</span></li>
+                <li><span class="formula">They have lunch at noon.</span></li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 6. MORE PREPOSITIONS -->
+        <div class="box">
+          <h2>6. Other useful prepositions 🗺️</h2>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+
+            <div>
+              <p><strong>Movement and direction:</strong></p>
+              <ul class="list">
+                <li><span class="formula">to – I go to school.</span></li>
+                <li><span class="formula">from – He comes from Poland.</span></li>
+                <li><span class="formula">into – She walks into the room.</span></li>
+                <li><span class="formula">out of – They run out of time.</span></li>
+              </ul>
+            </div>
+
+            <div>
+              <p><strong>Position and relation:</strong></p>
+              <ul class="list">
+                <li><span class="formula">under – The cat is under the table.</span></li>
+                <li><span class="formula">above – The lamp is above the desk.</span></li>
+                <li><span class="formula">behind – I stand behind you.</span></li>
+                <li><span class="formula">next to – She sits next to me.</span></li>
+              </ul>
+            </div>
+
+            <div>
+              <p><strong>Time prepositions:</strong></p>
+              <ul class="list">
+                <li><span class="formula">in – in the morning</span></li>
+                <li><span class="formula">on – on Monday</span></li>
+                <li><span class="formula">at – at 5 o'clock</span></li>
+                <li><span class="formula">before – before class</span></li>
+                <li><span class="formula">after – after lunch</span></li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div> <!-- End of Page 2 -->
+
+    <!-- PAGE 3 CONTENT -->
+    <div class="sheet" id="page-content-3">
+      <div class="top-bar">
+        <div><strong>Meno:</strong> Hugo</div>
+        <div style="color: #888;">Strana 3 / 3</div>
+        <div><strong>Dátum:</strong> <span class="date-display"></span></div>
+      </div>
+
+      <div class="grid">
+        <!-- 7. PRACTICE SENTENCES -->
+        <div class="box example">
+          <h2>7. Complete sentence examples (Subject + Verb + Preposition + Object) 💡</h2>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+
+            <div>
+              <p><strong>With regular verbs:</strong></p>
+              <ul class="list">
+                <li><span class="formula">I play football in the park.</span></li>
+                <li><span class="formula">You study English at school.</span></li>
+                <li><span class="formula">He works on the computer.</span></li>
+                <li><span class="formula">She lives in a small town.</span></li>
+                <li><span class="formula">We walk to the station.</span></li>
+                <li><span class="formula">They talk about the game.</span></li>
+              </ul>
+            </div>
+
+            <div>
+              <p><strong>With irregular verbs:</strong></p>
+              <ul class="list">
+                <li><span class="formula">I am at home.</span></li>
+                <li><span class="formula">You go to work every day.</span></li>
+                <li><span class="formula">He has a house in the city.</span></li>
+                <li><span class="formula">She is on the bus.</span></li>
+                <li><span class="formula">We make dinner at 6 o'clock.</span></li>
+                <li><span class="formula">They do exercises in the gym.</span></li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 8. KEY TAKEAWAYS -->
+        <div class="box highlight">
+          <h2>8. Key takeaways 🎯</h2>
+
+          <p>Remember these fundamental rules for building simple sentences:</p>
+
+          <ul class="list">
+            <li><strong>Word order is fixed:</strong> Subject + Verb (+ Object) (+ Preposition + Object)</li>
+            <li><strong>Regular verbs:</strong> add -s/-es for 3rd person singular (he, she, it)</li>
+            <li><strong>Irregular verbs:</strong> have special forms (be → is/am/are, have → has, go → goes, do → does)</li>
+            <li><strong>Prepositions matter:</strong> IN (enclosed), ON (surface), AT (point)</li>
+            <li><strong>Don't change word order</strong> – English depends on position, not endings</li>
+          </ul>
+
+          <p>Practice building sentences by following this pattern, and soon it will become natural!</p>
+        </div>
+
+      </div>
+    </div> <!-- End of Page 3 -->
+
+  </div> <!-- End of Printable Area -->
+</body>
+</html>

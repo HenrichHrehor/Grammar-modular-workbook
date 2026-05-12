@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <title>Present Simple – Study Material</title>
+  <style>
+    @page { size: A4; margin: 12mm; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f7;
+      margin: 0;
+      padding: 0;
+    }
+
+    .sheet {
+      width: 100%;
+      background: #ffffff;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    h1 { text-align: center; font-size: 22px; margin: 0; }
+    .subtitle { text-align: center; font-size: 13px; color: #555; margin-bottom: 5px; }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      gap: 10px;
+    }
+
+    .date-input {
+      font-size: 12px;
+      padding: 2px 4px;
+    }
+
+    .print-btn {
+      padding: 5px 10px;
+      font-size: 12px;
+      border: none;
+      border-radius: 4px;
+      background: #0077cc;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+
+    .box {
+      width: 98%;
+      margin: 0 auto;
+      border-radius: 6px;
+      padding: 8px;
+      border: 1px solid #d0d4e0;
+      background: #f9fafc;
+      font-size: 12.5px;
+      line-height: 1.32;
+      box-sizing: border-box;
+    }
+
+    .highlight { background: #fff8e1; border-color: #ffecb3; }
+    .example { background: #e8f5e9; border-color: #c8e6c9; }
+
+    .formula {
+      font-family: Consolas, monospace;
+      background: #eef2ff;
+      padding: 2px 4px;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 2px 0;
+      font-size: 12px;
+    }
+
+    .list { margin-left: 15px; }
+    .list li { margin-bottom: 2px; }
+
+    @media print {
+      body { background: #ffffff; }
+      .print-btn { display: none; }
+      .date-input { border: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sheet">
+
+    <div class="top-bar">
+      <div><strong>Meno:</strong> Martin Krajňák</div>
+      <div><strong>Dátum:</strong> <input type="date" class="date-input"></div>
+      <button class="print-btn" onclick="window.print()">Tlačiť</button>
+    </div>
+
+    <h1>Present Simple</h1>
+    <div class="subtitle">simple explanation for understanding the tense</div>
+
+    <div class="grid">
+
+<!-- 1. WHY THE VERB MATTERS -->
+<div class="box highlight">
+  <h2>1. Why is the verb so important? 🔑</h2>
+  <p>In English, the <strong>verb is the main “switch” of the sentence</strong> — it tells us <strong>when</strong> something happens (time) and <strong>how</strong> it happens (regularly, repeatedly, as a fact…).</p>
+  <ul class="list">
+    <li>in Slovak, we often change endings and word order</li>
+    <li>in English, the <strong>verb form changes the most</strong></li>
+    <li>the same idea can be expressed using different tenses (present, past, future)</li>
+  </ul>
+  <p>If you understand the <strong>form of the verb</strong>, you understand the <strong>tense of the sentence</strong>.</p>
+</div>
+
+<!-- 2. WHAT PRESENT SIMPLE IS USED FOR -->
+<div class="box">
+  <h2>2. What is Present Simple used for? ⏱️</h2>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+
+    <div>
+      <p><strong>We use Present Simple for:</strong></p>
+      <ul class="list">
+        <li>facts and general truths</li>
+        <li>habits and routines</li>
+        <li>things that happen regularly</li>
+        <li>timetables and schedules</li>
+      </ul>
+    </div>
+
+    <div>
+      <p><strong>Examples with the verb “play”:</strong></p>
+      <ul class="list">
+        <li><span class="formula">I play football every Monday.</span></li>
+        <li><span class="formula">You play very well.</span></li>
+        <li><span class="formula">He plays the guitar.</span></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- 3. FORM OF THE VERB (play / plays) -->
+<div class="box">
+  <h2>3. Verb form in Present Simple 🎯</h2>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+
+    <div>
+      <p><strong>Most subjects use the base form:</strong></p>
+      <ul class="list">
+        <li><span class="formula">I play</span></li>
+        <li><span class="formula">You play</span></li>
+        <li><span class="formula">We play</span></li>
+        <li><span class="formula">They play</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <p><strong>Third person singular adds -s:</strong></p>
+      <ul class="list">
+        <li><span class="formula">He plays</span></li>
+        <li><span class="formula">She plays</span></li>
+        <li><span class="formula">It plays</span></li>
+      </ul>
+      <p>This is the most important change in Present Simple.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- 4. AFFIRMATIVE / NEGATIVE / QUESTION -->
+<div class="box">
+  <h2>4. Affirmative, Negative and Question forms ➕➖❓</h2>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+
+    <div>
+      <p><strong>Affirmative (+)</strong></p>
+      <ul class="list">
+        <li><span class="formula">I play.</span></li>
+        <li><span class="formula">He plays.</span></li>
+      </ul>
+
+      <p><strong>Negative (–)</strong></p>
+      <ul class="list">
+        <li><span class="formula">I do not play.</span></li>
+        <li><span class="formula">He does not play.</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <p><strong>Question (?)</strong></p>
+      <ul class="list">
+        <li><span class="formula">Do you play?</span></li>
+        <li><span class="formula">Does he play?</span></li>
+      </ul>
+
+      <p><strong>Important:</strong> in negative and question forms, the verb returns to the base form <span class="formula">play</span>.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- 5. WORD ORDER IN PRESENT SIMPLE -->
+<div class="box">
+  <h2>5. Word order matters in English 🧩</h2>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+
+    <div>
+      <p><strong>English has a fixed word order:</strong></p>
+      <ul class="list">
+        <li><strong>Affirmative:</strong> Subject + Verb + Object</li>
+        <li><span class="formula">I play football.</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <p><strong>Negative and questions use “do/does”:</strong></p>
+      <ul class="list">
+        <li><strong>Negative:</strong> Subject + do/does + not + Verb</li>
+        <li><span class="formula">He does not play.</span></li>
+        <li><strong>Question:</strong> Do/Does + Subject + Verb?</li>
+        <li><span class="formula">Do you play?</span></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <p>Because English depends on word order, learning these three forms (+ / – / ?) is essential.</p>
+</div>
+
+<!-- 6. TIME EXPRESSIONS FOR PRESENT SIMPLE -->
+<div class="box">
+  <h2>6. Time expressions used with Present Simple ⏰</h2>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+
+    <div>
+      <p><strong>Frequency words:</strong></p>
+      <ul class="list">
+        <li>always – <span class="formula">I always play in the morning.</span></li>
+        <li>sometimes – <span class="formula">I sometimes play with my friends.</span></li>
+        <li>seldom – <span class="formula">I seldom play computer games.</span></li>
+        <li>never – <span class="formula">I never play late at night.</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <p><strong>Regular time expressions:</strong></p>
+      <ul class="list">
+        <li>every day – <span class="formula">I play every day.</span></li>
+        <li>every Monday – <span class="formula">I play every Monday.</span></li>
+        <li>every week – <span class="formula">I play every week.</span></li>
+        <li>in the morning – <span class="formula">I play in the morning.</span></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <p>These expressions help the student understand that Present Simple describes regular or repeated actions.</p>
+</div>
+
+<!-- 7. SPELLING RULES FOR THIRD PERSON SINGULAR -->
+<div class="box example">
+  <h2>7. Spelling rules for -s / -es / -ies ✏️</h2>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+
+    <div>
+      <p><strong>Most verbs add -s:</strong></p>
+      <ul class="list">
+        <li><span class="formula">play → plays</span></li>
+        <li><span class="formula">read → reads</span></li>
+      </ul>
+
+      <p><strong>Verbs ending in -ch, -sh, -x, -s add -es:</strong></p>
+      <ul class="list">
+        <li><span class="formula">catch → catches</span></li>
+        <li><span class="formula">wash → washes</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <p><strong>Verbs ending in consonant + y change to -ies:</strong></p>
+      <ul class="list">
+        <li><span class="formula">study → studies</span></li>
+        <li><span class="formula">try → tries</span></li>
+      </ul>
+
+      <p><strong>Irregular:</strong></p>
+      <ul class="list">
+        <li><span class="formula">do → does</span></li>
+        <li><span class="formula">go → goes</span></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <p>These rules explain why “he plays” is different from “he studies” or “he does”.</p>
+</div>
+
+    </div>
+  </div>
+</body>
+</html>
