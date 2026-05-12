@@ -294,7 +294,7 @@
           <h2>1. The foundation of English sentences 🏗️</h2>
           <p>Every English sentence needs <strong>a subject and a verb</strong>. This is the minimum requirement.</p>
           <ul class="list">
-            <li><strong>Subject</strong> = who or what does the action (I, you, he, the cat, Martin…)</li>
+            <li><strong>Subject</strong> = who or what does the action (I, you, he, the cat, my friend…)</li>
             <li><strong>Verb</strong> = the action or state (play, go, is, have…)</li>
             <li>English relies on <strong>fixed word order</strong>, not on changing word endings</li>
           </ul>
