@@ -13,7 +13,46 @@
       .trim()
       .toLowerCase()
       .replace(/\s+/g, " ")
-      .replace(/['']/g, "'");
+      .replace(/[''`´]/g, "'");
+  }
+
+  function stripApostrophes(text) {
+    return text.replace(/'/g, "");
+  }
+
+  function expandNoApostropheForms(text) {
+    return text
+      .replace(/\bdont\b/g, "do not")
+      .replace(/\bdoesnt\b/g, "does not")
+      .replace(/\bdidnt\b/g, "did not")
+      .replace(/\bwont\b/g, "will not")
+      .replace(/\bcant\b/g, "can not")
+      .replace(/\bisnt\b/g, "is not")
+      .replace(/\barent\b/g, "are not");
+  }
+
+  function normalizeForMatch(text) {
+    var n = normalize(text);
+    n = expandNoApostropheForms(stripApostrophes(n));
+    return n.replace(/\s+/g, " ").trim();
+  }
+
+  function escapeHtml(text) {
+    return String(text)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function insertAtCursor(field, text) {
+    var start = field.selectionStart;
+    var end = field.selectionEnd;
+    var value = field.value;
+    field.value = value.slice(0, start) + text + value.slice(end);
+    var pos = start + text.length;
+    field.selectionStart = field.selectionEnd = pos;
+    field.focus();
   }
 
   function pickItems(items, count, mode) {
@@ -132,14 +171,32 @@
     document.querySelectorAll(".exercise-input").forEach(function (el) {
       el.classList.remove("exercise-input--correct", "exercise-input--incorrect");
     });
+    document.querySelectorAll(".exercise-feedback").forEach(function (el) {
+      el.remove();
+    });
   }
 
   function matchesAnswer(userValue, answers) {
-    var u = normalize(userValue);
+    var u = normalizeForMatch(userValue);
     if (!u) return false;
     return answers.some(function (ans) {
-      return normalize(ans) === u;
+      return normalizeForMatch(ans) === u;
     });
+  }
+
+  function showInlineFeedback(field, ok, answers) {
+    var item = field.closest(".exercise-item");
+    if (!item) return;
+    var existing = item.querySelector(".exercise-feedback");
+    if (existing) existing.remove();
+
+    var fb = document.createElement("div");
+    fb.className = "exercise-feedback " + (ok ? "exercise-feedback--ok" : "exercise-feedback--miss");
+    fb.innerHTML =
+      (ok ? "✅ " : "📝 ") +
+      "<strong>Correct answer:</strong> " +
+      escapeHtml(answers.join(" / "));
+    item.appendChild(fb);
   }
 
   function checkExercises() {
@@ -152,6 +209,7 @@
       var ok = matchesAnswer(field.value, answers);
       field.classList.remove("exercise-input--correct", "exercise-input--incorrect");
       field.classList.add(ok ? "exercise-input--correct" : "exercise-input--incorrect");
+      showInlineFeedback(field, ok, answers);
       if (ok) correct++;
     });
 
@@ -171,6 +229,20 @@
   window.buildNewWorksheet = function () {
     buildWorksheet("random");
   };
+
+  document.addEventListener("keydown", function (e) {
+    var field = e.target;
+    if (!field.classList || !field.classList.contains("exercise-input")) {
+      return;
+    }
+    var isApostropheShortcut =
+      (e.altKey && (e.key === "." || e.code === "Period")) ||
+      (e.ctrlKey && (e.key === "'" || e.key === "`" || e.code === "Quote"));
+    if (isApostropheShortcut) {
+      e.preventDefault();
+      insertAtCursor(field, "'");
+    }
+  });
 
   document.addEventListener("DOMContentLoaded", function () {
     var page = document.body.getAttribute("data-exercise-page");

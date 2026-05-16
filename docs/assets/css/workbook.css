@@ -139,6 +139,47 @@ button:hover {
   margin-bottom: 10px;
 }
 
+.apostrophe-hint {
+  font-size: 12px;
+  color: #555;
+  background: #eef2ff;
+  border: 1px solid #c5cae9;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.apostrophe-hint kbd {
+  display: inline-block;
+  padding: 1px 5px;
+  font-size: 11px;
+  font-family: Consolas, monospace;
+  background: #fff;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+}
+
+.exercise-feedback {
+  margin-top: 8px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.exercise-feedback--ok {
+  background: #e8f5e9;
+  border-left: 3px solid #28a745;
+  color: #1b5e20;
+}
+
+.exercise-feedback--miss {
+  background: #fff8e1;
+  border-left: 3px solid #ff9800;
+  color: #5d4037;
+}
+
 /* TOP BAR */
 .top-bar {
   display: flex;
@@ -442,7 +483,9 @@ h1 {
   .check-btn,
   .new-set-btn,
   .print-btn,
-  .check-result {
+  .check-result,
+  .apostrophe-hint,
+  .exercise-feedback {
     display: none !important;
   }
 
