@@ -177,6 +177,39 @@ h1 {
   border-bottom: 1px solid blue;
 }
 
+/* Interactive exercise fields */
+.exercise-input {
+  font-family: inherit;
+  font-size: 14px;
+  color: #003399;
+  background: #fff;
+  border: 1px solid #667eea;
+  border-radius: 3px;
+  padding: 4px 8px;
+  vertical-align: baseline;
+  box-sizing: border-box;
+  margin: 0 2px;
+}
+
+.exercise-input--short {
+  width: 7em;
+  max-width: 45%;
+}
+
+.exercise-input--phrase {
+  width: 15em;
+  max-width: 85%;
+}
+
+.exercise-input--sentence {
+  width: min(100%, 22em);
+  max-width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  resize: vertical;
+  line-height: 1.4;
+}
+
 /* GRAMMAR (from Grammar text_Html codes / Present simple.txt) */
 .grammar-body .grid {
   display: grid;
@@ -376,6 +409,14 @@ h1 {
 
   .date-input {
     border: none;
+  }
+
+  .exercise-input,
+  .exercise-input--sentence {
+    border: none;
+    border-bottom: 1px solid #333;
+    background: transparent;
+    color: #000;
   }
 
   .answer-key {
