@@ -90,7 +90,6 @@
     field.setAttribute("data-answers", answers);
     field.setAttribute("data-section", sectionId);
     field.setAttribute("aria-label", sectionId + ", question " + (index + 1));
-    bindRetryOnInput(field);
     return field;
   }
 
@@ -197,21 +196,41 @@
     });
   }
 
+  function hideAnswerKeyPanel() {
+    var key = document.getElementById("answerKey");
+    if (key) {
+      key.classList.remove("active");
+    }
+  }
+
   function clearFieldFeedback(field) {
+    if (!field) return;
     field.classList.remove("exercise-input--correct", "exercise-input--incorrect");
+    field.removeAttribute("data-hint-visible");
     var item = field.closest(".exercise-item");
     if (!item) return;
     var fb = item.querySelector(".exercise-feedback");
-    if (fb) fb.remove();
+    if (fb) {
+      fb.remove();
+    }
   }
 
-  function bindRetryOnInput(field) {
-    field.addEventListener("input", function () {
-      if (!document.body.classList.contains("exercise-checked")) {
-        return;
-      }
-      clearFieldFeedback(field);
-    });
+  function onExerciseFieldRetry(field) {
+    if (!document.body.classList.contains("exercise-checked")) {
+      return;
+    }
+    if (!field || !field.classList.contains("exercise-input")) {
+      return;
+    }
+    if (!field.getAttribute("data-hint-visible")) {
+      return;
+    }
+    clearFieldFeedback(field);
+    hideAnswerKeyPanel();
+  }
+
+  function markFieldHintVisible(field) {
+    field.setAttribute("data-hint-visible", "1");
   }
 
   function matchesAnswer(userValue, answers) {
@@ -235,6 +254,7 @@
       "<strong>Correct answer:</strong> " +
       escapeHtml(answers.join(" / "));
     item.appendChild(fb);
+    markFieldHintVisible(field);
   }
 
   var MOTIVATION_LEVELS = [
@@ -364,8 +384,42 @@
     if (isApostropheShortcut) {
       e.preventDefault();
       insertAtCursor(field, "'");
+      onExerciseFieldRetry(field);
     }
   });
+
+  document.addEventListener(
+    "focusin",
+    function (e) {
+      onExerciseFieldRetry(e.target);
+    },
+    true
+  );
+
+  document.addEventListener(
+    "input",
+    function (e) {
+      onExerciseFieldRetry(e.target);
+    },
+    true
+  );
+
+  document.addEventListener(
+    "keydown",
+    function (e) {
+      if (!document.body.classList.contains("exercise-checked")) {
+        return;
+      }
+      var field = e.target;
+      if (!field.classList || !field.classList.contains("exercise-input")) {
+        return;
+      }
+      if (e.key === "Backspace" || e.key === "Delete" || e.key.length === 1) {
+        onExerciseFieldRetry(field);
+      }
+    },
+    true
+  );
 
   document.addEventListener("DOMContentLoaded", function () {
     var page = document.body.getAttribute("data-exercise-page");
