@@ -80,7 +80,7 @@
       .trim()
       .toLowerCase()
       .replace(/\s+/g, " ")
-      .replace(/[''`´]/g, "'");
+      .replace(/[\u0027\u0060\u00B4\u2018\u2019\u201A\u201B\u2032\uFF07]/g, "'");
   }
 
   function stripApostrophes(text) {
@@ -89,18 +89,42 @@
 
   function expandNoApostropheForms(text) {
     return text
+      .replace(/\bdon't\b/g, "do not")
+      .replace(/\bdoesn't\b/g, "does not")
+      .replace(/\bdidn't\b/g, "did not")
+      .replace(/\bwon't\b/g, "will not")
+      .replace(/\bwouldn't\b/g, "would not")
+      .replace(/\bcan't\b/g, "can not")
+      .replace(/\bcouldn't\b/g, "could not")
+      .replace(/\bshouldn't\b/g, "should not")
+      .replace(/\bisn't\b/g, "is not")
+      .replace(/\baren't\b/g, "are not")
+      .replace(/\bwasn't\b/g, "was not")
+      .replace(/\bweren't\b/g, "were not")
+      .replace(/\bhasn't\b/g, "has not")
+      .replace(/\bhaven't\b/g, "have not")
+      .replace(/\bhadn't\b/g, "had not")
       .replace(/\bdont\b/g, "do not")
       .replace(/\bdoesnt\b/g, "does not")
       .replace(/\bdidnt\b/g, "did not")
       .replace(/\bwont\b/g, "will not")
+      .replace(/\bwouldnt\b/g, "would not")
       .replace(/\bcant\b/g, "can not")
+      .replace(/\bcouldnt\b/g, "could not")
+      .replace(/\bshouldnt\b/g, "should not")
       .replace(/\bisnt\b/g, "is not")
-      .replace(/\barent\b/g, "are not");
+      .replace(/\barent\b/g, "are not")
+      .replace(/\bwasnt\b/g, "was not")
+      .replace(/\bwerent\b/g, "were not")
+      .replace(/\bhasnt\b/g, "has not")
+      .replace(/\bhavent\b/g, "have not")
+      .replace(/\bhadnt\b/g, "had not");
   }
 
   function normalizeForMatch(text) {
     var n = normalize(text);
     n = expandNoApostropheForms(stripApostrophes(n));
+    n = expandNoApostropheForms(n);
     return n.replace(/\s+/g, " ").trim();
   }
 
