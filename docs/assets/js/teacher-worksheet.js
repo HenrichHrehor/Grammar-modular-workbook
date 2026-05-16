@@ -46,6 +46,7 @@
   };
 
   var SCORE_TOTAL_ID = "scoreTotal";
+  var lastWorksheetRandomSeed = null;
 
   function getLevel() {
     return document.body.getAttribute("data-teacher-level");
@@ -185,23 +186,55 @@
     };
   }
 
-  function pickItems(items, count, mode, level) {
+  function newRandomSeed() {
+    return (Date.now() ^ Math.floor(Math.random() * 0x100000000)) >>> 0;
+  }
+
+  function hashString(str) {
+    var h = 0;
+    for (var i = 0; i < str.length; i++) {
+      h = ((h << 5) - h + str.charCodeAt(i)) | 0;
+    }
+    return h >>> 0;
+  }
+
+  function createRng(seed) {
+    var s = seed >>> 0;
+    return function () {
+      s = (s + 0x6d2b79f5) | 0;
+      var t = Math.imul(s ^ (s >>> 15), 1 | s);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function seededShuffle(arr, seed) {
+    var rng = createRng(seed);
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(rng() * (i + 1));
+      var t = arr[i];
+      arr[i] = arr[j];
+      arr[j] = t;
+    }
+    return arr;
+  }
+
+  function pickItems(items, count, mode, level, randomSeed, salt) {
     var copy = items.slice();
+    if (!copy.length) return [];
+    count = Math.min(count, copy.length);
     if (mode === "random") {
-      for (var i = copy.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var t = copy[i];
-        copy[i] = copy[j];
-        copy[j] = t;
-      }
+      var seed = (randomSeed != null ? randomSeed : newRandomSeed()) + (salt || 0);
+      seededShuffle(copy, seed);
       return copy.slice(0, count);
     }
     var versionNum = parseInt(mode, 10) || 1;
-    var start = ((versionNum - 1) * count) % Math.max(1, copy.length - count + 1);
+    var slots = Math.max(1, copy.length - count + 1);
+    var start = ((versionNum - 1) * count) % slots;
     return copy.slice(start, start + count);
   }
 
-  function pickTransformItems(items, mode, level) {
+  function pickTransformItems(items, mode, level, randomSeed) {
     var negatives = [];
     var questions = [];
     items.forEach(function (item) {
@@ -211,9 +244,14 @@
         negatives.push(item);
       }
     });
-    var pickedNeg = pickItems(negatives, 2, mode, level);
-    var pickedQ = pickItems(questions, 2, mode, level);
-    return [pickedNeg[0], pickedNeg[1], pickedQ[0], pickedQ[1]];
+    var pickedNeg = pickItems(negatives, 2, mode, level, randomSeed, 501);
+    var pickedQ = pickItems(questions, 2, mode, level, randomSeed, 502);
+    var result = [];
+    if (pickedNeg[0]) result.push(pickedNeg[0]);
+    if (pickedNeg[1]) result.push(pickedNeg[1]);
+    if (pickedQ[0]) result.push(pickedQ[0]);
+    if (pickedQ[1]) result.push(pickedQ[1]);
+    return result;
   }
 
   function blankForType(inputType, level, sectionId) {
@@ -311,20 +349,26 @@
     );
   }
 
-  function buildVersionId(level, versionMode) {
+  function buildVersionId(level, versionMode, randomSeed) {
     var d = new Date();
     var dateStr = d.getFullYear() + "" + String(d.getMonth() + 1).padStart(2, "0") + String(d.getDate()).padStart(2, "0");
-    var tag = versionMode === "random" ? "R" + Math.floor(Math.random() * 90 + 10) : "V" + versionMode;
+    var tag;
+    if (versionMode === "random") {
+      var n = randomSeed != null ? randomSeed : newRandomSeed();
+      tag = "R" + (100 + (n % 900));
+    } else {
+      tag = "V" + versionMode;
+    }
     return level.toUpperCase() + "-" + dateStr + "-" + tag;
   }
 
-  function renderWorksheet(level, versionMode) {
+  function renderWorksheet(level, versionMode, randomSeed) {
     var pool = getPool(level);
     var root = document.getElementById("printWorksheet");
     var answerRoot = document.getElementById("printAnswerKey");
     if (!pool || !root) return;
 
-    var versionId = buildVersionId(level, versionMode);
+    var versionId = buildVersionId(level, versionMode, randomSeed);
     var dateInput = document.getElementById("teacherDate");
     var studentName = document.getElementById("teacherStudentName");
     var worksheetDate = dateInput ? dateInput.value : "";
@@ -369,7 +413,15 @@
 
     pool.sections.forEach(function (section) {
       if (section.printType === "choice-grid" || section.printType === "transform-grid") return;
-      var picked = pickItems(section.items, PRINT_ITEMS_PER_SECTION, versionMode, level);
+      var sectionSalt = hashString(section.id);
+      var picked = pickItems(
+        section.items,
+        PRINT_ITEMS_PER_SECTION,
+        versionMode,
+        level,
+        randomSeed,
+        sectionSalt
+      );
       var labels = SECTION_PRINT_LABELS[section.id] || { title: section.title, hint: "" };
       sectionsData.push({ title: section.title, items: picked });
       var sectionTitle = labels.title;
@@ -404,7 +456,7 @@
       }
     }
     if (transformSection) {
-      var pickedTransform = pickTransformItems(transformSection.items, versionMode, level);
+      var pickedTransform = pickTransformItems(transformSection.items, versionMode, level, randomSeed);
       var transformLabels = SECTION_PRINT_LABELS.ex5;
       var transformTitle = transformLabels.title;
       if (transformLabels.hint) {
@@ -561,7 +613,12 @@
 
   function refreshWorksheetFromPanel() {
     var versionSelect = document.getElementById("versionSelect");
-    buildWorksheet(versionSelect ? versionSelect.value : "1");
+    var mode = versionSelect ? versionSelect.value : "1";
+    if (mode === "random" && lastWorksheetRandomSeed !== null) {
+      renderWorksheet(getLevel(), "random", lastWorksheetRandomSeed);
+      return;
+    }
+    buildWorksheet(mode);
   }
 
   function unlock(level) {
@@ -594,10 +651,23 @@
     }
   }
 
-  function buildWorksheet(mode) {
+  function buildWorksheet(mode, options) {
     var level = getLevel();
     if (!level) return;
-    renderWorksheet(level, mode || "1");
+    var versionMode = mode || "1";
+    options = options || {};
+    if (versionMode === "random") {
+      if (options.forceNewRandom || lastWorksheetRandomSeed === null) {
+        lastWorksheetRandomSeed = newRandomSeed();
+      }
+    } else {
+      lastWorksheetRandomSeed = null;
+    }
+    renderWorksheet(
+      level,
+      versionMode,
+      versionMode === "random" ? lastWorksheetRandomSeed : null
+    );
   }
 
   window.buildTeacherWorksheet = buildWorksheet;
@@ -652,12 +722,13 @@
     var versionSelect = document.getElementById("versionSelect");
     if (btnGen) {
       btnGen.addEventListener("click", function () {
-        buildWorksheet(versionSelect ? versionSelect.value : "random");
+        var mode = versionSelect ? versionSelect.value : "random";
+        buildWorksheet(mode, { forceNewRandom: mode === "random" });
       });
     }
     if (versionSelect) {
       versionSelect.addEventListener("change", function () {
-        buildWorksheet(versionSelect.value);
+        buildWorksheet(versionSelect.value, { forceNewRandom: versionSelect.value === "random" });
       });
     }
 
