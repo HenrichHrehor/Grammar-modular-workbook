@@ -509,6 +509,151 @@
   font-size: 8.5px;
 }
 
+.print-grade-circles .circle--filled {
+  background: #333;
+}
+
+.print-grade-scale-hint {
+  margin: 2px 0 0 0;
+  font-size: 7.5px;
+  text-align: center;
+  color: #555;
+  line-height: 1.3;
+}
+
+.print-score-value {
+  font-weight: bold;
+  border-bottom: 1px solid #333;
+  padding: 0 4px 1px;
+  min-width: 1.5em;
+  display: inline-block;
+  text-align: center;
+}
+
+/* B1 teacher panel — score calculator */
+.teacher-panel-block--wide {
+  grid-column: 1 / -1;
+}
+
+.teacher-score-hint {
+  margin: 4px 0 8px 0;
+  font-size: 12px;
+  color: #555;
+}
+
+.teacher-score-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px 12px;
+  margin-bottom: 10px;
+}
+
+.teacher-score-grid label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.teacher-score-grid .score-input {
+  width: 3.2em;
+  padding: 4px 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.teacher-score-result {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+  color: #333;
+}
+
+.teacher-score-result #scoreGradeNote {
+  color: #555;
+  font-weight: normal;
+}
+
+.btn-score-apply {
+  padding: 6px 12px;
+  font-size: 12px;
+  border: none;
+  border-radius: 4px;
+  background: #5e35b1;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-score-apply:hover {
+  background: #4527a0;
+}
+
+.print-height-monitor {
+  max-width: 210mm;
+  margin: 8px auto 0;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.print-height-monitor--ok {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #a5d6a7;
+}
+
+.print-height-monitor--over {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+}
+
+/* B1 printable worksheet — header clearance & roomier parts 3–4 */
+.sheet--print-b1 {
+  padding-top: 9mm;
+}
+
+.sheet--print-b1 .print-worksheet-header--b1 {
+  margin-top: 2mm;
+  margin-bottom: 6px;
+  padding-bottom: 5px;
+}
+
+.sheet--print-b1 .print-title {
+  margin-top: 4px;
+}
+
+.sheet--print-b1 .section--answer-roomy {
+  padding: 6px 7px !important;
+}
+
+.sheet--print-b1 .section--answer-roomy h2 {
+  margin-bottom: 5px !important;
+}
+
+.sheet--print-b1 .exercise-item--roomy {
+  margin: 0 0 4px 0 !important;
+  padding: 4px 5px !important;
+  line-height: 2.1 !important;
+}
+
+.sheet--print-b1 .print-blank--roomy.print-blank--phrase {
+  min-width: 96px;
+}
+
+.sheet--print-b1 .print-blank--roomy.print-blank--sentence {
+  min-width: 112px;
+}
+
+.sheet--print-b1 .print-blank--roomy {
+  min-width: 56px;
+  margin: 0 2px;
+}
+
 /* Answer key — separate A4 (reverse side) */
 .print-answer-key {
   display: none;
@@ -562,7 +707,8 @@
   .teacher-gate,
   .teacher-panel,
   .teacher-html-code-panel,
-  .nav-bar {
+  .nav-bar,
+  .print-height-monitor {
     display: none !important;
   }
 
