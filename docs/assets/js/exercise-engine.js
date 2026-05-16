@@ -186,32 +186,25 @@
     }
   }
 
-  function clearCheckState() {
-    document.body.classList.remove("exercise-checked");
-    document.querySelectorAll(".exercise-input").forEach(function (el) {
-      el.classList.remove("exercise-input--correct", "exercise-input--incorrect");
-    });
+  function clearAllAnswerHints() {
     document.querySelectorAll(".exercise-feedback").forEach(function (el) {
       el.remove();
     });
+    document.querySelectorAll(".exercise-input").forEach(function (el) {
+      el.classList.remove("exercise-input--correct", "exercise-input--incorrect");
+      el.removeAttribute("data-hint-visible");
+    });
+  }
+
+  function clearCheckState() {
+    document.body.classList.remove("exercise-checked");
+    clearAllAnswerHints();
   }
 
   function hideAnswerKeyPanel() {
     var key = document.getElementById("answerKey");
     if (key) {
       key.classList.remove("active");
-    }
-  }
-
-  function clearFieldFeedback(field) {
-    if (!field) return;
-    field.classList.remove("exercise-input--correct", "exercise-input--incorrect");
-    field.removeAttribute("data-hint-visible");
-    var item = field.closest(".exercise-item");
-    if (!item) return;
-    var fb = item.querySelector(".exercise-feedback");
-    if (fb) {
-      fb.remove();
     }
   }
 
@@ -222,10 +215,10 @@
     if (!field || !field.classList.contains("exercise-input")) {
       return;
     }
-    if (!field.getAttribute("data-hint-visible")) {
+    if (!document.querySelector(".exercise-feedback")) {
       return;
     }
-    clearFieldFeedback(field);
+    clearAllAnswerHints();
     hideAnswerKeyPanel();
   }
 
