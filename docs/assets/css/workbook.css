@@ -100,8 +100,26 @@ button:hover {
   background: #ff9800;
 }
 
+.check-btn--large {
+  padding: 10px 22px;
+  font-size: 14px;
+}
+
 .new-set-btn {
   background: #6c5ce7;
+}
+
+.exercise-actions--bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  margin: 28px 0 20px;
+  padding: 18px 12px;
+  border-top: 2px solid #e0e0e0;
+  background: linear-gradient(180deg, #f9fafc 0%, #ffffff 100%);
+  border-radius: 8px;
 }
 
 .check-result {
@@ -483,6 +501,7 @@ h1 {
   .check-btn,
   .new-set-btn,
   .print-btn,
+  .exercise-actions--bottom,
   .check-result,
   .apostrophe-hint,
   .exercise-feedback {

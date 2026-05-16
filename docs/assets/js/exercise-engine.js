@@ -162,9 +162,32 @@
     });
 
     renderAnswerKey(sectionsData);
+    renderBottomActions();
     clearCheckState();
     var result = document.getElementById("checkResult");
     if (result) result.hidden = true;
+  }
+
+  function renderBottomActions() {
+    var existing = document.getElementById("exerciseActionsBottom");
+    if (existing) existing.remove();
+
+    var bar = document.createElement("div");
+    bar.id = "exerciseActionsBottom";
+    bar.className = "exercise-actions exercise-actions--bottom";
+    bar.innerHTML =
+      '<button type="button" class="check-btn check-btn--large" onclick="checkExercises()">✔️ Check answers</button>' +
+      '<button type="button" class="new-set-btn" onclick="buildNewWorksheet()">🔄 New set</button>';
+
+    var answerKey = document.getElementById("answerKey");
+    if (answerKey && answerKey.parentNode) {
+      answerKey.parentNode.insertBefore(bar, answerKey);
+    } else {
+      var root = document.getElementById("exerciseSections");
+      if (root && root.parentNode) {
+        root.parentNode.appendChild(bar);
+      }
+    }
   }
 
   function clearCheckState() {
