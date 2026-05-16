@@ -123,6 +123,54 @@
   background: #5c6bc0;
 }
 
+.btn-html-code {
+  background: #455a64;
+}
+
+.teacher-html-code-panel {
+  margin-top: 12px;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #c5cae9;
+  border-radius: 6px;
+}
+
+.teacher-html-code-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: #333;
+}
+
+.btn-copy-html {
+  padding: 4px 10px;
+  font-size: 11px;
+  border: none;
+  border-radius: 4px;
+  background: #37474f;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.teacher-html-code {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 11px;
+  line-height: 1.4;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: vertical;
+  min-height: 180px;
+  max-height: 320px;
+  background: #f8f9fc;
+  color: #222;
+}
+
 .grade-scale {
   display: flex;
   gap: 8px;
@@ -513,6 +561,7 @@
 
   .teacher-gate,
   .teacher-panel,
+  .teacher-html-code-panel,
   .nav-bar {
     display: none !important;
   }

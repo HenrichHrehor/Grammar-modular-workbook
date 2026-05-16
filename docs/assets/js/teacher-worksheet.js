@@ -283,6 +283,7 @@
     root.innerHTML = sheetHtml;
     root.style.maxHeight = PRINTABLE_MAX_HEIGHT_PX + "px";
     root.style.overflow = "hidden";
+    syncWorksheetHtmlCode();
 
     if (answerRoot) {
       var keyHtml =
@@ -315,6 +316,62 @@
 
     var versionLabel = document.getElementById("versionLabel");
     if (versionLabel) versionLabel.textContent = versionId;
+  }
+
+  function syncWorksheetHtmlCode() {
+    var root = document.getElementById("printWorksheet");
+    var textarea = document.getElementById("teacherHtmlCode");
+    if (!root || !textarea) return;
+    textarea.value = root.innerHTML;
+  }
+
+  function toggleWorksheetHtmlCode() {
+    var panel = document.getElementById("teacherHtmlCodePanel");
+    var btn = document.getElementById("btnToggleHtmlCode");
+    if (!panel) return;
+    var show = panel.hidden;
+    panel.hidden = !show;
+    if (show) {
+      syncWorksheetHtmlCode();
+    }
+    if (btn) {
+      btn.textContent = show ? "Hide HTML code" : "View HTML code";
+    }
+  }
+
+  function copyWorksheetHtmlCode() {
+    var textarea = document.getElementById("teacherHtmlCode");
+    var btn = document.getElementById("btnCopyHtmlCode");
+    if (!textarea) return;
+    syncWorksheetHtmlCode();
+    textarea.select();
+    textarea.setSelectionRange(0, textarea.value.length);
+    var ok = false;
+    try {
+      ok = document.execCommand("copy");
+    } catch (e) {
+      ok = false;
+    }
+    if (!ok && navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(textarea.value).then(
+        function () {
+          if (btn) {
+            btn.textContent = "Copied!";
+            setTimeout(function () {
+              btn.textContent = "Copy to clipboard";
+            }, 1500);
+          }
+        },
+        function () {}
+      );
+      return;
+    }
+    if (btn) {
+      btn.textContent = ok ? "Copied!" : "Copy failed";
+      setTimeout(function () {
+        btn.textContent = "Copy to clipboard";
+      }, 1500);
+    }
   }
 
   function togglePrintAnswerKey() {
@@ -369,6 +426,8 @@
 
   window.buildTeacherWorksheet = buildWorksheet;
   window.togglePrintAnswerKey = togglePrintAnswerKey;
+  window.toggleWorksheetHtmlCode = toggleWorksheetHtmlCode;
+  window.copyWorksheetHtmlCode = copyWorksheetHtmlCode;
   function setPrintMode(mode) {
     document.body.classList.remove("printing-worksheet", "printing-answers");
     if (mode) {
@@ -442,6 +501,12 @@
 
     var btnAnswers = document.getElementById("btnTogglePrintAnswers");
     if (btnAnswers) btnAnswers.addEventListener("click", togglePrintAnswerKey);
+
+    var btnHtml = document.getElementById("btnToggleHtmlCode");
+    if (btnHtml) btnHtml.addEventListener("click", toggleWorksheetHtmlCode);
+
+    var btnCopyHtml = document.getElementById("btnCopyHtmlCode");
+    if (btnCopyHtml) btnCopyHtml.addEventListener("click", copyWorksheetHtmlCode);
 
     var btnPrint = document.getElementById("btnPrintSheet");
     if (btnPrint) btnPrint.addEventListener("click", window.printTeacherSheet);

@@ -71,8 +71,16 @@
       <div class="teacher-panel-actions">
         <button type="button" id="btnGenerate" class="btn-generate">🔄 Generate worksheet</button>
         <button type="button" id="btnTogglePrintAnswers" class="btn-answers">Show answer key</button>
+        <button type="button" id="btnToggleHtmlCode" class="btn-html-code">View HTML code</button>
         <button type="button" id="btnPrintSheet" class="btn-print">🖨️ Print worksheet (front)</button>
         <button type="button" id="btnPrintAnswerReverse" class="btn-print-reverse">🖨️ Print answer key (reverse)</button>
+      </div>
+      <div id="teacherHtmlCodePanel" class="teacher-html-code-panel" hidden>
+        <div class="teacher-html-code-toolbar">
+          <strong>Worksheet HTML</strong>
+          <button type="button" id="btnCopyHtmlCode" class="btn-copy-html">Copy to clipboard</button>
+        </div>
+        <textarea id="teacherHtmlCode" class="teacher-html-code" readonly rows="14" spellcheck="false" aria-label="Generated worksheet HTML"></textarea>
       </div>
     </div>
 
@@ -83,6 +91,6 @@
 </div>
 
 <script src="assets/js/exercise-pool-present-simple.js"></script>
-<script src="assets/js/teacher-worksheet.js?v=6part-v5"></script>
+<script src="assets/js/teacher-worksheet.js?v=6part-v5-html"></script>
 </body>
 </html>
