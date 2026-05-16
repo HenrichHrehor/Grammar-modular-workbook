@@ -74,81 +74,61 @@ window.PRESENT_SIMPLE_POOL = {
     },
     {
       id: "ex5",
-      title: "Exercise 5: Choose do / does / don't / doesn't + verb",
-      instructions: "Circle or write the correct helper and verb form.",
-      printType: "choice-grid",
+      title: "Exercise 5: Transform the affirmative sentence",
+      instructions: "Boxes 1–2: negative. Boxes 3–4: question.",
+      printType: "transform-grid",
       teacherPrintOnly: true,
-      printCount: 6,
+      printCount: 4,
       items: [
         {
-          prompt: "They _____ _____ football on Sundays.",
-          auxHint: "do · does · don't · doesn't",
-          verbHint: "play · plays · don't play · doesn't play",
-          answers: ["don't", "play"],
-          answerDisplay: "don't · play"
+          affirmative: "She plays tennis every Saturday.",
+          negativeAnswer: "She doesn't play tennis every Saturday.",
+          questionAnswer: "Does she play tennis every Saturday?"
         },
         {
-          prompt: "She _____ _____ tennis after school.",
-          auxHint: "do · does · don't · doesn't",
-          verbHint: "play · plays · don't play · doesn't play",
-          answers: ["does", "play"],
-          answerDisplay: "does · play"
+          affirmative: "They live in a big city.",
+          negativeAnswer: "They don't live in a big city.",
+          questionAnswer: "Do they live in a big city?"
         },
         {
-          prompt: "I _____ _____ coffee in the morning.",
-          auxHint: "do · does · don't · doesn't",
-          verbHint: "drink · drinks · don't drink · doesn't drink",
-          answers: ["don't", "drink"],
-          answerDisplay: "don't · drink"
+          affirmative: "He watches TV in the evening.",
+          negativeAnswer: "He doesn't watch TV in the evening.",
+          questionAnswer: "Does he watch TV in the evening?"
         },
         {
-          prompt: "He _____ _____ TV before bed.",
-          auxHint: "do · does · don't · doesn't",
-          verbHint: "watch · watches · don't watch · doesn't watch",
-          answers: ["doesn't", "watch"],
-          answerDisplay: "doesn't · watch"
+          affirmative: "We speak English in class.",
+          negativeAnswer: "We don't speak English in class.",
+          questionAnswer: "Do we speak English in class?"
         },
         {
-          prompt: "We _____ _____ meat.",
-          auxHint: "do · does · don't · doesn't",
-          verbHint: "eat · eats · don't eat · doesn't eat",
-          answers: ["don't", "eat"],
-          answerDisplay: "don't · eat"
+          affirmative: "My cat sleeps on the sofa every day.",
+          negativeAnswer: "My cat doesn't sleep on the sofa every day.",
+          questionAnswer: "Does my cat sleep on the sofa every day?"
         },
         {
-          prompt: "My sister _____ _____ maths at school.",
-          auxHint: "do · does · don't · doesn't",
-          verbHint: "study · studies · don't study · doesn't study",
-          answers: ["doesn't", "study"],
-          answerDisplay: "doesn't · study"
+          affirmative: "Tom goes to work by bus.",
+          negativeAnswer: "Tom doesn't go to work by bus.",
+          questionAnswer: "Does Tom go to work by bus?"
         },
         {
-          prompt: "Tom _____ _____ to work by bus.",
-          auxHint: "do · does · don't · doesn't",
-          verbHint: "go · goes · don't go · doesn't go",
-          answers: ["doesn't", "go"],
-          answerDisplay: "doesn't · go"
+          affirmative: "I like chocolate ice cream.",
+          negativeAnswer: "I don't like chocolate ice cream.",
+          questionAnswer: "Do I like chocolate ice cream?"
         },
         {
-          prompt: "You _____ _____ French?",
-          auxHint: "do · does · don't · doesn't",
-          verbHint: "speak · speaks · don't speak · doesn't speak",
-          answers: ["do", "speak"],
-          answerDisplay: "Do you speak…?"
+          affirmative: "The shop opens at nine o'clock.",
+          negativeAnswer: "The shop doesn't open at nine o'clock.",
+          questionAnswer: "Does the shop open at nine o'clock?"
         },
         {
-          prompt: "The shop _____ _____ on Sundays.",
-          auxHint: "do · does · don't · doesn't",
-          verbHint: "open · opens · don't open · doesn't open",
-          answers: ["doesn't", "open"],
-          answerDisplay: "doesn't · open"
+          affirmative: "My sister studies English at school.",
+          negativeAnswer: "My sister doesn't study English at school.",
+          questionAnswer: "Does my sister study English at school?"
         },
         {
-          prompt: "They _____ _____ in London.",
-          auxHint: "do · does · don't · doesn't",
-          verbHint: "live · lives · don't live · doesn't live",
-          answers: ["don't", "live"],
-          answerDisplay: "don't · live"
+          affirmative: "Birds fly south in winter.",
+          negativeAnswer: "Birds don't fly south in winter.",
+          questionAnswer: "Do birds fly south in winter?"
         }
       ]
     }

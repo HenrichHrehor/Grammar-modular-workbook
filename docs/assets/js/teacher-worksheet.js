@@ -4,19 +4,23 @@
 
   var PRINT_ITEMS_PER_SECTION = 5;
   var SECTION_POINTS = 5;
-  var CHOICE_GRID_POINTS = 6;
+  var TRANSFORM_GRID_POINTS = 4;
   var WRITING_POINTS = 5;
-  var TOTAL_POINTS = 31;
-  var WORKSHEET_LAYOUT_TAG = "6PART-v3";
-  var CHOICE_GRID_COUNT = 6;
+  var TOTAL_POINTS = 29;
+  var WORKSHEET_LAYOUT_TAG = "6PART-v4";
+  var TRANSFORM_GRID_COUNT = 4;
   var WRITING_LINE_COUNT = 6;
+  var PRINTABLE_MAX_HEIGHT_PX = 1039;
 
   var SECTION_PRINT_LABELS = {
     ex1: { title: "1. -s / -es / -ies", hint: "he/she/it" },
     ex2: { title: "2. Affirmative", hint: "verb in ( )" },
     ex3: { title: "3. Negative", hint: "don't / doesn't" },
     ex4: { title: "4. Questions", hint: "Do / Does" },
-    ex5: { title: "5. Choose do / does / don't / doesn't + verb", hint: "two blanks per sentence" }
+    ex5: {
+      title: "5. Transform the sentence",
+      hint: "boxes 1–2 → negative · boxes 3–4 → question"
+    }
   };
 
   var WRITING_SECTION = {
@@ -88,28 +92,43 @@
     return html.replace(/\{\{input\}\}/g, blankForType(item.inputType));
   }
 
-  function renderChoiceBlank() {
-    return '<span class="print-blank print-blank--choice">_______</span>';
+  function renderTransformLine() {
+    return '<div class="print-transform-line" aria-hidden="true"></div>';
   }
 
-  function renderChoiceGridItem(item, num) {
-    var prompt = item.prompt.replace(/_____/g, function () {
-      return renderChoiceBlank();
-    });
+  function renderTransformCell(item, num, mode) {
+    var label = mode === "negative" ? "→ Negative" : "→ Question";
     return (
-      '<div class="print-choice-cell">' +
-      "<strong>" +
+      '<div class="print-transform-cell print-transform-cell--' +
+      mode +
+      '">' +
+      '<span class="print-transform-badge">' +
+      label +
+      "</span>" +
+      '<p class="print-transform-affirmative"><strong>' +
       num +
       ".</strong> " +
-      '<span class="print-choice-prompt">' +
-      prompt +
-      "</span>" +
-      '<div class="print-choice-options"><span class="print-choice-opt-label">Helper:</span> ' +
-      item.auxHint +
-      '<span class="print-choice-opt-label">Verb:</span> ' +
-      item.verbHint +
-      "</div></div>"
+      item.affirmative +
+      "</p>" +
+      renderTransformLine() +
+      "</div>"
     );
+  }
+
+  function renderTransformGridSection(picked, sectionTitle) {
+    var html =
+      '<div class="section section--compact section--transform-grid"><h2>' +
+      sectionTitle +
+      "</h2>";
+    html += '<div class="print-transform-grid">';
+    html += renderTransformCell(picked[0], 1, "negative");
+    html += renderTransformCell(picked[1], 2, "negative");
+    html += renderTransformCell(picked[2], 3, "question");
+    html += renderTransformCell(picked[3], 4, "question");
+    html += "</div>";
+    html += printScoreLine(TRANSFORM_GRID_POINTS);
+    html += "</div>";
+    return html;
   }
 
   function renderWritingSection() {
@@ -169,7 +188,7 @@
     sheetHtml += '<div class="print-worksheet-grid print-worksheet-grid--core">';
 
     pool.sections.forEach(function (section) {
-      if (section.printType === "choice-grid") return;
+      if (section.printType === "choice-grid" || section.printType === "transform-grid") return;
       var picked = pickItems(section.items, PRINT_ITEMS_PER_SECTION, versionMode, level);
       var labels = SECTION_PRINT_LABELS[section.id] || { title: section.title, hint: "" };
       sectionsData.push({ title: section.title, items: picked });
@@ -189,32 +208,31 @@
     sheetHtml += "</div>";
 
     sheetHtml += '<div class="print-worksheet-extra">';
-    var choiceSection = null;
-    for (var si = 0; si < pool.sections.length; si++) {
-      if (pool.sections[si].id === "ex5") {
-        choiceSection = pool.sections[si];
+    var transformSection = null;
+    for (var sj = 0; sj < pool.sections.length; sj++) {
+      if (pool.sections[sj].id === "ex5") {
+        transformSection = pool.sections[sj];
         break;
       }
     }
-    if (choiceSection) {
-      var pickedChoice = pickItems(choiceSection.items, CHOICE_GRID_COUNT, versionMode, level);
-      var choiceLabels = SECTION_PRINT_LABELS.ex5;
-      sectionsData.push({ title: choiceSection.title, items: pickedChoice, isChoice: true });
-      var choiceTitle = choiceLabels.title;
-      if (choiceLabels.hint) {
-        choiceTitle += ' <span class="section-hint-inline">(' + choiceLabels.hint + ")</span>";
+    if (transformSection) {
+      var pickedTransform = pickItems(
+        transformSection.items,
+        TRANSFORM_GRID_COUNT,
+        versionMode,
+        level
+      );
+      var transformLabels = SECTION_PRINT_LABELS.ex5;
+      var transformTitle = transformLabels.title;
+      if (transformLabels.hint) {
+        transformTitle += ' <span class="section-hint-inline">(' + transformLabels.hint + ")</span>";
       }
-      sheetHtml +=
-        '<div class="section section--compact section--choice-grid"><h2>' +
-        choiceTitle +
-        "</h2>";
-      sheetHtml += '<div class="print-choice-grid">';
-      pickedChoice.forEach(function (item, i) {
-        sheetHtml += renderChoiceGridItem(item, i + 1);
+      sectionsData.push({
+        title: transformSection.title,
+        items: pickedTransform,
+        isTransform: true
       });
-      sheetHtml += "</div>";
-      sheetHtml += printScoreLine(CHOICE_GRID_POINTS);
-      sheetHtml += "</div>";
+      sheetHtml += renderTransformGridSection(pickedTransform, transformTitle);
     }
 
     sectionsData.push({
@@ -247,6 +265,8 @@
     sheetHtml += "</span></div>";
 
     root.innerHTML = sheetHtml;
+    root.style.maxHeight = PRINTABLE_MAX_HEIGHT_PX + "px";
+    root.style.overflow = "hidden";
 
     if (answerRoot) {
       var keyHtml =
@@ -261,9 +281,17 @@
         }
         keyHtml += '<div class="print-answer-grid">';
         block.items.forEach(function (item, i) {
-          var ans = block.isChoice
-            ? item.answerDisplay || item.answers.join(" / ")
-            : item.answers.join(" / ");
+          var ans;
+          if (block.isTransform) {
+            ans =
+              i < 2
+                ? "Neg: " + item.negativeAnswer
+                : "Q: " + item.questionAnswer;
+          } else if (block.isChoice) {
+            ans = item.answerDisplay || item.answers.join(" / ");
+          } else {
+            ans = item.answers.join(" / ");
+          }
           keyHtml +=
             '<div class="print-answer-item"><strong>' + (i + 1) + ".</strong> " + ans + "</div>";
         });

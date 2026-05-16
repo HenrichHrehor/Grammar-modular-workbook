@@ -139,16 +139,18 @@
   cursor: pointer;
 }
 
-/* Single A4 printable worksheet — 6 parts (4 core + choice grid + writing) */
+/* Single A4 printable worksheet — max height matches .sheet (1039px) */
 .sheet--print-a4 {
   width: 210mm;
   max-width: 210mm;
+  max-height: 1039px;
   min-height: auto;
-  padding: 6mm 7mm;
+  padding: 5mm 6mm;
   box-sizing: border-box;
   margin: 0 auto;
   font-size: 9.5px;
-  line-height: 1.5;
+  line-height: 1.45;
+  overflow: hidden;
 }
 
 .sheet--print-a4 .print-title {
@@ -205,54 +207,68 @@
   gap: 6px;
 }
 
-.section--choice-grid {
+.section--transform-grid {
   border: 2px solid #5e35b1 !important;
 }
 
-.print-choice-grid {
+.print-transform-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4px 10px;
+  gap: 4px 8px;
   margin-top: 2px;
 }
 
-.print-choice-cell {
-  padding: 3px 4px;
-  border: 1px solid #e0e4ef;
-  border-radius: 3px;
+.print-transform-cell {
+  padding: 4px 5px;
+  border: 1.5px solid #c5cae9;
+  border-radius: 4px;
   background: #fff;
+  font-size: 8.5px;
+  line-height: 1.3;
+  min-height: 0;
+}
+
+.print-transform-cell--negative {
+  border-color: #e65100;
+}
+
+.print-transform-cell--question {
+  border-color: #1565c0;
+}
+
+.print-transform-badge {
+  display: inline-block;
+  font-size: 7.5px;
+  font-weight: bold;
+  color: #fff;
+  background: #5e35b1;
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-bottom: 2px;
+}
+
+.print-transform-cell--negative .print-transform-badge {
+  background: #e65100;
+}
+
+.print-transform-cell--question .print-transform-badge {
+  background: #1565c0;
+}
+
+.print-transform-affirmative {
+  margin: 0 0 3px 0;
+  padding: 0;
   font-size: 8.5px;
   line-height: 1.35;
 }
 
-.print-choice-prompt {
+.print-transform-line {
   display: block;
-  margin-bottom: 2px;
-}
-
-.print-choice-options {
-  font-size: 7.5px;
-  color: #444;
-  line-height: 1.3;
-}
-
-.print-choice-opt-label {
-  font-weight: bold;
-  color: #5e35b1;
-  margin-right: 2px;
-}
-
-.print-choice-opt-label + span,
-.print-choice-options {
-  display: block;
-}
-
-.print-choice-options .print-choice-opt-label:not(:first-child) {
-  margin-top: 1px;
-}
-
-.print-blank--choice {
-  min-width: 52px;
+  width: 100%;
+  height: 6mm;
+  max-height: 6mm;
+  border-bottom: 1px solid #333;
+  margin: 0;
 }
 
 .section--writing {
@@ -268,8 +284,9 @@
 }
 
 .print-writing-area {
-  min-height: 52mm;
-  padding: 4px 6px;
+  min-height: 34mm;
+  max-height: 34mm;
+  padding: 3px 5px;
   border: 1px solid #333;
   border-radius: 4px;
   background: #fff;
@@ -280,7 +297,8 @@
 
 .print-writing-line {
   flex: 1;
-  min-height: 7mm;
+  min-height: 5mm;
+  max-height: 5.5mm;
   border-bottom: 1px solid #999;
   margin: 0;
 }
@@ -319,10 +337,10 @@
 }
 
 .sheet--print-a4 .exercise-item.exercise-item--compact {
-  margin: 0 0 2px 0 !important;
+  margin: 0 0 1px 0 !important;
   padding: 2px 4px !important;
   font-size: 9px !important;
-  line-height: 2 !important;
+  line-height: 1.75 !important;
   border-left-width: 2px !important;
   background: transparent !important;
 }
@@ -504,9 +522,11 @@
     box-shadow: none;
     width: 100%;
     max-width: none;
+    max-height: 1039px;
     padding: 0;
     font-size: 9pt;
-    line-height: 1.5;
+    line-height: 1.45;
+    overflow: hidden;
     page-break-after: avoid;
     page-break-inside: avoid;
   }
@@ -517,7 +537,7 @@
   }
 
   .sheet--print-a4 .exercise-item.exercise-item--compact {
-    line-height: 2 !important;
+    line-height: 1.75 !important;
     font-size: 9pt !important;
   }
 
@@ -530,6 +550,12 @@
   }
 
   .print-writing-area {
-    min-height: 48mm;
+    min-height: 32mm;
+    max-height: 32mm;
+  }
+
+  .print-transform-line {
+    height: 5mm;
+    max-height: 5mm;
   }
 }
