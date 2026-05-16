@@ -12,9 +12,68 @@
 
   var config = {
     pickCount: 5,
-    mode: "first",
+    mode: "random",
     pageBreakAfterSection: 1
   };
+
+  var LEVEL_META = {
+    b1: { label: "B1", desc: "Everyday topics · shorter sentences", tagClass: "page-tag--b1" },
+    b2: { label: "B2", desc: "Work, study · longer structures", tagClass: "page-tag--b2" },
+    c1: { label: "C1", desc: "Formal register · complex subjects", tagClass: "page-tag--c1" }
+  };
+
+  function refreshPool() {
+    pool = resolvePool();
+    return pool;
+  }
+
+  function getLevelFromUrl() {
+    var params = new URLSearchParams(window.location.search);
+    var level = (params.get("level") || "").toLowerCase();
+    if (level === "b1" || level === "b2" || level === "c1") return level;
+    return null;
+  }
+
+  function updateLevelUI(level) {
+    var meta = LEVEL_META[level] || LEVEL_META.b1;
+    var tag = document.querySelector(".page-tag");
+    if (tag) {
+      tag.textContent = meta.label + " level — present simple practice";
+      tag.className = "page-tag " + meta.tagClass;
+    }
+    var badge = document.getElementById("exerciseLevelBadge");
+    if (badge) {
+      badge.textContent = meta.label + " question pool";
+      badge.className = "exercise-level-badge exercise-level-badge--" + level;
+    }
+    var sub = document.getElementById("exerciseLevelSubtitle");
+    if (sub) {
+      sub.textContent =
+        meta.label +
+        ": " +
+        meta.desc +
+        " — same four exercise types, different sentences. Use Check or New set.";
+    }
+    document.querySelectorAll(".practice-level-tab").forEach(function (btn) {
+      var active = btn.getAttribute("data-level") === level;
+      btn.classList.toggle("practice-level-tab--active", active);
+      btn.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+  }
+
+  function setExerciseLevel(level) {
+    if (!LEVEL_META[level]) level = "b1";
+    document.body.setAttribute("data-exercise-level", level);
+    refreshPool();
+    if (!pool) return;
+    updateLevelUI(level);
+    var url = new URL(window.location.href);
+    url.searchParams.set("level", level);
+    window.history.replaceState({}, "", url);
+    buildWorksheet("random");
+  }
+
+  window.setExerciseLevel = setExerciseLevel;
 
   function normalize(text) {
     return String(text || "")
@@ -143,6 +202,8 @@
 
   function buildWorksheet(mode) {
     if (mode) config.mode = mode;
+    refreshPool();
+    if (!pool) return;
     var root = document.getElementById("exerciseSections");
     if (!root) return;
     root.innerHTML = "";
@@ -428,11 +489,20 @@
   document.addEventListener("DOMContentLoaded", function () {
     var page = document.body.getAttribute("data-exercise-page");
     if (!page) return;
-    if (page === "v2" || page === "b2" || page === "c1") {
-      config.mode = "random";
-    } else {
-      config.mode = "first";
+    config.mode = "random";
+    var urlLevel = getLevelFromUrl();
+    if (urlLevel) {
+      document.body.setAttribute("data-exercise-level", urlLevel);
+    } else if (!document.body.getAttribute("data-exercise-level")) {
+      document.body.setAttribute("data-exercise-level", "b1");
     }
+    var level = document.body.getAttribute("data-exercise-level") || "b1";
+    updateLevelUI(level);
+    document.querySelectorAll(".practice-level-tab").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        setExerciseLevel(btn.getAttribute("data-level"));
+      });
+    });
     buildWorksheet(config.mode);
   });
 })();

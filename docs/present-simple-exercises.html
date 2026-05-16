@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Present Simple — Practice Exercises</title>
-  <link rel="stylesheet" href="assets/css/workbook.css">
+  <link rel="stylesheet" href="assets/css/workbook.css?v=site-v2">
 </head>
-<body data-exercise-page="standard">
+<body data-exercise-page="practice" data-exercise-level="b1">
 
 <div class="sheet">
 
@@ -16,8 +16,6 @@
       <a href="present-simple-contents.html" class="nav-btn">📖 Module</a>
       <a href="present-simple-grammar.html" class="nav-btn">📚 Grammar</a>
       <a href="present-simple-exercises.html" class="nav-btn active">✏️ Practice</a>
-      <a href="present-simple-b1.html" class="nav-btn">🎯 B1</a>
-      <a href="present-simple-b2.html" class="nav-btn">🚀 B2</a>
     </div>
     <div class="nav-right">
       <button type="button" class="check-btn" onclick="checkExercises()">✔️ Check</button>
@@ -27,18 +25,25 @@
     </div>
   </div>
 
+  <div class="practice-level-tabs" role="tablist" aria-label="CEFR level">
+    <button type="button" class="practice-level-tab practice-level-tab--active" data-level="b1" aria-pressed="true">B1</button>
+    <button type="button" class="practice-level-tab" data-level="b2" aria-pressed="false">B2</button>
+    <button type="button" class="practice-level-tab" data-level="c1" aria-pressed="false">C1</button>
+  </div>
+
   <div class="top-bar">
     <div class="student-info">
       <div><strong>Student:</strong></div>
       <div><strong>Date:</strong> <input type="date" class="date-input" aria-label="Worksheet date"></div>
     </div>
-    <div class="page-tag">✏️ Practice Exercises</div>
+    <div class="page-tag page-tag--b1">B1 level — present simple practice</div>
   </div>
 
   <h1>Present Simple Exercises</h1>
-  <p class="subtitle">Practice affirmative, negative, and question forms — use <strong>Check</strong> or pick a <strong>New set</strong> from the question pool</p>
+  <p id="exerciseLevelBadge" class="exercise-level-badge exercise-level-badge--b1">B1 question pool</p>
+  <p id="exerciseLevelSubtitle" class="subtitle">B1: Everyday topics · shorter sentences — same four exercise types, different sentences. Use Check or New set.</p>
 
-  <p class="apostrophe-hint">⌨️ <strong>Apostrophe shortcut:</strong> click a blank, then press <kbd>Alt</kbd> + <kbd>.</kbd> (Windows) or <kbd>Option</kbd> + <kbd>.</kbd> (Mac) to type <strong>'</strong>. You can also type <em>dont</em> / <em>doesnt</em> without an apostrophe — they are accepted as correct.</p>
+  <p class="apostrophe-hint">⌨️ <strong>Apostrophe shortcut:</strong> click a blank, then press <kbd>Alt</kbd> + <kbd>.</kbd> (Windows) or <kbd>Option</kbd> + <kbd>.</kbd> (Mac). <em>dont</em> / <em>doesnt</em> without apostrophe are accepted.</p>
 
   <div id="checkResult" class="check-result" hidden></div>
 
@@ -54,7 +59,10 @@
 </div>
 
 <script src="assets/js/exercise-pool-present-simple.js"></script>
-<script src="assets/js/exercise-engine.js"></script>
+<script src="assets/js/exercise-pool-b2.js"></script>
+<script src="assets/js/exercise-pool-c1.js"></script>
+<script src="assets/js/exercise-pools-init.js"></script>
+<script src="assets/js/exercise-engine.js?v=site-v2"></script>
 <script src="assets/js/workbook.js"></script>
 </body>
 </html>
