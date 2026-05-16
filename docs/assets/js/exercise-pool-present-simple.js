@@ -81,54 +81,64 @@ window.PRESENT_SIMPLE_POOL = {
       printCount: 4,
       items: [
         {
-          affirmative: "She plays tennis every Saturday.",
-          negativeAnswer: "She doesn't play tennis every Saturday.",
-          questionAnswer: "Does she play tennis every Saturday?"
+          affirmative: "I wake up at 6 o'clock.",
+          instruction: "Make it negative.",
+          transformType: "negative",
+          answer: "I don't wake up at 6 o'clock."
         },
         {
-          affirmative: "They live in a big city.",
-          negativeAnswer: "They don't live in a big city.",
-          questionAnswer: "Do they live in a big city?"
+          affirmative: "She likes chocolate.",
+          instruction: "Make it negative.",
+          transformType: "negative",
+          answer: "She doesn't like chocolate."
         },
         {
-          affirmative: "He watches TV in the evening.",
-          negativeAnswer: "He doesn't watch TV in the evening.",
-          questionAnswer: "Does he watch TV in the evening?"
+          affirmative: "They watch TV every day.",
+          instruction: "Transform to question.",
+          transformType: "question",
+          answer: "Do they watch TV every day?"
         },
         {
-          affirmative: "We speak English in class.",
-          negativeAnswer: "We don't speak English in class.",
-          questionAnswer: "Do we speak English in class?"
+          affirmative: "He plays football every day.",
+          instruction: "Transform to the question.",
+          transformType: "question",
+          answer: "Does he play football every day?"
         },
         {
-          affirmative: "My cat sleeps on the sofa every day.",
-          negativeAnswer: "My cat doesn't sleep on the sofa every day.",
-          questionAnswer: "Does my cat sleep on the sofa every day?"
+          affirmative: "We live in a big city.",
+          instruction: "Make it negative.",
+          transformType: "negative",
+          answer: "We don't live in a big city."
+        },
+        {
+          affirmative: "My brother studies English.",
+          instruction: "Make it negative.",
+          transformType: "negative",
+          answer: "My brother doesn't study English."
+        },
+        {
+          affirmative: "She plays tennis on Saturdays.",
+          instruction: "Transform to question.",
+          transformType: "question",
+          answer: "Does she play tennis on Saturdays?"
+        },
+        {
+          affirmative: "You speak French.",
+          instruction: "Transform to the question.",
+          transformType: "question",
+          answer: "Do you speak French?"
         },
         {
           affirmative: "Tom goes to work by bus.",
-          negativeAnswer: "Tom doesn't go to work by bus.",
-          questionAnswer: "Does Tom go to work by bus?"
-        },
-        {
-          affirmative: "I like chocolate ice cream.",
-          negativeAnswer: "I don't like chocolate ice cream.",
-          questionAnswer: "Do I like chocolate ice cream?"
+          instruction: "Make it negative.",
+          transformType: "negative",
+          answer: "Tom doesn't go to work by bus."
         },
         {
           affirmative: "The shop opens at nine o'clock.",
-          negativeAnswer: "The shop doesn't open at nine o'clock.",
-          questionAnswer: "Does the shop open at nine o'clock?"
-        },
-        {
-          affirmative: "My sister studies English at school.",
-          negativeAnswer: "My sister doesn't study English at school.",
-          questionAnswer: "Does my sister study English at school?"
-        },
-        {
-          affirmative: "Birds fly south in winter.",
-          negativeAnswer: "Birds don't fly south in winter.",
-          questionAnswer: "Do birds fly south in winter?"
+          instruction: "Transform to question.",
+          transformType: "question",
+          answer: "Does the shop open at nine o'clock?"
         }
       ]
     }

@@ -7,7 +7,7 @@
   var TRANSFORM_GRID_POINTS = 4;
   var WRITING_POINTS = 5;
   var TOTAL_POINTS = 29;
-  var WORKSHEET_LAYOUT_TAG = "6PART-v4";
+  var WORKSHEET_LAYOUT_TAG = "6PART-v5";
   var TRANSFORM_GRID_COUNT = 4;
   var WRITING_LINE_COUNT = 6;
   var PRINTABLE_MAX_HEIGHT_PX = 1039;
@@ -19,7 +19,7 @@
     ex4: { title: "4. Questions", hint: "Do / Does" },
     ex5: {
       title: "5. Transform the sentence",
-      hint: "boxes 1–2 → negative · boxes 3–4 → question"
+      hint: "follow the instruction under each sentence"
     }
   };
 
@@ -68,6 +68,28 @@
     return copy.slice(start, start + count);
   }
 
+  function pickTransformItems(items, mode, level) {
+    var negatives = [];
+    var questions = [];
+    items.forEach(function (item) {
+      if (item.transformType === "question") {
+        questions.push(item);
+      } else {
+        negatives.push(item);
+      }
+    });
+    if (level === "b2") {
+      var half = Math.floor(negatives.length / 2);
+      negatives = negatives.slice(half);
+      questions = questions.slice(Math.floor(questions.length / 2));
+      if (negatives.length < 2) negatives = items.filter(function (i) { return i.transformType === "negative"; });
+      if (questions.length < 2) questions = items.filter(function (i) { return i.transformType === "question"; });
+    }
+    var pickedNeg = pickItems(negatives, 2, mode, level);
+    var pickedQ = pickItems(questions, 2, mode, level);
+    return [pickedNeg[0], pickedNeg[1], pickedQ[0], pickedQ[1]];
+  }
+
   function blankForType(inputType) {
     var cls = "print-blank";
     if (inputType === "phrase") cls += " print-blank--phrase";
@@ -96,20 +118,20 @@
     return '<div class="print-transform-line" aria-hidden="true"></div>';
   }
 
-  function renderTransformCell(item, num, mode) {
-    var label = mode === "negative" ? "→ Negative" : "→ Question";
+  function renderTransformCell(item, num) {
+    var mode = item.transformType === "question" ? "question" : "negative";
     return (
       '<div class="print-transform-cell print-transform-cell--' +
       mode +
       '">' +
-      '<span class="print-transform-badge">' +
-      label +
-      "</span>" +
       '<p class="print-transform-affirmative"><strong>' +
       num +
       ".</strong> " +
       item.affirmative +
       "</p>" +
+      '<p class="print-transform-instruction"><em>' +
+      item.instruction +
+      "</em></p>" +
       renderTransformLine() +
       "</div>"
     );
@@ -121,10 +143,9 @@
       sectionTitle +
       "</h2>";
     html += '<div class="print-transform-grid">';
-    html += renderTransformCell(picked[0], 1, "negative");
-    html += renderTransformCell(picked[1], 2, "negative");
-    html += renderTransformCell(picked[2], 3, "question");
-    html += renderTransformCell(picked[3], 4, "question");
+    picked.forEach(function (item, i) {
+      html += renderTransformCell(item, i + 1);
+    });
     html += "</div>";
     html += printScoreLine(TRANSFORM_GRID_POINTS);
     html += "</div>";
@@ -216,12 +237,7 @@
       }
     }
     if (transformSection) {
-      var pickedTransform = pickItems(
-        transformSection.items,
-        TRANSFORM_GRID_COUNT,
-        versionMode,
-        level
-      );
+      var pickedTransform = pickTransformItems(transformSection.items, versionMode, level);
       var transformLabels = SECTION_PRINT_LABELS.ex5;
       var transformTitle = transformLabels.title;
       if (transformLabels.hint) {
@@ -283,10 +299,7 @@
         block.items.forEach(function (item, i) {
           var ans;
           if (block.isTransform) {
-            ans =
-              i < 2
-                ? "Neg: " + item.negativeAnswer
-                : "Q: " + item.questionAnswer;
+            ans = item.answer || item.negativeAnswer || item.questionAnswer;
           } else if (block.isChoice) {
             ans = item.answerDisplay || item.answers.join(" / ");
           } else {
