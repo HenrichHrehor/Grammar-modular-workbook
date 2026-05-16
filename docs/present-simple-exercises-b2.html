@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Present Simple — B2 Practice</title>
+  <link rel="stylesheet" href="assets/css/workbook.css">
+</head>
+<body data-exercise-page="b2" data-exercise-level="b2">
+
+<div class="sheet">
+
+  <div class="nav-bar">
+    <div class="nav-links">
+      <a href="present-simple-contents.html" class="nav-btn">📖 Contents</a>
+      <a href="present-simple-grammar.html" class="nav-btn">📚 Grammar</a>
+      <a href="present-simple-exercises.html" class="nav-btn">✏️ B1</a>
+      <a href="present-simple-exercises-b2.html" class="nav-btn active">🚀 B2</a>
+      <a href="present-simple-exercises-c1.html" class="nav-btn">🏆 C1</a>
+      <a href="present-simple-b1.html" class="nav-btn">🎯 Print B1</a>
+      <a href="present-simple-b2.html" class="nav-btn">🚀 Print B2</a>
+    </div>
+    <div class="nav-right">
+      <button type="button" class="check-btn" onclick="checkExercises()">✔️ Check</button>
+      <button type="button" class="new-set-btn" onclick="buildNewWorksheet()">🔄 New set</button>
+      <button type="button" class="answers-btn" onclick="toggleAnswers()">✅ Answers</button>
+      <button type="button" class="print-btn" onclick="window.print()">🖨️ Print</button>
+    </div>
+  </div>
+
+  <div class="top-bar">
+    <div class="student-info">
+      <div><strong>Student:</strong></div>
+      <div><strong>Date:</strong> <input type="date" class="date-input" aria-label="Worksheet date"></div>
+    </div>
+    <div class="page-tag">🚀 B2 level — present simple</div>
+  </div>
+
+  <h1>Present Simple Exercises — B2</h1>
+  <p class="subtitle">Upper-intermediate sentences: longer structures, work and study topics. Use <strong>Check</strong> or <strong>New set</strong>.</p>
+
+  <p class="apostrophe-hint">⌨️ <strong>Apostrophe shortcut:</strong> <kbd>Alt</kbd> + <kbd>.</kbd> (Windows) or <kbd>Option</kbd> + <kbd>.</kbd> (Mac). <em>dont</em> / <em>doesnt</em> without apostrophe are accepted.</p>
+
+  <div id="checkResult" class="check-result" hidden></div>
+
+  <div id="exerciseSections"></div>
+
+  <div id="exerciseActionsBottom" class="exercise-actions exercise-actions--bottom" aria-label="Check answers at bottom of page">
+    <button type="button" class="check-btn check-btn--large" onclick="checkExercises()">✔️ Check answers</button>
+    <button type="button" class="new-set-btn" onclick="buildNewWorksheet()">🔄 New set</button>
+  </div>
+
+  <div id="answerKey" class="answer-key"></div>
+
+</div>
+
+<script src="assets/js/exercise-pool-present-simple.js"></script>
+<script src="assets/js/exercise-pool-b2.js"></script>
+<script src="assets/js/exercise-pool-c1.js"></script>
+<script src="assets/js/exercise-pools-init.js"></script>
+<script src="assets/js/exercise-engine.js"></script>
+<script src="assets/js/workbook.js"></script>
+</body>
+</html>

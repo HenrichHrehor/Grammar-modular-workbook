@@ -1,8 +1,18 @@
 /**
- * Present Simple exercise pool — 10 items per section (2× the original 5).
- * Used by exercise-engine.js to build worksheets.
+ * Present Simple — B1 level pool (CEFR B1).
+ * Used by exercise-engine.js and teacher print (B1).
  */
-window.PRESENT_SIMPLE_POOL = {
+window.PRESENT_SIMPLE_POOL_B1 = {
+  level: "b1",
+  label: "B1",
+  writing: {
+    id: "ex6",
+    title: "6. My daily routine",
+    hint: "Write 5–6 sentences (~30 words). Use present simple.",
+    sampleAnswer:
+      "I wake up at seven o'clock. I have breakfast and go to school. I study English and maths. In the evening I do my homework. I watch TV and go to bed at ten.",
+    points: 5
+  },
   sections: [
     {
       id: "ex1",
@@ -144,3 +154,5 @@ window.PRESENT_SIMPLE_POOL = {
     }
   ]
 };
+
+window.PRESENT_SIMPLE_POOL = window.PRESENT_SIMPLE_POOL_B1;

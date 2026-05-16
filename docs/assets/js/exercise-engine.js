@@ -1,5 +1,13 @@
 (function () {
-  var pool = window.PRESENT_SIMPLE_POOL;
+  function resolvePool() {
+    var level = document.body.getAttribute("data-exercise-level");
+    if (level && window.PRESENT_SIMPLE_POOLS && window.PRESENT_SIMPLE_POOLS[level]) {
+      return window.PRESENT_SIMPLE_POOLS[level];
+    }
+    return window.PRESENT_SIMPLE_POOL;
+  }
+
+  var pool = resolvePool();
   if (!pool) return;
 
   var config = {
@@ -420,7 +428,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     var page = document.body.getAttribute("data-exercise-page");
     if (!page) return;
-    if (page === "v2") {
+    if (page === "v2" || page === "b2" || page === "c1") {
       config.mode = "random";
     } else {
       config.mode = "first";

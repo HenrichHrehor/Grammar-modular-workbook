@@ -1,13 +1,17 @@
 (function () {
   var PASSWORD = "AABBHH";
-  var STORAGE_KEYS = { b1: "grammar_wb_b1_unlock", b2: "grammar_wb_b2_unlock" };
+  var STORAGE_KEYS = {
+    b1: "grammar_wb_b1_unlock",
+    b2: "grammar_wb_b2_unlock",
+    c1: "grammar_wb_c1_unlock"
+  };
 
   var PRINT_ITEMS_PER_SECTION = 5;
   var SECTION_POINTS = 5;
   var TRANSFORM_GRID_POINTS = 4;
   var WRITING_POINTS = 5;
   var TOTAL_POINTS = 29;
-  var WORKSHEET_LAYOUT_TAG = "6PART-v5";
+  var WORKSHEET_LAYOUT_BASE = "6PART-v6";
   var TRANSFORM_GRID_COUNT = 4;
   var WRITING_LINE_COUNT = 6;
   var PRINTABLE_MAX_HEIGHT_PX = 1039;
@@ -23,15 +27,6 @@
     }
   };
 
-  var WRITING_SECTION = {
-    id: "ex6",
-    title: "6. My daily routine",
-    hint: "Write 5–6 sentences (~30 words). Use present simple.",
-    sampleAnswer:
-      "I wake up at seven o'clock. I have breakfast and go to school. I study English and maths. In the evening I do my homework. I watch TV and go to bed at ten.",
-    points: WRITING_POINTS
-  };
-
   var GRADE_LABELS = {
     1: "Needs more practice",
     2: "Developing",
@@ -44,16 +39,32 @@
     return document.body.getAttribute("data-teacher-level");
   }
 
-  function getPool() {
+  function getPool(level) {
+    var pools = window.PRESENT_SIMPLE_POOLS;
+    var key = level || getLevel();
+    if (pools && key && pools[key]) return pools[key];
     return window.PRESENT_SIMPLE_POOL;
+  }
+
+  function getWritingSection(level) {
+    var pool = getPool(level);
+    if (pool && pool.writing) return pool.writing;
+    return {
+      id: "ex6",
+      title: "6. Writing",
+      hint: "Write 5–6 sentences. Use present simple.",
+      sampleAnswer: "",
+      points: WRITING_POINTS
+    };
+  }
+
+  function getLayoutTag(level) {
+    var label = (level || getLevel() || "b1").toUpperCase();
+    return label + "-" + WORKSHEET_LAYOUT_BASE;
   }
 
   function pickItems(items, count, mode, level) {
     var copy = items.slice();
-    if (level === "b2") {
-      copy = items.slice(5);
-      if (copy.length < count) copy = items.slice();
-    }
     if (mode === "random") {
       for (var i = copy.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
@@ -78,13 +89,6 @@
         negatives.push(item);
       }
     });
-    if (level === "b2") {
-      var half = Math.floor(negatives.length / 2);
-      negatives = negatives.slice(half);
-      questions = questions.slice(Math.floor(questions.length / 2));
-      if (negatives.length < 2) negatives = items.filter(function (i) { return i.transformType === "negative"; });
-      if (questions.length < 2) questions = items.filter(function (i) { return i.transformType === "question"; });
-    }
     var pickedNeg = pickItems(negatives, 2, mode, level);
     var pickedQ = pickItems(questions, 2, mode, level);
     return [pickedNeg[0], pickedNeg[1], pickedQ[0], pickedQ[1]];
@@ -152,7 +156,8 @@
     return html;
   }
 
-  function renderWritingSection() {
+  function renderWritingSection(level) {
+    var writing = getWritingSection(level);
     var lines = "";
     for (var i = 0; i < WRITING_LINE_COUNT; i++) {
       lines += '<div class="print-writing-line" aria-hidden="true"></div>';
@@ -160,14 +165,14 @@
     return (
       '<div class="section section--compact section--writing">' +
       "<h2>" +
-      WRITING_SECTION.title +
+      writing.title +
       '</h2><p class="section-writing-hint">' +
-      WRITING_SECTION.hint +
+      writing.hint +
       "</p>" +
       '<div class="print-writing-area">' +
       lines +
       "</div>" +
-      printScoreLine(WRITING_SECTION.points) +
+      printScoreLine(writing.points) +
       "</div>"
     );
   }
@@ -180,7 +185,7 @@
   }
 
   function renderWorksheet(level, versionMode) {
-    var pool = getPool();
+    var pool = getPool(level);
     var root = document.getElementById("printWorksheet");
     var answerRoot = document.getElementById("printAnswerKey");
     if (!pool || !root) return;
@@ -203,7 +208,7 @@
       "</strong> · " +
       versionId +
       " · " +
-      WORKSHEET_LAYOUT_TAG +
+      getLayoutTag(level) +
       "</span></span></div>";
     sheetHtml += '<h1 class="print-title">Present Simple — ' + level.toUpperCase() + "</h1>";
     sheetHtml += '<div class="print-worksheet-grid print-worksheet-grid--core">';
@@ -251,12 +256,13 @@
       sheetHtml += renderTransformGridSection(pickedTransform, transformTitle);
     }
 
+    var writingMeta = getWritingSection(level);
     sectionsData.push({
-      title: WRITING_SECTION.title,
+      title: writingMeta.title,
       isWriting: true,
-      sampleAnswer: WRITING_SECTION.sampleAnswer
+      sampleAnswer: writingMeta.sampleAnswer
     });
-    sheetHtml += renderWritingSection();
+    sheetHtml += renderWritingSection(level);
     sheetHtml += "</div>";
 
     sheetHtml +=
