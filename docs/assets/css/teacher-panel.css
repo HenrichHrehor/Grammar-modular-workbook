@@ -624,18 +624,18 @@
 }
 
 /* B1 printable worksheet — header clearance & roomier parts 3–4 */
-.sheet--print-b1 {
+.sheet--print-v7 {
   padding-top: 9mm;
 }
 
-.sheet--print-b1 .print-worksheet-header--b1 {
+.sheet--print-v7 .print-worksheet-header--v7 {
   margin-top: 2mm;
   margin-bottom: 6px;
   padding-bottom: 0;
   border-bottom: none;
 }
 
-.sheet--print-b1 .print-header-name-row {
+.sheet--print-v7 .print-header-name-row {
   padding: 0 0 4px 0;
   margin-bottom: 4px;
   font-size: 10px;
@@ -644,12 +644,12 @@
   gap: 8px;
 }
 
-.sheet--print-b1 .print-header-name-row strong {
+.sheet--print-v7 .print-header-name-row strong {
   flex-shrink: 0;
   line-height: 1.2;
 }
 
-.sheet--print-b1 .print-header-name-box {
+.sheet--print-v7 .print-header-name-box {
   flex: 1;
   min-height: 10mm;
   border: 1.5px solid #333;
@@ -659,7 +659,7 @@
   box-sizing: border-box;
 }
 
-.sheet--print-b1 .print-header-name-text {
+.sheet--print-v7 .print-header-name-text {
   display: block;
   padding: 2mm 4mm;
   font-size: 10px;
@@ -667,40 +667,40 @@
   font-weight: normal;
 }
 
-.sheet--print-b1 .print-header-meta-row {
+.sheet--print-v7 .print-header-meta-row {
   padding: 2px 0 4px 0;
   font-size: 8.5px;
   line-height: 1.35;
   border-bottom: 1px solid #333;
 }
 
-.sheet--print-b1 .print-title {
+.sheet--print-v7 .print-title {
   margin-top: 4px;
 }
 
-.sheet--print-b1 .section--answer-roomy {
+.sheet--print-v7 .section--answer-roomy {
   padding: 6px 7px !important;
 }
 
-.sheet--print-b1 .section--answer-roomy h2 {
+.sheet--print-v7 .section--answer-roomy h2 {
   margin-bottom: 5px !important;
 }
 
-.sheet--print-b1 .exercise-item--roomy {
+.sheet--print-v7 .exercise-item--roomy {
   margin: 0 0 4px 0 !important;
   padding: 4px 5px !important;
   line-height: 2.1 !important;
 }
 
-.sheet--print-b1 .print-blank--roomy.print-blank--phrase {
+.sheet--print-v7 .print-blank--roomy.print-blank--phrase {
   min-width: 96px;
 }
 
-.sheet--print-b1 .print-blank--roomy.print-blank--sentence {
+.sheet--print-v7 .print-blank--roomy.print-blank--sentence {
   min-width: 112px;
 }
 
-.sheet--print-b1 .print-blank--roomy {
+.sheet--print-v7 .print-blank--roomy {
   min-width: 56px;
   margin: 0 2px;
 }
@@ -805,12 +805,12 @@
     margin: 0 0 4pt 0;
   }
 
-  .sheet--print-b1 .print-header-name-box {
+  .sheet--print-v7 .print-header-name-box {
     min-height: 11mm;
     border-width: 1pt;
   }
 
-  .sheet--print-b1 .print-header-name-text {
+  .sheet--print-v7 .print-header-name-text {
     padding: 2mm 4mm;
     font-size: 10pt;
   }

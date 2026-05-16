@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Present Simple — B2 Teacher Print</title>
   <link rel="stylesheet" href="assets/css/workbook.css">
-  <link rel="stylesheet" href="assets/css/teacher-panel.css?v=6part-v5">
+  <link rel="stylesheet" href="assets/css/teacher-panel.css?v=teacher-v10">
 </head>
 <body class="teacher-level" data-teacher-level="b2">
 
@@ -36,7 +36,7 @@
 
     <div class="teacher-panel">
       <h2>🧑‍🏫 B2 Teacher panel — advanced print generator</h2>
-      <p class="teacher-panel-note">CEFR B2 test — dedicated B2 question pool (work, study, formal topics). Same 6-part layout, total /29. Tag <strong>B2-6PART-v6</strong>.</p>
+      <p class="teacher-panel-note">CEFR B2 test — dedicated B2 pool. Six parts, total <strong>/29</strong>. Grade <strong>1 = best</strong>, <strong>5 = not pass</strong>. Layout <strong>B2-6PART-v7</strong>. Max height <strong>1039px</strong>.</p>
       <div class="teacher-panel-grid">
         <div class="teacher-panel-block">
           <label for="teacherStudentName">Student name (optional)</label>
@@ -57,15 +57,25 @@
             <option value="random">Random new version</option>
           </select>
         </div>
-        <div class="teacher-panel-block">
-          <label>Assessment scale (1–5) for print footer</label>
-          <div class="grade-scale">
-            <label><input type="radio" name="teacherGrade" value="1"> 1</label>
-            <label><input type="radio" name="teacherGrade" value="2"> 2</label>
-            <label><input type="radio" name="teacherGrade" value="3"> 3</label>
-            <label><input type="radio" name="teacherGrade" value="4" checked> 4</label>
-            <label><input type="radio" name="teacherGrade" value="5"> 5</label>
+        <div class="teacher-panel-block teacher-panel-block--wide">
+          <label for="scoreTotal">Total points (max 29)</label>
+          <div class="teacher-score-simple">
+            <input type="number" class="score-input score-input--total" id="scoreTotal" min="0" max="29" step="1" value="" placeholder="0–29">
+            <span class="teacher-score-result" id="teacherScoreResult" aria-live="polite">
+              → Grade: <strong id="scoreGradeDisplay">—</strong><span id="scoreGradeNote"></span>
+            </span>
           </div>
+          <div class="teacher-grade-scale" aria-label="Points to grade scale">
+            <p class="teacher-grade-scale-title"><strong>Grade scale</strong> (1 = best · 5 = not pass)</p>
+            <ul class="teacher-grade-scale-list">
+              <li><strong>1</strong> Excellent — <span>26–29</span> pts</li>
+              <li><strong>2</strong> Good — <span>22–25</span> pts</li>
+              <li><strong>3</strong> Satisfactory — <span>18–21</span> pts</li>
+              <li><strong>4</strong> Borderline — <span>15–17</span> pts</li>
+              <li><strong>5</strong> Not pass — <span>0–14</span> pts</li>
+            </ul>
+          </div>
+          <button type="button" id="btnApplyScoreToSheet" class="btn-score-apply">Apply to worksheet</button>
         </div>
       </div>
       <p style="font-size:12px;margin:10px 0 0 0;color:#555;"><strong>Current version ID:</strong> <span id="versionLabel">—</span></p>
@@ -86,6 +96,7 @@
     </div>
 
     <div class="sheet sheet--print-a4" id="printWorksheet"></div>
+    <p id="printHeightMonitor" class="print-height-monitor" aria-live="polite"></p>
     <div class="print-answer-key" id="printAnswerKey"></div>
 
   </div>
@@ -95,6 +106,6 @@
 <script src="assets/js/exercise-pool-b2.js"></script>
 <script src="assets/js/exercise-pool-c1.js"></script>
 <script src="assets/js/exercise-pools-init.js"></script>
-<script src="assets/js/teacher-worksheet.js?v=levels-v6"></script>
+<script src="assets/js/teacher-worksheet.js?v=teacher-v10"></script>
 </body>
 </html>

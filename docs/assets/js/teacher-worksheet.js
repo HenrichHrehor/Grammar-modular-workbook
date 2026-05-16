@@ -12,7 +12,8 @@
   var WRITING_POINTS = 5;
   var TOTAL_POINTS = 29;
   var WORKSHEET_LAYOUT_BASE = "6PART-v6";
-  var WORKSHEET_LAYOUT_B1 = "6PART-v7";
+  var WORKSHEET_LAYOUT_V7 = "6PART-v7";
+  var TEACHER_PRINT_V7_LEVELS = { b1: true, b2: true, c1: true };
   var TRANSFORM_GRID_COUNT = 4;
   var WRITING_LINE_COUNT = 6;
   var PRINTABLE_MAX_HEIGHT_PX = 1039;
@@ -36,7 +37,7 @@
     5: "Excellent"
   };
 
-  var B1_GRADE_LABELS = {
+  var TEACHER_GRADE_LABELS = {
     1: "Excellent — pass",
     2: "Good — pass",
     3: "Satisfactory — pass",
@@ -44,7 +45,7 @@
     5: "Not pass"
   };
 
-  var B1_SCORE_TOTAL_ID = "scoreTotal";
+  var SCORE_TOTAL_ID = "scoreTotal";
 
   function getLevel() {
     return document.body.getAttribute("data-teacher-level");
@@ -69,13 +70,14 @@
     };
   }
 
-  function isB1Level(level) {
-    return (level || getLevel()) === "b1";
+  function isTeacherPrintV7(level) {
+    var key = level || getLevel();
+    return !!(key && TEACHER_PRINT_V7_LEVELS[key]);
   }
 
   function getLayoutTag(level) {
     var label = (level || getLevel() || "b1").toUpperCase();
-    var base = isB1Level(level) ? WORKSHEET_LAYOUT_B1 : WORKSHEET_LAYOUT_BASE;
+    var base = isTeacherPrintV7(level) ? WORKSHEET_LAYOUT_V7 : WORKSHEET_LAYOUT_BASE;
     return label + "-" + base;
   }
 
@@ -88,8 +90,8 @@
     return 5;
   }
 
-  function getB1ScoresFromPanel() {
-    var el = document.getElementById(B1_SCORE_TOTAL_ID);
+  function getTeacherScoresFromPanel() {
+    var el = document.getElementById(SCORE_TOTAL_ID);
     if (!el || el.value === "") return { total: null, grade: null };
     var total = parseInt(el.value, 10);
     if (isNaN(total)) return { total: null, grade: null };
@@ -100,22 +102,22 @@
     };
   }
 
-  function updateB1ScoreCalculatorDisplay() {
+  function updateTeacherScoreCalculatorDisplay() {
     var gradeEl = document.getElementById("scoreGradeDisplay");
     var noteEl = document.getElementById("scoreGradeNote");
     if (!gradeEl) return;
-    var result = getB1ScoresFromPanel();
+    var result = getTeacherScoresFromPanel();
     if (result.total === null) {
       gradeEl.textContent = "—";
       if (noteEl) noteEl.textContent = "";
       return;
     }
     gradeEl.textContent = String(result.grade);
-    if (noteEl) noteEl.textContent = " (" + B1_GRADE_LABELS[result.grade] + ")";
+    if (noteEl) noteEl.textContent = " (" + TEACHER_GRADE_LABELS[result.grade] + ")";
   }
 
-  function applyB1ScoreToWorksheet() {
-    var result = getB1ScoresFromPanel();
+  function applyTeacherScoreToWorksheet() {
+    var result = getTeacherScoresFromPanel();
     if (result.total === null) {
       window.alert("Enter total points (0–29), then apply.");
       return;
@@ -135,7 +137,7 @@
     }
     var gradeRow = root.querySelector(".print-grade-row");
     if (gradeRow) {
-      var gradeNote = B1_GRADE_LABELS[result.grade];
+      var gradeNote = TEACHER_GRADE_LABELS[result.grade];
       var circlesHtml = '<span class="print-grade-circles">';
       for (var g = 1; g <= 5; g++) {
         var filled = g === result.grade ? " circle--filled" : "";
@@ -151,7 +153,7 @@
   function updatePrintHeightMonitor() {
     var monitor = document.getElementById("printHeightMonitor");
     var root = document.getElementById("printWorksheet");
-    if (!monitor || !root || !isB1Level()) return;
+    if (!monitor || !root || !isTeacherPrintV7()) return;
     window.requestAnimationFrame(function () {
       var h = root.scrollHeight;
       var ok = h <= PRINTABLE_MAX_HEIGHT_PX;
@@ -168,10 +170,10 @@
   }
 
   function getGradeForPrint(level) {
-    if (isB1Level(level)) {
-      var scored = getB1ScoresFromPanel();
+    if (isTeacherPrintV7(level)) {
+      var scored = getTeacherScoresFromPanel();
       if (scored.grade !== null) {
-        return { num: scored.grade, note: B1_GRADE_LABELS[scored.grade] };
+        return { num: scored.grade, note: TEACHER_GRADE_LABELS[scored.grade] };
       }
       return { num: "", note: "1 = best · 5 = not pass" };
     }
@@ -216,7 +218,7 @@
 
   function blankForType(inputType, level, sectionId) {
     var cls = "print-blank";
-    var roomy = isB1Level(level) && (sectionId === "ex3" || sectionId === "ex4");
+    var roomy = isTeacherPrintV7(level) && (sectionId === "ex3" || sectionId === "ex4");
     if (inputType === "phrase") cls += " print-blank--phrase";
     if (inputType === "sentence") cls += " print-blank--sentence";
     if (roomy) cls += " print-blank--roomy";
@@ -330,9 +332,9 @@
     var sectionsData = [];
 
     var sheetHtml = "";
-    if (isB1Level(level)) {
+    if (isTeacherPrintV7(level)) {
       sheetHtml +=
-        '<div class="print-worksheet-header print-worksheet-header--b1">' +
+        '<div class="print-worksheet-header print-worksheet-header--v7">' +
         '<div class="print-header-name-row"><strong>Student:</strong> ' +
         '<span class="print-header-name-box">' +
         (nameVal ? '<span class="print-header-name-text">' + nameVal + "</span>" : "") +
@@ -375,13 +377,13 @@
         sectionTitle += ' <span class="section-hint-inline">(' + labels.hint + ")</span>";
       }
       var sectionClass = "section section--compact";
-      if (isB1Level(level) && (section.id === "ex3" || section.id === "ex4")) {
+      if (isTeacherPrintV7(level) && (section.id === "ex3" || section.id === "ex4")) {
         sectionClass += " section--answer-roomy";
       }
       sheetHtml += '<div class="' + sectionClass + '"><h2>' + sectionTitle + "</h2>";
       picked.forEach(function (item, i) {
         var itemClass = "exercise-item exercise-item--compact";
-        if (isB1Level(level) && (section.id === "ex3" || section.id === "ex4")) {
+        if (isTeacherPrintV7(level) && (section.id === "ex3" || section.id === "ex4")) {
           itemClass += " exercise-item--roomy";
         }
         sheetHtml +=
@@ -444,18 +446,18 @@
       sheetHtml += '<span><span class="circle' + filled + '"></span>' + g + "</span>";
     }
     sheetHtml += "</span></div>";
-    if (isB1Level(level)) {
+    if (isTeacherPrintV7(level)) {
       sheetHtml += '<p class="print-grade-scale-hint">Scale: 1 = best (pass) · 5 = not pass</p>';
     }
 
     root.innerHTML = sheetHtml;
-    root.className = "sheet sheet--print-a4" + (isB1Level(level) ? " sheet--print-b1" : "");
+    root.className = "sheet sheet--print-a4" + (isTeacherPrintV7(level) ? " sheet--print-v7" : "");
     root.style.maxHeight = PRINTABLE_MAX_HEIGHT_PX + "px";
     root.style.overflow = "hidden";
     syncWorksheetHtmlCode();
     updatePrintHeightMonitor();
-    if (isB1Level(level) && getB1ScoresFromPanel().total !== null) {
-      applyB1ScoreToWorksheet();
+    if (isTeacherPrintV7(level) && getTeacherScoresFromPanel().total !== null) {
+      applyTeacherScoreToWorksheet();
     }
 
     if (answerRoot) {
@@ -577,7 +579,7 @@
     var teacherDate = document.getElementById("teacherDate");
     if (teacherDate && !teacherDate.value) teacherDate.value = today;
     refreshWorksheetFromPanel();
-    if (isB1Level()) updateB1ScoreCalculatorDisplay();
+    if (isTeacherPrintV7()) updateTeacherScoreCalculatorDisplay();
   }
 
   function tryGate() {
@@ -673,14 +675,14 @@
       radio.addEventListener("change", refreshWorksheetFromPanel);
     });
 
-    if (isB1Level()) {
-      var scoreTotalInput = document.getElementById(B1_SCORE_TOTAL_ID);
+    if (isTeacherPrintV7()) {
+      var scoreTotalInput = document.getElementById(SCORE_TOTAL_ID);
       if (scoreTotalInput) {
-        scoreTotalInput.addEventListener("input", updateB1ScoreCalculatorDisplay);
+        scoreTotalInput.addEventListener("input", updateTeacherScoreCalculatorDisplay);
       }
       var btnApplyScore = document.getElementById("btnApplyScoreToSheet");
       if (btnApplyScore) {
-        btnApplyScore.addEventListener("click", applyB1ScoreToWorksheet);
+        btnApplyScore.addEventListener("click", applyTeacherScoreToWorksheet);
       }
       window.addEventListener("resize", updatePrintHeightMonitor);
     }
