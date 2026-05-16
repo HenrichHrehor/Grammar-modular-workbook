@@ -71,6 +71,86 @@ window.PRESENT_SIMPLE_POOL = {
         { html: "<strong>9.</strong> He reads newspapers.<br>→ {{input}} newspapers?", inputType: "phrase", answers: ["does he read"] },
         { html: "<strong>10.</strong> Your friends live nearby.<br>→ {{input}} nearby?", inputType: "sentence", answers: ["do your friends live"] }
       ]
+    },
+    {
+      id: "ex5",
+      title: "Exercise 5: Choose do / does / don't / doesn't + verb",
+      instructions: "Circle or write the correct helper and verb form.",
+      printType: "choice-grid",
+      teacherPrintOnly: true,
+      printCount: 6,
+      items: [
+        {
+          prompt: "They _____ _____ football on Sundays.",
+          auxHint: "do · does · don't · doesn't",
+          verbHint: "play · plays · don't play · doesn't play",
+          answers: ["don't", "play"],
+          answerDisplay: "don't · play"
+        },
+        {
+          prompt: "She _____ _____ tennis after school.",
+          auxHint: "do · does · don't · doesn't",
+          verbHint: "play · plays · don't play · doesn't play",
+          answers: ["does", "play"],
+          answerDisplay: "does · play"
+        },
+        {
+          prompt: "I _____ _____ coffee in the morning.",
+          auxHint: "do · does · don't · doesn't",
+          verbHint: "drink · drinks · don't drink · doesn't drink",
+          answers: ["don't", "drink"],
+          answerDisplay: "don't · drink"
+        },
+        {
+          prompt: "He _____ _____ TV before bed.",
+          auxHint: "do · does · don't · doesn't",
+          verbHint: "watch · watches · don't watch · doesn't watch",
+          answers: ["doesn't", "watch"],
+          answerDisplay: "doesn't · watch"
+        },
+        {
+          prompt: "We _____ _____ meat.",
+          auxHint: "do · does · don't · doesn't",
+          verbHint: "eat · eats · don't eat · doesn't eat",
+          answers: ["don't", "eat"],
+          answerDisplay: "don't · eat"
+        },
+        {
+          prompt: "My sister _____ _____ maths at school.",
+          auxHint: "do · does · don't · doesn't",
+          verbHint: "study · studies · don't study · doesn't study",
+          answers: ["doesn't", "study"],
+          answerDisplay: "doesn't · study"
+        },
+        {
+          prompt: "Tom _____ _____ to work by bus.",
+          auxHint: "do · does · don't · doesn't",
+          verbHint: "go · goes · don't go · doesn't go",
+          answers: ["doesn't", "go"],
+          answerDisplay: "doesn't · go"
+        },
+        {
+          prompt: "You _____ _____ French?",
+          auxHint: "do · does · don't · doesn't",
+          verbHint: "speak · speaks · don't speak · doesn't speak",
+          answers: ["do", "speak"],
+          answerDisplay: "Do you speak…?"
+        },
+        {
+          prompt: "The shop _____ _____ on Sundays.",
+          auxHint: "do · does · don't · doesn't",
+          verbHint: "open · opens · don't open · doesn't open",
+          answers: ["doesn't", "open"],
+          answerDisplay: "doesn't · open"
+        },
+        {
+          prompt: "They _____ _____ in London.",
+          auxHint: "do · does · don't · doesn't",
+          verbHint: "live · lives · don't live · doesn't live",
+          answers: ["don't", "live"],
+          answerDisplay: "don't · live"
+        }
+      ]
     }
   ]
 };

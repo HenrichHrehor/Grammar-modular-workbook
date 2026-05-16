@@ -4,14 +4,28 @@
 
   var PRINT_ITEMS_PER_SECTION = 5;
   var SECTION_POINTS = 5;
-  var TOTAL_POINTS = 20;
-  var WORKSHEET_LAYOUT_TAG = "5Q-SCORE-v2";
+  var CHOICE_GRID_POINTS = 6;
+  var WRITING_POINTS = 5;
+  var TOTAL_POINTS = 31;
+  var WORKSHEET_LAYOUT_TAG = "6PART-v3";
+  var CHOICE_GRID_COUNT = 6;
+  var WRITING_LINE_COUNT = 6;
 
   var SECTION_PRINT_LABELS = {
     ex1: { title: "1. -s / -es / -ies", hint: "he/she/it" },
     ex2: { title: "2. Affirmative", hint: "verb in ( )" },
     ex3: { title: "3. Negative", hint: "don't / doesn't" },
-    ex4: { title: "4. Questions", hint: "Do / Does" }
+    ex4: { title: "4. Questions", hint: "Do / Does" },
+    ex5: { title: "5. Choose do / does / don't / doesn't + verb", hint: "two blanks per sentence" }
+  };
+
+  var WRITING_SECTION = {
+    id: "ex6",
+    title: "6. My daily routine",
+    hint: "Write 5–6 sentences (~30 words). Use present simple.",
+    sampleAnswer:
+      "I wake up at seven o'clock. I have breakfast and go to school. I study English and maths. In the evening I do my homework. I watch TV and go to bed at ten.",
+    points: WRITING_POINTS
   };
 
   var GRADE_LABELS = {
@@ -74,6 +88,50 @@
     return html.replace(/\{\{input\}\}/g, blankForType(item.inputType));
   }
 
+  function renderChoiceBlank() {
+    return '<span class="print-blank print-blank--choice">_______</span>';
+  }
+
+  function renderChoiceGridItem(item, num) {
+    var prompt = item.prompt.replace(/_____/g, function () {
+      return renderChoiceBlank();
+    });
+    return (
+      '<div class="print-choice-cell">' +
+      "<strong>" +
+      num +
+      ".</strong> " +
+      '<span class="print-choice-prompt">' +
+      prompt +
+      "</span>" +
+      '<div class="print-choice-options"><span class="print-choice-opt-label">Helper:</span> ' +
+      item.auxHint +
+      '<span class="print-choice-opt-label">Verb:</span> ' +
+      item.verbHint +
+      "</div></div>"
+    );
+  }
+
+  function renderWritingSection() {
+    var lines = "";
+    for (var i = 0; i < WRITING_LINE_COUNT; i++) {
+      lines += '<div class="print-writing-line" aria-hidden="true"></div>';
+    }
+    return (
+      '<div class="section section--compact section--writing">' +
+      "<h2>" +
+      WRITING_SECTION.title +
+      '</h2><p class="section-writing-hint">' +
+      WRITING_SECTION.hint +
+      "</p>" +
+      '<div class="print-writing-area">' +
+      lines +
+      "</div>" +
+      printScoreLine(WRITING_SECTION.points) +
+      "</div>"
+    );
+  }
+
   function buildVersionId(level, versionMode) {
     var d = new Date();
     var dateStr = d.getFullYear() + "" + String(d.getMonth() + 1).padStart(2, "0") + String(d.getDate()).padStart(2, "0");
@@ -108,9 +166,10 @@
       WORKSHEET_LAYOUT_TAG +
       "</span></span></div>";
     sheetHtml += '<h1 class="print-title">Present Simple — ' + level.toUpperCase() + "</h1>";
-    sheetHtml += '<div class="print-worksheet-grid">';
+    sheetHtml += '<div class="print-worksheet-grid print-worksheet-grid--core">';
 
     pool.sections.forEach(function (section) {
+      if (section.printType === "choice-grid") return;
       var picked = pickItems(section.items, PRINT_ITEMS_PER_SECTION, versionMode, level);
       var labels = SECTION_PRINT_LABELS[section.id] || { title: section.title, hint: "" };
       sectionsData.push({ title: section.title, items: picked });
@@ -128,12 +187,50 @@
     });
 
     sheetHtml += "</div>";
+
+    sheetHtml += '<div class="print-worksheet-extra">';
+    var choiceSection = null;
+    for (var si = 0; si < pool.sections.length; si++) {
+      if (pool.sections[si].id === "ex5") {
+        choiceSection = pool.sections[si];
+        break;
+      }
+    }
+    if (choiceSection) {
+      var pickedChoice = pickItems(choiceSection.items, CHOICE_GRID_COUNT, versionMode, level);
+      var choiceLabels = SECTION_PRINT_LABELS.ex5;
+      sectionsData.push({ title: choiceSection.title, items: pickedChoice, isChoice: true });
+      var choiceTitle = choiceLabels.title;
+      if (choiceLabels.hint) {
+        choiceTitle += ' <span class="section-hint-inline">(' + choiceLabels.hint + ")</span>";
+      }
+      sheetHtml +=
+        '<div class="section section--compact section--choice-grid"><h2>' +
+        choiceTitle +
+        "</h2>";
+      sheetHtml += '<div class="print-choice-grid">';
+      pickedChoice.forEach(function (item, i) {
+        sheetHtml += renderChoiceGridItem(item, i + 1);
+      });
+      sheetHtml += "</div>";
+      sheetHtml += printScoreLine(CHOICE_GRID_POINTS);
+      sheetHtml += "</div>";
+    }
+
+    sectionsData.push({
+      title: WRITING_SECTION.title,
+      isWriting: true,
+      sampleAnswer: WRITING_SECTION.sampleAnswer
+    });
+    sheetHtml += renderWritingSection();
+    sheetHtml += "</div>";
+
     sheetHtml +=
       '<div class="print-total-score"><strong>Total score:</strong> ' +
       '<span class="print-score-dots">................</span>' +
       '<span class="print-score-label"> / ' +
       TOTAL_POINTS +
-      " points</div>";
+      " points</span></div>";
 
     var selectedGrade = document.querySelector('input[name="teacherGrade"]:checked');
     var gradeNum = selectedGrade ? selectedGrade.value : "";
@@ -157,10 +254,18 @@
         versionId +
         '</h3><p class="print-subtitle">Turn the sheet over — same version ID as the worksheet</p>';
       sectionsData.forEach(function (block) {
-        keyHtml += "<h4>" + block.title + "</h4><div class=\"print-answer-grid\">";
+        keyHtml += "<h4>" + block.title + "</h4>";
+        if (block.isWriting) {
+          keyHtml += "<p class=\"print-answer-item print-answer-sample\">" + block.sampleAnswer + "</p>";
+          return;
+        }
+        keyHtml += '<div class="print-answer-grid">';
         block.items.forEach(function (item, i) {
+          var ans = block.isChoice
+            ? item.answerDisplay || item.answers.join(" / ")
+            : item.answers.join(" / ");
           keyHtml +=
-            '<div class="print-answer-item"><strong>' + (i + 1) + ".</strong> " + item.answers.join(" / ") + "</div>";
+            '<div class="print-answer-item"><strong>' + (i + 1) + ".</strong> " + ans + "</div>";
         });
         keyHtml += "</div>";
       });

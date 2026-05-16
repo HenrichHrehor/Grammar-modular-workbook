@@ -141,6 +141,7 @@
     var sectionsData = [];
 
     pool.sections.forEach(function (section, sIndex) {
+      if (section.teacherPrintOnly || section.printType === "choice-grid") return;
       var picked = pickItems(section.items, config.pickCount, config.mode);
       sectionsData.push({ title: section.title, items: picked });
 
