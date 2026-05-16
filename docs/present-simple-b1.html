@@ -3,41 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Present Simple — B1</title>
+  <title>Present Simple — B1 Teacher Print</title>
   <link rel="stylesheet" href="assets/css/workbook.css">
+  <link rel="stylesheet" href="assets/css/teacher-panel.css">
 </head>
-<body>
+<body class="teacher-level" data-teacher-level="b1">
 
-<div class="sheet sheet--grammar">
+<div id="teacherGate" class="teacher-gate">
+  <h2>🎯 B1 Teacher access</h2>
+  <p>Enter the teacher password to open the print panel and worksheet generator.</p>
+  <input type="password" id="gatePassword" placeholder="Password" autocomplete="off">
+  <br>
+  <button type="button" id="gateSubmit" class="gate-btn">Unlock B1</button>
+  <p id="gateError" class="gate-error" aria-live="polite"></p>
+</div>
+
+<div id="teacherApp" hidden>
+
   <div class="nav-bar">
     <div class="nav-links">
       <a href="present-simple-contents.html" class="nav-btn">📖 Contents</a>
       <a href="present-simple-grammar.html" class="nav-btn">📚 Grammar</a>
       <a href="present-simple-exercises.html" class="nav-btn">✏️ Exercises</a>
+      <a href="present-simple-exercises-v2.html" class="nav-btn">🔄 Set B</a>
       <a href="present-simple-b1.html" class="nav-btn active">🎯 B1</a>
       <a href="present-simple-b2.html" class="nav-btn">🚀 B2</a>
     </div>
-    <div class="nav-right">
-      <button type="button" class="print-btn" onclick="window.print()">🖨️ Print</button>
-    </div>
   </div>
 
-  <div class="top-bar">
-    <div class="student-info">
-      <div><strong>Student:</strong></div>
-      <div><strong>Date:</strong> <input type="date" class="date-input" aria-label="Worksheet date"></div>
+  <div class="sheet sheet--grammar">
+
+    <div class="teacher-panel">
+      <h2>🧑‍🏫 B1 Teacher panel — print worksheet generator</h2>
+      <div class="teacher-panel-grid">
+        <div class="teacher-panel-block">
+          <label for="teacherStudentName">Student name (optional)</label>
+          <input type="text" id="teacherStudentName" placeholder="Leave blank for a line on the sheet">
+        </div>
+        <div class="teacher-panel-block">
+          <label for="teacherDate">Worksheet date</label>
+          <input type="date" id="teacherDate" aria-label="Pick worksheet date">
+        </div>
+        <div class="teacher-panel-block">
+          <label for="versionSelect">Worksheet version</label>
+          <select id="versionSelect">
+            <option value="1">Version 1</option>
+            <option value="2">Version 2</option>
+            <option value="3">Version 3</option>
+            <option value="4">Version 4</option>
+            <option value="5">Version 5</option>
+            <option value="random">Random new version</option>
+          </select>
+        </div>
+        <div class="teacher-panel-block">
+          <label>Assessment scale (1–5) for print footer</label>
+          <div class="grade-scale">
+            <label><input type="radio" name="teacherGrade" value="1"> 1</label>
+            <label><input type="radio" name="teacherGrade" value="2"> 2</label>
+            <label><input type="radio" name="teacherGrade" value="3" checked> 3</label>
+            <label><input type="radio" name="teacherGrade" value="4"> 4</label>
+            <label><input type="radio" name="teacherGrade" value="5"> 5</label>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:12px;margin:10px 0 0 0;color:#555;"><strong>Current version ID:</strong> <span id="versionLabel">—</span></p>
+      <div class="teacher-panel-actions">
+        <button type="button" id="btnGenerate" class="btn-generate">🔄 Generate worksheet</button>
+        <button type="button" id="btnTogglePrintAnswers" class="btn-answers">Show answer key</button>
+        <button type="button" id="btnPrintSheet" class="btn-print">🖨️ Print A4 worksheet</button>
+      </div>
     </div>
-    <div class="page-tag">🎯 B1 (coming soon)</div>
-  </div>
 
-  <h1>B1 — Present Simple</h1>
-  <p class="subtitle">This slot is ready for level-specific tasks</p>
+    <div class="sheet sheet--print-a4" id="printWorksheet"></div>
+    <div class="print-answer-key" id="printAnswerKey"></div>
 
-  <div class="section">
-    <p class="placeholder-note">Add B1 worksheets here (for example by converting content from your other grammar text files into this layout). Navigation and print styles are already shared via assets/css/workbook.css.</p>
-    <p class="placeholder-note"><a href="present-simple-exercises.html">Back to open exercises</a> · <a href="present-simple-contents.html">Contents</a></p>
   </div>
 </div>
 
+<script src="assets/js/exercise-pool-present-simple.js"></script>
+<script src="assets/js/teacher-worksheet.js"></script>
 </body>
 </html>
