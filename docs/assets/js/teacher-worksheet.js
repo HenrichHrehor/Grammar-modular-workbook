@@ -44,14 +44,7 @@
     5: "Not pass"
   };
 
-  var B1_SCORE_INPUTS = [
-    { id: "scoreEx1", max: 5 },
-    { id: "scoreEx2", max: 5 },
-    { id: "scoreEx3", max: 5 },
-    { id: "scoreEx4", max: 5 },
-    { id: "scoreEx5", max: 4 },
-    { id: "scoreEx6", max: 5 }
-  ];
+  var B1_SCORE_TOTAL_ID = "scoreTotal";
 
   function getLevel() {
     return document.body.getAttribute("data-teacher-level");
@@ -96,17 +89,11 @@
   }
 
   function getB1ScoresFromPanel() {
-    var total = 0;
-    var hasAny = false;
-    B1_SCORE_INPUTS.forEach(function (cfg) {
-      var el = document.getElementById(cfg.id);
-      if (!el || el.value === "") return;
-      hasAny = true;
-      var val = parseInt(el.value, 10);
-      if (isNaN(val)) val = 0;
-      total += Math.max(0, Math.min(cfg.max, val));
-    });
-    if (!hasAny) return { total: null, grade: null };
+    var el = document.getElementById(B1_SCORE_TOTAL_ID);
+    if (!el || el.value === "") return { total: null, grade: null };
+    var total = parseInt(el.value, 10);
+    if (isNaN(total)) return { total: null, grade: null };
+    total = Math.max(0, Math.min(TOTAL_POINTS, total));
     return {
       total: total,
       grade: calculateGradeFromTotal(total, TOTAL_POINTS)
@@ -114,26 +101,23 @@
   }
 
   function updateB1ScoreCalculatorDisplay() {
-    var totalEl = document.getElementById("scoreTotalDisplay");
     var gradeEl = document.getElementById("scoreGradeDisplay");
     var noteEl = document.getElementById("scoreGradeNote");
-    if (!totalEl) return;
+    if (!gradeEl) return;
     var result = getB1ScoresFromPanel();
     if (result.total === null) {
-      totalEl.textContent = "—";
-      if (gradeEl) gradeEl.textContent = "—";
+      gradeEl.textContent = "—";
       if (noteEl) noteEl.textContent = "";
       return;
     }
-    totalEl.textContent = String(result.total);
-    if (gradeEl) gradeEl.textContent = String(result.grade);
+    gradeEl.textContent = String(result.grade);
     if (noteEl) noteEl.textContent = " (" + B1_GRADE_LABELS[result.grade] + ")";
   }
 
   function applyB1ScoreToWorksheet() {
     var result = getB1ScoresFromPanel();
     if (result.total === null) {
-      window.alert("Enter points for at least one part, then apply.");
+      window.alert("Enter total points (0–29), then apply.");
       return;
     }
     var root = document.getElementById("printWorksheet");
@@ -345,21 +329,39 @@
     var nameVal = studentName ? studentName.value.trim() : "";
     var sectionsData = [];
 
-    var headerClass = "print-worksheet-header print-worksheet-header--one-line";
-    if (isB1Level(level)) headerClass += " print-worksheet-header--b1";
-    var sheetHtml = '<div class="' + headerClass + '">';
-    sheetHtml +=
-      "<span><strong>St:</strong> " +
-      (nameVal || "________________") +
-      " &nbsp; <strong>Date:</strong> " +
-      (worksheetDate || "________") +
-      ' &nbsp; <span class="print-meta"><strong>' +
-      level.toUpperCase() +
-      "</strong> · " +
-      versionId +
-      " · " +
-      getLayoutTag(level) +
-      "</span></span></div>";
+    var sheetHtml = "";
+    if (isB1Level(level)) {
+      sheetHtml +=
+        '<div class="print-worksheet-header print-worksheet-header--b1">' +
+        '<div class="print-header-name-row"><strong>Student:</strong> ' +
+        '<span class="print-header-name-field">' +
+        (nameVal || "________________________________") +
+        "</span></div>" +
+        '<div class="print-header-meta-row"><strong>Date:</strong> ' +
+        (worksheetDate || "________") +
+        ' &nbsp; <span class="print-meta"><strong>' +
+        level.toUpperCase() +
+        "</strong> · " +
+        versionId +
+        " · " +
+        getLayoutTag(level) +
+        "</span></div></div>";
+    } else {
+      var headerClass = "print-worksheet-header print-worksheet-header--one-line";
+      sheetHtml += '<div class="' + headerClass + '">';
+      sheetHtml +=
+        "<span><strong>St:</strong> " +
+        (nameVal || "________________") +
+        " &nbsp; <strong>Date:</strong> " +
+        (worksheetDate || "________") +
+        ' &nbsp; <span class="print-meta"><strong>' +
+        level.toUpperCase() +
+        "</strong> · " +
+        versionId +
+        " · " +
+        getLayoutTag(level) +
+        "</span></span></div>";
+    }
     sheetHtml += '<h1 class="print-title">Present Simple — ' + level.toUpperCase() + "</h1>";
     sheetHtml += '<div class="print-worksheet-grid print-worksheet-grid--core">';
 
@@ -672,12 +674,10 @@
     });
 
     if (isB1Level()) {
-      B1_SCORE_INPUTS.forEach(function (cfg) {
-        var input = document.getElementById(cfg.id);
-        if (input) {
-          input.addEventListener("input", updateB1ScoreCalculatorDisplay);
-        }
-      });
+      var scoreTotalInput = document.getElementById(B1_SCORE_TOTAL_ID);
+      if (scoreTotalInput) {
+        scoreTotalInput.addEventListener("input", updateB1ScoreCalculatorDisplay);
+      }
       var btnApplyScore = document.getElementById("btnApplyScoreToSheet");
       if (btnApplyScore) {
         btnApplyScore.addEventListener("click", applyB1ScoreToWorksheet);

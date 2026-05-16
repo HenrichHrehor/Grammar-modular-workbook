@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Present Simple — B1 Teacher Print</title>
   <link rel="stylesheet" href="assets/css/workbook.css">
-  <link rel="stylesheet" href="assets/css/teacher-panel.css?v=b1-v7">
+  <link rel="stylesheet" href="assets/css/teacher-panel.css?v=b1-v8">
 </head>
 <body class="teacher-level" data-teacher-level="b1">
 
@@ -58,21 +58,24 @@
           </select>
         </div>
         <div class="teacher-panel-block teacher-panel-block--wide">
-          <label>Score calculator (enter points → grade for print footer)</label>
-          <p class="teacher-score-hint">1 = best · 5 = not pass · Total max 29 points</p>
-          <div class="teacher-score-grid">
-            <label>Part 1 <input type="number" class="score-input" id="scoreEx1" min="0" max="5" step="1" value=""> /5</label>
-            <label>Part 2 <input type="number" class="score-input" id="scoreEx2" min="0" max="5" step="1" value=""> /5</label>
-            <label>Part 3 <input type="number" class="score-input" id="scoreEx3" min="0" max="5" step="1" value=""> /5</label>
-            <label>Part 4 <input type="number" class="score-input" id="scoreEx4" min="0" max="5" step="1" value=""> /5</label>
-            <label>Part 5 <input type="number" class="score-input" id="scoreEx5" min="0" max="4" step="1" value=""> /4</label>
-            <label>Part 6 <input type="number" class="score-input" id="scoreEx6" min="0" max="5" step="1" value=""> /5</label>
+          <label for="scoreTotal">Total points (max 29)</label>
+          <div class="teacher-score-simple">
+            <input type="number" class="score-input score-input--total" id="scoreTotal" min="0" max="29" step="1" value="" placeholder="0–29">
+            <span class="teacher-score-result" id="teacherScoreResult" aria-live="polite">
+              → Grade: <strong id="scoreGradeDisplay">—</strong><span id="scoreGradeNote"></span>
+            </span>
           </div>
-          <div class="teacher-score-result" id="teacherScoreResult" aria-live="polite">
-            Total: <strong id="scoreTotalDisplay">—</strong> / 29 · Grade: <strong id="scoreGradeDisplay">—</strong>
-            <span id="scoreGradeNote"></span>
+          <div class="teacher-grade-scale" aria-label="Points to grade scale">
+            <p class="teacher-grade-scale-title"><strong>Grade scale</strong> (1 = best · 5 = not pass)</p>
+            <ul class="teacher-grade-scale-list">
+              <li><strong>1</strong> Excellent — <span>26–29</span> pts</li>
+              <li><strong>2</strong> Good — <span>22–25</span> pts</li>
+              <li><strong>3</strong> Satisfactory — <span>18–21</span> pts</li>
+              <li><strong>4</strong> Borderline — <span>15–17</span> pts</li>
+              <li><strong>5</strong> Not pass — <span>0–14</span> pts</li>
+            </ul>
           </div>
-          <button type="button" id="btnApplyScoreToSheet" class="btn-score-apply">Apply score &amp; grade to worksheet</button>
+          <button type="button" id="btnApplyScoreToSheet" class="btn-score-apply">Apply to worksheet</button>
         </div>
       </div>
       <p style="font-size:12px;margin:10px 0 0 0;color:#555;"><strong>Current version ID:</strong> <span id="versionLabel">—</span></p>
@@ -103,6 +106,6 @@
 <script src="assets/js/exercise-pool-b2.js"></script>
 <script src="assets/js/exercise-pool-c1.js"></script>
 <script src="assets/js/exercise-pools-init.js"></script>
-<script src="assets/js/teacher-worksheet.js?v=b1-v7"></script>
+<script src="assets/js/teacher-worksheet.js?v=b1-v8"></script>
 </body>
 </html>

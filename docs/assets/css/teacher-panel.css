@@ -535,39 +535,50 @@
   grid-column: 1 / -1;
 }
 
-.teacher-score-hint {
-  margin: 4px 0 8px 0;
-  font-size: 12px;
-  color: #555;
-}
-
-.teacher-score-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px 12px;
+.teacher-score-simple {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
   margin-bottom: 10px;
 }
 
-.teacher-score-grid label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: normal;
-}
-
-.teacher-score-grid .score-input {
-  width: 3.2em;
-  padding: 4px 6px;
+.teacher-score-simple .score-input--total {
+  width: 4.5em;
+  padding: 6px 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 13px;
+  font-size: 15px;
+  font-weight: bold;
 }
 
 .teacher-score-result {
-  margin: 0 0 10px 0;
   font-size: 13px;
   color: #333;
+}
+
+.teacher-grade-scale {
+  margin: 0 0 10px 0;
+  padding: 8px 10px;
+  background: #f5f7ff;
+  border: 1px solid #d0d4e0;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.teacher-grade-scale-title {
+  margin: 0 0 6px 0;
+  font-size: 12px;
+}
+
+.teacher-grade-scale-list {
+  margin: 0;
+  padding: 0 0 0 18px;
+  line-height: 1.5;
+}
+
+.teacher-grade-scale-list li span {
+  color: #555;
 }
 
 .teacher-score-result #scoreGradeNote {
@@ -620,7 +631,34 @@
 .sheet--print-b1 .print-worksheet-header--b1 {
   margin-top: 2mm;
   margin-bottom: 6px;
-  padding-bottom: 5px;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.sheet--print-b1 .print-header-name-row {
+  min-height: 7mm;
+  padding: 2mm 0 3mm 0;
+  margin-bottom: 2px;
+  border-bottom: 1px solid #333;
+  font-size: 10px;
+  line-height: 2;
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.sheet--print-b1 .print-header-name-field {
+  flex: 1;
+  min-height: 5mm;
+  border-bottom: 1px solid #333;
+  padding-bottom: 2px;
+}
+
+.sheet--print-b1 .print-header-meta-row {
+  padding: 2px 0 4px 0;
+  font-size: 8.5px;
+  line-height: 1.35;
+  border-bottom: 1px solid #333;
 }
 
 .sheet--print-b1 .print-title {
@@ -752,6 +790,15 @@
   .sheet--print-a4 .print-title {
     font-size: 12pt;
     margin: 0 0 4pt 0;
+  }
+
+  .sheet--print-b1 .print-header-name-row {
+    min-height: 8mm;
+    line-height: 2;
+  }
+
+  .sheet--print-b1 .print-header-name-field {
+    min-height: 6mm;
   }
 
   .sheet--print-a4 .exercise-item.exercise-item--compact {
