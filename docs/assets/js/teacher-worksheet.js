@@ -334,8 +334,8 @@
       sheetHtml +=
         '<div class="print-worksheet-header print-worksheet-header--b1">' +
         '<div class="print-header-name-row"><strong>Student:</strong> ' +
-        '<span class="print-header-name-field">' +
-        (nameVal || "________________________________") +
+        '<span class="print-header-name-box">' +
+        (nameVal ? '<span class="print-header-name-text">' + nameVal + "</span>" : "") +
         "</span></div>" +
         '<div class="print-header-meta-row"><strong>Date:</strong> ' +
         (worksheetDate || "________") +

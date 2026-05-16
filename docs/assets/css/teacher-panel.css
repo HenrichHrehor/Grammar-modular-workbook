@@ -636,22 +636,35 @@
 }
 
 .sheet--print-b1 .print-header-name-row {
-  min-height: 7mm;
-  padding: 2mm 0 3mm 0;
-  margin-bottom: 2px;
-  border-bottom: 1px solid #333;
+  padding: 0 0 4px 0;
+  margin-bottom: 4px;
   font-size: 10px;
-  line-height: 2;
   display: flex;
-  align-items: flex-end;
-  gap: 6px;
+  align-items: center;
+  gap: 8px;
 }
 
-.sheet--print-b1 .print-header-name-field {
+.sheet--print-b1 .print-header-name-row strong {
+  flex-shrink: 0;
+  line-height: 1.2;
+}
+
+.sheet--print-b1 .print-header-name-box {
   flex: 1;
-  min-height: 5mm;
-  border-bottom: 1px solid #333;
-  padding-bottom: 2px;
+  min-height: 10mm;
+  border: 1.5px solid #333;
+  border-radius: 3px;
+  background: #fff;
+  display: block;
+  box-sizing: border-box;
+}
+
+.sheet--print-b1 .print-header-name-text {
+  display: block;
+  padding: 2mm 4mm;
+  font-size: 10px;
+  line-height: 1.3;
+  font-weight: normal;
 }
 
 .sheet--print-b1 .print-header-meta-row {
@@ -792,13 +805,14 @@
     margin: 0 0 4pt 0;
   }
 
-  .sheet--print-b1 .print-header-name-row {
-    min-height: 8mm;
-    line-height: 2;
+  .sheet--print-b1 .print-header-name-box {
+    min-height: 11mm;
+    border-width: 1pt;
   }
 
-  .sheet--print-b1 .print-header-name-field {
-    min-height: 6mm;
+  .sheet--print-b1 .print-header-name-text {
+    padding: 2mm 4mm;
+    font-size: 10pt;
   }
 
   .sheet--print-a4 .exercise-item.exercise-item--compact {
