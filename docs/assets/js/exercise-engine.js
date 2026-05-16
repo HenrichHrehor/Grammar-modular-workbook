@@ -169,24 +169,20 @@
   }
 
   function renderBottomActions() {
-    var existing = document.getElementById("exerciseActionsBottom");
-    if (existing) existing.remove();
-
-    var bar = document.createElement("div");
-    bar.id = "exerciseActionsBottom";
-    bar.className = "exercise-actions exercise-actions--bottom";
+    var bar = document.getElementById("exerciseActionsBottom");
+    if (!bar) {
+      bar = document.createElement("div");
+      bar.id = "exerciseActionsBottom";
+      bar.className = "exercise-actions exercise-actions--bottom";
+      bar.setAttribute("aria-label", "Check answers at bottom of page");
+    }
     bar.innerHTML =
       '<button type="button" class="check-btn check-btn--large" onclick="checkExercises()">✔️ Check answers</button>' +
       '<button type="button" class="new-set-btn" onclick="buildNewWorksheet()">🔄 New set</button>';
 
     var answerKey = document.getElementById("answerKey");
-    if (answerKey && answerKey.parentNode) {
+    if (answerKey && answerKey.parentNode && bar.nextElementSibling !== answerKey) {
       answerKey.parentNode.insertBefore(bar, answerKey);
-    } else {
-      var root = document.getElementById("exerciseSections");
-      if (root && root.parentNode) {
-        root.parentNode.appendChild(bar);
-      }
     }
   }
 
@@ -222,6 +218,91 @@
     item.appendChild(fb);
   }
 
+  var MOTIVATION_LEVELS = [
+    {
+      id: 1,
+      status: "Keep going",
+      message: "Every try helps you learn. Review the hints below and have another go.",
+      resultClass: "check-result--level-1"
+    },
+    {
+      id: 2,
+      status: "Try harder",
+      message: "You are building skills — focus on the red fields and try again.",
+      resultClass: "check-result--level-2"
+    },
+    {
+      id: 3,
+      status: "Good effort",
+      message: "Solid work. A bit more practice and you will move up to the next level.",
+      resultClass: "check-result--level-3"
+    },
+    {
+      id: 4,
+      status: "Well done",
+      message: "Strong result! Check the few mistakes and aim for a perfect run.",
+      resultClass: "check-result--level-4"
+    },
+    {
+      id: 5,
+      status: "Excellent",
+      message: "Almost perfect — brilliant Present Simple practice!",
+      resultClass: "check-result--level-5"
+    }
+  ];
+
+  function getMotivationLevel(correct, total) {
+    if (total === 0) return MOTIVATION_LEVELS[0];
+    if (correct === total) {
+      return {
+        id: 5,
+        status: "Perfect job",
+        message: "Outstanding! You answered every question correctly. 🎉",
+        resultClass: "check-result--level-5 check-result--perfect"
+      };
+    }
+    var percent = (correct / total) * 100;
+    if (percent < 20) return MOTIVATION_LEVELS[0];
+    if (percent < 40) return MOTIVATION_LEVELS[1];
+    if (percent < 60) return MOTIVATION_LEVELS[2];
+    if (percent < 80) return MOTIVATION_LEVELS[3];
+    return MOTIVATION_LEVELS[4];
+  }
+
+  function renderMotivationProgress(levelId) {
+    var html = '<div class="motivation-progress" aria-label="Progress level ' + levelId + ' of 5">';
+    for (var i = 1; i <= 5; i++) {
+      html +=
+        '<span class="motivation-step' +
+        (i <= levelId ? " motivation-step--active" : "") +
+        '"></span>';
+    }
+    html += "</div>";
+    return html;
+  }
+
+  function showCheckResult(correct, total) {
+    var result = document.getElementById("checkResult");
+    if (!result) return;
+
+    var level = getMotivationLevel(correct, total);
+    result.hidden = false;
+    result.className = "check-result " + level.resultClass;
+    result.innerHTML =
+      renderMotivationProgress(level.id) +
+      '<p class="motivation-status">' +
+      escapeHtml(level.status) +
+      "</p>" +
+      '<p class="motivation-score">' +
+      correct +
+      " out of " +
+      total +
+      " correct</p>" +
+      '<p class="motivation-message">' +
+      escapeHtml(level.message) +
+      "</p>";
+  }
+
   function checkExercises() {
     var fields = document.querySelectorAll(".exercise-input[data-answers]");
     var correct = 0;
@@ -236,15 +317,13 @@
       if (ok) correct++;
     });
 
-    var result = document.getElementById("checkResult");
-    if (result) {
-      result.hidden = false;
-      result.className = "check-result " + (correct === total ? "check-result--success" : "check-result--partial");
-      result.textContent =
-        correct === total
-          ? "✅ Excellent! All " + total + " answers are correct."
-          : "You got " + correct + " out of " + total + " correct. Review the highlighted fields and try again.";
+    showCheckResult(correct, total);
+
+    var resultEl = document.getElementById("checkResult");
+    if (resultEl) {
+      resultEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
+
     return { correct: correct, total: total };
   }
 

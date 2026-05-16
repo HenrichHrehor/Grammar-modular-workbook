@@ -116,10 +116,41 @@ button:hover {
   justify-content: center;
   align-items: center;
   margin: 28px 0 20px;
-  padding: 18px 12px;
-  border-top: 2px solid #e0e0e0;
-  background: linear-gradient(180deg, #f9fafc 0%, #ffffff 100%);
+  padding: 14px 16px;
+  border-top: 3px solid #ff9800;
+  background: #ffffff;
   border-radius: 8px;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Always-visible check bar on exercise pages */
+body[data-exercise-page] .sheet {
+  padding-bottom: 80px;
+}
+
+body[data-exercise-page] .exercise-actions--bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  margin: 0;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 -4px 20px rgba(102, 126, 234, 0.35);
+}
+
+body[data-exercise-page] .exercise-actions--bottom::before {
+  content: "Finished? Check your answers here ↓";
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: #667eea;
+  margin-bottom: 8px;
 }
 
 .check-result {
@@ -140,6 +171,85 @@ button:hover {
   background: #fff3cd;
   border: 1px solid #ffc107;
   color: #856404;
+}
+
+.motivation-progress {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.motivation-step {
+  width: 36px;
+  height: 8px;
+  border-radius: 4px;
+  background: #dde1ea;
+  transition: background 0.25s ease;
+}
+
+.motivation-step--active {
+  background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+.motivation-status {
+  margin: 0 0 4px 0;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.motivation-score {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.motivation-message {
+  margin: 0;
+  font-size: 14px;
+  font-weight: normal;
+  text-align: center;
+  line-height: 1.45;
+}
+
+.check-result--level-1 {
+  background: #fce4ec;
+  border: 1px solid #f48fb1;
+  color: #880e4f;
+}
+
+.check-result--level-2 {
+  background: #fff3e0;
+  border: 1px solid #ffb74d;
+  color: #e65100;
+}
+
+.check-result--level-3 {
+  background: #fff8e1;
+  border: 1px solid #ffd54f;
+  color: #f57f17;
+}
+
+.check-result--level-4 {
+  background: #e3f2fd;
+  border: 1px solid #64b5f6;
+  color: #0d47a1;
+}
+
+.check-result--level-5 {
+  background: #e8f5e9;
+  border: 1px solid #81c784;
+  color: #1b5e20;
+}
+
+.check-result--perfect .motivation-status {
+  font-size: 22px;
+}
+
+.check-result--perfect .motivation-step--active {
+  background: linear-gradient(90deg, #28a745, #20c997);
 }
 
 .exercise-input--correct {
@@ -501,7 +611,14 @@ h1 {
   .check-btn,
   .new-set-btn,
   .print-btn,
-  .exercise-actions--bottom,
+  .exercise-actions--bottom {
+    display: none !important;
+  }
+
+  body[data-exercise-page] .sheet {
+    padding-bottom: 0;
+  }
+
   .check-result,
   .apostrophe-hint,
   .exercise-feedback {
