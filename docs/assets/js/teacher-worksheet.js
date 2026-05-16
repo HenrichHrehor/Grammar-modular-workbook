@@ -2,6 +2,8 @@
   var PASSWORD = "AABBHH";
   var STORAGE_KEYS = { b1: "grammar_wb_b1_unlock", b2: "grammar_wb_b2_unlock" };
 
+  var PRINT_ITEMS_PER_SECTION = 3;
+
   var GRADE_LABELS = {
     1: "Needs more practice",
     2: "Developing",
@@ -42,7 +44,8 @@
     var cls = "print-blank";
     if (inputType === "phrase") cls += " print-blank--phrase";
     if (inputType === "sentence") cls += " print-blank--sentence";
-    var width = inputType === "sentence" ? "________________________" : inputType === "phrase" ? "____________________" : "_____________";
+    var width =
+      inputType === "sentence" ? "________________" : inputType === "phrase" ? "______________" : "__________";
     return '<span class="' + cls + '">' + width + "</span>";
   }
 
@@ -76,45 +79,50 @@
     sheetHtml += '<div><strong>Date:</strong> ' + (worksheetDate || "___________") + "</div>";
     sheetHtml += '<div class="print-meta"><strong>Level:</strong> ' + level.toUpperCase();
     sheetHtml += "<br><strong>Version:</strong> " + versionId + "</div></div>";
-    sheetHtml += "<h1>Present Simple — " + level.toUpperCase() + " Worksheet</h1>";
-    sheetHtml += '<p class="subtitle">Printable A4 practice (write answers on the lines)</p>';
+    sheetHtml += '<h1 class="print-title">Present Simple — ' + level.toUpperCase() + "</h1>";
+    sheetHtml += '<p class="print-subtitle">Single A4 page — print answer key on the reverse side</p>';
+    sheetHtml += '<div class="print-worksheet-grid">';
 
-    pool.sections.forEach(function (section, sIndex) {
-      var picked = pickItems(section.items, 5, versionMode, level);
+    pool.sections.forEach(function (section) {
+      var picked = pickItems(section.items, PRINT_ITEMS_PER_SECTION, versionMode, level);
       sectionsData.push({ title: section.title, items: picked });
-      if (sIndex === 2) {
-        sheetHtml += '<div style="page-break-before:always"></div>';
-      }
-      sheetHtml += '<div class="section"><h2>' + section.title + "</h2>";
-      sheetHtml += '<p class="section-instructions"><strong>Instructions:</strong> ' + section.instructions + "</p>";
+      sheetHtml += '<div class="section section--compact"><h2>' + section.title + "</h2>";
+      sheetHtml += '<p class="section-instructions">' + section.instructions + "</p>";
       picked.forEach(function (item, i) {
-        sheetHtml += '<div class="exercise-item">' + renderPrintItem(item, i + 1) + "</div>";
+        sheetHtml += '<div class="exercise-item exercise-item--compact">' + renderPrintItem(item, i + 1) + "</div>";
       });
       sheetHtml += "</div>";
     });
+
+    sheetHtml += "</div>";
 
     var selectedGrade = document.querySelector('input[name="teacherGrade"]:checked');
     var gradeNum = selectedGrade ? selectedGrade.value : "";
     var gradeNote = gradeNum ? GRADE_LABELS[gradeNum] : "Teacher assessment";
 
-    sheetHtml += '<div class="print-grade-row"><strong>Assessment scale (1–5):</strong> ' + gradeNote;
-    sheetHtml += '<div class="print-grade-circles">';
+    sheetHtml += '<div class="print-grade-row print-grade-row--compact"><span><strong>Grade 1–5:</strong> ' + gradeNote + "</span>";
+    sheetHtml += '<span class="print-grade-circles">';
     for (var g = 1; g <= 5; g++) {
-      sheetHtml += "<span><span class=\"circle\"></span> " + g + "</span>";
+      sheetHtml += "<span><span class=\"circle\"></span>" + g + "</span>";
     }
-    sheetHtml += "</div></div>";
+    sheetHtml += "</span></div>";
 
     root.innerHTML = sheetHtml;
 
     if (answerRoot) {
-      answerRoot.innerHTML = "<h3>✅ Answer Key — " + versionId + "</h3>";
+      var keyHtml =
+        "<h3>✅ Answer Key (reverse side) — " +
+        versionId +
+        '</h3><p class="print-subtitle">Turn the sheet over — same version ID as the worksheet</p>';
       sectionsData.forEach(function (block) {
-        answerRoot.innerHTML += "<h4>" + block.title + "</h4>";
+        keyHtml += "<h4>" + block.title + "</h4><div class=\"print-answer-grid\">";
         block.items.forEach(function (item, i) {
-          answerRoot.innerHTML +=
+          keyHtml +=
             '<div class="print-answer-item"><strong>' + (i + 1) + ".</strong> " + item.answers.join(" / ") + "</div>";
         });
+        keyHtml += "</div>";
       });
+      answerRoot.innerHTML = keyHtml;
     }
 
     var versionLabel = document.getElementById("versionLabel");
@@ -173,8 +181,31 @@
 
   window.buildTeacherWorksheet = buildWorksheet;
   window.togglePrintAnswerKey = togglePrintAnswerKey;
+  function setPrintMode(mode) {
+    document.body.classList.remove("printing-worksheet", "printing-answers");
+    if (mode) {
+      document.body.classList.add(mode);
+    }
+  }
+
   window.printTeacherSheet = function () {
+    setPrintMode("printing-worksheet");
     window.print();
+    setTimeout(function () {
+      setPrintMode("");
+    }, 500);
+  };
+
+  window.printAnswerKeyReverse = function () {
+    var key = document.getElementById("printAnswerKey");
+    if (key) {
+      key.classList.add("visible");
+    }
+    setPrintMode("printing-answers");
+    window.print();
+    setTimeout(function () {
+      setPrintMode("");
+    }, 500);
   };
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -226,5 +257,8 @@
 
     var btnPrint = document.getElementById("btnPrintSheet");
     if (btnPrint) btnPrint.addEventListener("click", window.printTeacherSheet);
+
+    var btnPrintReverse = document.getElementById("btnPrintAnswerReverse");
+    if (btnPrintReverse) btnPrintReverse.addEventListener("click", window.printAnswerKeyReverse);
   });
 })();
