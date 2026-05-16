@@ -90,6 +90,7 @@
     field.setAttribute("data-answers", answers);
     field.setAttribute("data-section", sectionId);
     field.setAttribute("aria-label", sectionId + ", question " + (index + 1));
+    bindRetryOnInput(field);
     return field;
   }
 
@@ -187,11 +188,29 @@
   }
 
   function clearCheckState() {
+    document.body.classList.remove("exercise-checked");
     document.querySelectorAll(".exercise-input").forEach(function (el) {
       el.classList.remove("exercise-input--correct", "exercise-input--incorrect");
     });
     document.querySelectorAll(".exercise-feedback").forEach(function (el) {
       el.remove();
+    });
+  }
+
+  function clearFieldFeedback(field) {
+    field.classList.remove("exercise-input--correct", "exercise-input--incorrect");
+    var item = field.closest(".exercise-item");
+    if (!item) return;
+    var fb = item.querySelector(".exercise-feedback");
+    if (fb) fb.remove();
+  }
+
+  function bindRetryOnInput(field) {
+    field.addEventListener("input", function () {
+      if (!document.body.classList.contains("exercise-checked")) {
+        return;
+      }
+      clearFieldFeedback(field);
     });
   }
 
@@ -307,6 +326,8 @@
     var fields = document.querySelectorAll(".exercise-input[data-answers]");
     var correct = 0;
     var total = fields.length;
+
+    document.body.classList.add("exercise-checked");
 
     fields.forEach(function (field) {
       var answers = field.getAttribute("data-answers").split("|");
