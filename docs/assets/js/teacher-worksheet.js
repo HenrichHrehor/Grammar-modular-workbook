@@ -2,7 +2,17 @@
   var PASSWORD = "AABBHH";
   var STORAGE_KEYS = { b1: "grammar_wb_b1_unlock", b2: "grammar_wb_b2_unlock" };
 
-  var PRINT_ITEMS_PER_SECTION = 3;
+  var PRINT_ITEMS_PER_SECTION = 5;
+  var SECTION_POINTS = 5;
+  var TOTAL_POINTS = 20;
+  var WORKSHEET_LAYOUT_TAG = "5Q-SCORE-v2";
+
+  var SECTION_PRINT_LABELS = {
+    ex1: { title: "1. -s / -es / -ies", hint: "he/she/it" },
+    ex2: { title: "2. Affirmative", hint: "verb in ( )" },
+    ex3: { title: "3. Negative", hint: "don't / doesn't" },
+    ex4: { title: "4. Questions", hint: "Do / Does" }
+  };
 
   var GRADE_LABELS = {
     1: "Needs more practice",
@@ -36,7 +46,7 @@
       return copy.slice(0, count);
     }
     var versionNum = parseInt(mode, 10) || 1;
-    var start = ((versionNum - 1) * 2) % Math.max(1, copy.length - count + 1);
+    var start = ((versionNum - 1) * count) % Math.max(1, copy.length - count + 1);
     return copy.slice(start, start + count);
   }
 
@@ -45,8 +55,18 @@
     if (inputType === "phrase") cls += " print-blank--phrase";
     if (inputType === "sentence") cls += " print-blank--sentence";
     var width =
-      inputType === "sentence" ? "________________" : inputType === "phrase" ? "______________" : "__________";
+      inputType === "sentence" ? "_____________" : inputType === "phrase" ? "___________" : "_______";
     return '<span class="' + cls + '">' + width + "</span>";
+  }
+
+  function printScoreLine(maxPoints) {
+    return (
+      '<p class="print-section-score">' +
+      '<span class="print-score-dots">................</span>' +
+      "<span class=\"print-score-label\"> / " +
+      maxPoints +
+      " points</span></p>"
+    );
   }
 
   function renderPrintItem(item, num) {
@@ -74,36 +94,58 @@
     var nameVal = studentName ? studentName.value.trim() : "";
     var sectionsData = [];
 
-    var sheetHtml = '<div class="print-worksheet-header">';
-    sheetHtml += "<div><strong>Student:</strong> " + (nameVal || "________________________") + "</div>";
-    sheetHtml += '<div><strong>Date:</strong> ' + (worksheetDate || "___________") + "</div>";
-    sheetHtml += '<div class="print-meta"><strong>Level:</strong> ' + level.toUpperCase();
-    sheetHtml += "<br><strong>Version:</strong> " + versionId + "</div></div>";
+    var sheetHtml = '<div class="print-worksheet-header print-worksheet-header--one-line">';
+    sheetHtml +=
+      "<span><strong>St:</strong> " +
+      (nameVal || "________________") +
+      " &nbsp; <strong>Date:</strong> " +
+      (worksheetDate || "________") +
+      ' &nbsp; <span class="print-meta"><strong>' +
+      level.toUpperCase() +
+      "</strong> · " +
+      versionId +
+      " · " +
+      WORKSHEET_LAYOUT_TAG +
+      "</span></span></div>";
     sheetHtml += '<h1 class="print-title">Present Simple — ' + level.toUpperCase() + "</h1>";
-    sheetHtml += '<p class="print-subtitle">Single A4 page — print answer key on the reverse side</p>';
     sheetHtml += '<div class="print-worksheet-grid">';
 
     pool.sections.forEach(function (section) {
       var picked = pickItems(section.items, PRINT_ITEMS_PER_SECTION, versionMode, level);
+      var labels = SECTION_PRINT_LABELS[section.id] || { title: section.title, hint: "" };
       sectionsData.push({ title: section.title, items: picked });
-      sheetHtml += '<div class="section section--compact"><h2>' + section.title + "</h2>";
-      sheetHtml += '<p class="section-instructions">' + section.instructions + "</p>";
+      var sectionTitle = labels.title;
+      if (labels.hint) {
+        sectionTitle += ' <span class="section-hint-inline">(' + labels.hint + ")</span>";
+      }
+      sheetHtml += '<div class="section section--compact"><h2>' + sectionTitle + "</h2>";
       picked.forEach(function (item, i) {
-        sheetHtml += '<div class="exercise-item exercise-item--compact">' + renderPrintItem(item, i + 1) + "</div>";
+        sheetHtml +=
+          '<div class="exercise-item exercise-item--compact">' + renderPrintItem(item, i + 1) + "</div>";
       });
+      sheetHtml += printScoreLine(SECTION_POINTS);
       sheetHtml += "</div>";
     });
 
     sheetHtml += "</div>";
+    sheetHtml +=
+      '<div class="print-total-score"><strong>Total score:</strong> ' +
+      '<span class="print-score-dots">................</span>' +
+      '<span class="print-score-label"> / ' +
+      TOTAL_POINTS +
+      " points</div>";
 
     var selectedGrade = document.querySelector('input[name="teacherGrade"]:checked');
     var gradeNum = selectedGrade ? selectedGrade.value : "";
     var gradeNote = gradeNum ? GRADE_LABELS[gradeNum] : "Teacher assessment";
 
-    sheetHtml += '<div class="print-grade-row print-grade-row--compact"><span><strong>Grade 1–5:</strong> ' + gradeNote + "</span>";
+    sheetHtml +=
+      '<div class="print-grade-row print-grade-row--compact"><span><strong>Grade:</strong> ' +
+      gradeNote +
+      "</span>";
     sheetHtml += '<span class="print-grade-circles">';
     for (var g = 1; g <= 5; g++) {
-      sheetHtml += "<span><span class=\"circle\"></span>" + g + "</span>";
+      sheetHtml += '<span><span class="circle"></span>' + g + "</span>";
     }
     sheetHtml += "</span></div>";
 

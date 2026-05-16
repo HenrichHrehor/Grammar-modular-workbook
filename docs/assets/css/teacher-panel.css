@@ -139,27 +139,28 @@
   cursor: pointer;
 }
 
-/* Single A4 printable worksheet */
+/* Single A4 printable worksheet — student-friendly (5 tasks × 4 parts) */
 .sheet--print-a4 {
   width: 210mm;
   max-width: 210mm;
   min-height: auto;
-  max-height: 277mm;
-  padding: 7mm 8mm;
+  padding: 6mm 7mm;
   box-sizing: border-box;
   margin: 0 auto;
-  font-size: 10px;
-  line-height: 1.25;
+  font-size: 9.5px;
+  line-height: 1.5;
 }
 
 .sheet--print-a4 .print-title {
-  font-size: 15px;
-  margin: 4px 0;
+  font-size: 13px;
+  margin: 3px 0 6px 0;
+  padding: 0;
   text-align: center;
+  line-height: 1.25;
 }
 
 .sheet--print-a4 .print-subtitle {
-  font-size: 9px;
+  font-size: 8.5px;
   margin: 0 0 6px 0;
   text-align: center;
   color: #555;
@@ -171,65 +172,122 @@
   justify-content: space-between;
   align-items: flex-start;
   font-size: 9px;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   padding-bottom: 4px;
   border-bottom: 1px solid #333;
+}
+
+.print-worksheet-header--one-line {
+  display: block;
+  font-size: 9px;
+  line-height: 1.4;
 }
 
 .print-meta {
   font-size: 8px;
   color: #555;
-  text-align: right;
 }
 
 .print-worksheet-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 5px 8px;
+  gap: 6px 10px;
+  align-content: start;
 }
 
-.section--compact {
+.sheet--print-a4 .section.section--compact {
   padding: 5px 6px !important;
   margin-bottom: 0 !important;
   background: #fafbfc !important;
+  border-radius: 4px;
+  border: 1px solid #d0d4e0 !important;
 }
 
-.section--compact h2 {
-  font-size: 10px !important;
-  margin: 0 0 3px 0 !important;
-  padding-bottom: 2px !important;
-  line-height: 1.2;
+.sheet--print-a4 .section--compact h2 {
+  font-size: 9.5px !important;
+  margin: 0 0 4px 0 !important;
+  padding-bottom: 3px !important;
+  line-height: 1.3 !important;
+  border-bottom: 1px solid #ccc !important;
+  color: #333 !important;
+}
+
+.section--compact .section-hint-inline {
+  font-weight: normal;
+  font-size: 8px;
+  color: #555;
 }
 
 .section--compact .section-instructions {
-  font-size: 8px !important;
-  margin: 0 0 4px 0 !important;
-  line-height: 1.2;
+  display: none;
 }
 
-.exercise-item--compact {
-  margin: 2px 0 !important;
+.sheet--print-a4 .exercise-item.exercise-item--compact {
+  margin: 0 0 2px 0 !important;
   padding: 2px 4px !important;
   font-size: 9px !important;
-  line-height: 1.25 !important;
+  line-height: 2 !important;
   border-left-width: 2px !important;
+  background: transparent !important;
+}
+
+.exercise-item--compact strong {
+  font-size: 9px;
+}
+
+.print-section-score {
+  margin: 4px 0 0 0;
+  padding: 0;
+  text-align: right;
+  font-size: 8.5px;
+  line-height: 1.4;
+}
+
+.print-score-dots {
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #333;
+  padding: 0 2px 1px 2px;
+  color: transparent;
+  user-select: none;
+}
+
+.print-score-label {
+  color: #333;
+  font-weight: bold;
+}
+
+.print-total-score {
+  margin-top: 6px;
+  padding: 5px 8px;
+  text-align: center;
+  font-size: 10px;
+  line-height: 1.5;
+  border: 1.5px solid #333;
+  border-radius: 4px;
+  background: #f5f7ff;
+}
+
+.print-total-score .print-score-dots {
+  min-width: 72px;
+  display: inline-block;
 }
 
 .print-blank {
   display: inline-block;
-  min-width: 52px;
+  min-width: 44px;
   border-bottom: 1px solid #003399;
   color: transparent;
   vertical-align: bottom;
   line-height: 1;
+  font-size: 9px;
 }
 
 .print-blank--phrase {
-  min-width: 88px;
+  min-width: 72px;
 }
 
 .print-blank--sentence {
-  min-width: 100px;
+  min-width: 88px;
 }
 
 .print-grade-row--compact {
@@ -243,21 +301,27 @@
   border: 1px solid #333;
   border-radius: 4px;
   font-size: 9px;
+  line-height: 1.4;
 }
 
 .print-grade-row--compact .print-grade-circles {
   display: flex;
   gap: 8px;
   margin: 0;
+  flex-shrink: 0;
 }
 
 .print-grade-circles .circle {
   display: inline-block;
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   border: 1.5px solid #333;
   border-radius: 50%;
   vertical-align: middle;
+}
+
+.print-grade-circles span {
+  font-size: 8.5px;
 }
 
 /* Answer key — separate A4 (reverse side) */
@@ -307,7 +371,7 @@
 @media print {
   @page {
     size: A4 portrait;
-    margin: 8mm;
+    margin: 5mm;
   }
 
   .teacher-gate,
@@ -344,13 +408,27 @@
     box-shadow: none;
     width: 100%;
     max-width: none;
-    max-height: none;
     padding: 0;
+    font-size: 9pt;
+    line-height: 1.5;
     page-break-after: avoid;
     page-break-inside: avoid;
   }
 
-  .print-worksheet-grid {
+  .sheet--print-a4 .print-title {
+    font-size: 12pt;
+    margin: 0 0 4pt 0;
+  }
+
+  .sheet--print-a4 .exercise-item.exercise-item--compact {
+    line-height: 2 !important;
+    font-size: 9pt !important;
+  }
+
+  .print-worksheet-grid,
+  .section--compact,
+  .print-grade-row--compact,
+  .print-total-score {
     page-break-inside: avoid;
   }
 }
