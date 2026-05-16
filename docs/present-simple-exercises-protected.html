@@ -6,7 +6,7 @@
   <title>Present Simple — Practice (Protected answers)</title>
   <link rel="stylesheet" href="assets/css/workbook.css">
 </head>
-<body>
+<body data-exercise-page="standard">
 
 <div class="sheet">
 
@@ -15,10 +15,13 @@
       <a href="present-simple-contents.html" class="nav-btn">📖 Contents</a>
       <a href="present-simple-grammar.html" class="nav-btn">📚 Grammar</a>
       <a href="present-simple-exercises.html" class="nav-btn">✏️ Exercises</a>
+      <a href="present-simple-exercises-v2.html" class="nav-btn">🔄 Set B</a>
       <a href="present-simple-b1.html" class="nav-btn">🎯 B1</a>
       <a href="present-simple-b2.html" class="nav-btn">🚀 B2</a>
     </div>
     <div class="nav-right">
+      <button type="button" class="check-btn" onclick="checkExercises()">✔️ Check</button>
+      <button type="button" class="new-set-btn" onclick="buildNewWorksheet()">🔄 New set</button>
       <button type="button" class="answers-btn" onclick="toggleAnswers()">✅ Answers</button>
       <button type="button" class="print-btn" onclick="window.print()">🖨️ Print</button>
     </div>
@@ -29,142 +32,22 @@
       <div><strong>Student:</strong></div>
       <div><strong>Date:</strong> <input type="date" class="date-input" aria-label="Worksheet date"></div>
     </div>
-    <div class="page-tag">🔒 Protected — answers require password</div>
+    <div class="page-tag">🔒 Protected — Check works; answer key needs password</div>
   </div>
 
   <h1>Present Simple Exercises</h1>
-  <p class="subtitle">Practice affirmative, negative, and question forms</p>
+  <p class="subtitle">Practice forms — students can <strong>Check</strong> answers; teachers unlock the full answer key with a password</p>
 
-  <div class="section">
-    <h2>Exercise 1: Add -s/-es/-ies to the verb</h2>
-    <p style="font-size: 13px; margin-bottom: 10px;"><strong>Instructions:</strong> Write the correct form of the verb for "he/she/it".</p>
-    <div class="exercise-item">
-      <strong>1.</strong> She (play) <input type="text" class="exercise-input exercise-input--short" autocomplete="off" spellcheck="false"> tennis every Saturday.
-    </div>
-    <div class="exercise-item">
-      <strong>2.</strong> He (watch) <input type="text" class="exercise-input exercise-input--short" autocomplete="off" spellcheck="false"> TV in the evening.
-    </div>
-    <div class="exercise-item">
-      <strong>3.</strong> My brother (study) <input type="text" class="exercise-input exercise-input--short" autocomplete="off" spellcheck="false"> English at university.
-    </div>
-    <div class="exercise-item">
-      <strong>4.</strong> The train (go) <input type="text" class="exercise-input exercise-input--short" autocomplete="off" spellcheck="false"> to London every morning.
-    </div>
-    <div class="exercise-item">
-      <strong>5.</strong> She (do) <input type="text" class="exercise-input exercise-input--short" autocomplete="off" spellcheck="false"> her homework after school.
-    </div>
-  </div>
+  <div id="checkResult" class="check-result" hidden></div>
 
-  <div class="section">
-    <h2>Exercise 2: Complete the affirmative sentences</h2>
-    <p style="font-size: 13px; margin-bottom: 10px;"><strong>Instructions:</strong> Use the correct form of the verb in brackets.</p>
-    <div class="exercise-item">
-      <strong>1.</strong> I (like) <input type="text" class="exercise-input exercise-input--short" autocomplete="off" spellcheck="false"> chocolate ice cream.
-    </div>
-    <div class="exercise-item">
-      <strong>2.</strong> My friends (live) <input type="text" class="exercise-input exercise-input--short" autocomplete="off" spellcheck="false"> in a big city.
-    </div>
-    <div class="exercise-item">
-      <strong>3.</strong> The shop (open) <input type="text" class="exercise-input exercise-input--short" autocomplete="off" spellcheck="false"> at 9 o'clock.
-    </div>
-    <div class="exercise-item">
-      <strong>4.</strong> We (speak) <input type="text" class="exercise-input exercise-input--short" autocomplete="off" spellcheck="false"> English in class.
-    </div>
-    <div class="exercise-item">
-      <strong>5.</strong> My cat (sleep) <input type="text" class="exercise-input exercise-input--short" autocomplete="off" spellcheck="false"> on the sofa every day.
-    </div>
-  </div>
+  <div id="exerciseSections"></div>
 
-  <div style="page-break-before: always;"></div>
-
-  <div class="section">
-    <h2>Exercise 3: Make negative sentences</h2>
-    <p style="font-size: 13px; margin-bottom: 10px;"><strong>Instructions:</strong> Use "do not" or "does not" + base verb.</p>
-    <div class="exercise-item">
-      <strong>1.</strong> I (like) spicy food.<br>
-      → I <input type="text" class="exercise-input exercise-input--phrase" autocomplete="off" spellcheck="false"> spicy food.
-    </div>
-    <div class="exercise-item">
-      <strong>2.</strong> She (play) basketball.<br>
-      → She <input type="text" class="exercise-input exercise-input--phrase" autocomplete="off" spellcheck="false"> basketball.
-    </div>
-    <div class="exercise-item">
-      <strong>3.</strong> They (work) on Sundays.<br>
-      → They <input type="text" class="exercise-input exercise-input--phrase" autocomplete="off" spellcheck="false"> on Sundays.
-    </div>
-    <div class="exercise-item">
-      <strong>4.</strong> He (drink) coffee.<br>
-      → He <input type="text" class="exercise-input exercise-input--phrase" autocomplete="off" spellcheck="false"> coffee.
-    </div>
-    <div class="exercise-item">
-      <strong>5.</strong> My parents (watch) TV in the morning.<br>
-      → My parents <input type="text" class="exercise-input exercise-input--phrase" autocomplete="off" spellcheck="false"> TV in the morning.
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Exercise 4: Make questions</h2>
-    <p style="font-size: 13px; margin-bottom: 10px;"><strong>Instructions:</strong> Use "Do" or "Does" + subject + base verb.</p>
-    <div class="exercise-item">
-      <strong>1.</strong> You speak French.<br>
-      → <input type="text" class="exercise-input exercise-input--phrase" autocomplete="off" spellcheck="false"> French?
-    </div>
-    <div class="exercise-item">
-      <strong>2.</strong> She likes pizza.<br>
-      → <input type="text" class="exercise-input exercise-input--phrase" autocomplete="off" spellcheck="false"> pizza?
-    </div>
-    <div class="exercise-item">
-      <strong>3.</strong> They live in London.<br>
-      → <input type="text" class="exercise-input exercise-input--phrase" autocomplete="off" spellcheck="false"> in London?
-    </div>
-    <div class="exercise-item">
-      <strong>4.</strong> He works in a bank.<br>
-      → <input type="text" class="exercise-input exercise-input--phrase" autocomplete="off" spellcheck="false"> in a bank?
-    </div>
-    <div class="exercise-item">
-      <strong>5.</strong> Your brother studies medicine.<br>
-      → <textarea class="exercise-input exercise-input--sentence" rows="2" aria-label="Exercise 4, question 5" autocomplete="off" spellcheck="false"></textarea> medicine?
-    </div>
-  </div>
-
-  <div id="answerKey" class="answer-key">
-    <h3>✅ Answer Key</h3>
-    <div class="answer-section">
-      <h4>Exercise 1: Add -s/-es/-ies</h4>
-      <div class="answer-item"><strong>1.</strong> plays</div>
-      <div class="answer-item"><strong>2.</strong> watches</div>
-      <div class="answer-item"><strong>3.</strong> studies</div>
-      <div class="answer-item"><strong>4.</strong> goes</div>
-      <div class="answer-item"><strong>5.</strong> does</div>
-    </div>
-    <div class="answer-section">
-      <h4>Exercise 2: Affirmative sentences</h4>
-      <div class="answer-item"><strong>1.</strong> like</div>
-      <div class="answer-item"><strong>2.</strong> live</div>
-      <div class="answer-item"><strong>3.</strong> opens</div>
-      <div class="answer-item"><strong>4.</strong> speak</div>
-      <div class="answer-item"><strong>5.</strong> sleeps</div>
-    </div>
-    <div class="answer-section">
-      <h4>Exercise 3: Negative sentences</h4>
-      <div class="answer-item"><strong>1.</strong> do not like / don't like</div>
-      <div class="answer-item"><strong>2.</strong> does not play / doesn't play</div>
-      <div class="answer-item"><strong>3.</strong> do not work / don't work</div>
-      <div class="answer-item"><strong>4.</strong> does not drink / doesn't drink</div>
-      <div class="answer-item"><strong>5.</strong> do not watch / don't watch</div>
-    </div>
-    <div class="answer-section">
-      <h4>Exercise 4: Questions</h4>
-      <div class="answer-item"><strong>1.</strong> Do you speak</div>
-      <div class="answer-item"><strong>2.</strong> Does she like</div>
-      <div class="answer-item"><strong>3.</strong> Do they live</div>
-      <div class="answer-item"><strong>4.</strong> Does he work</div>
-      <div class="answer-item"><strong>5.</strong> Does your brother study</div>
-    </div>
-  </div>
+  <div id="answerKey" class="answer-key"></div>
 
 </div>
 
+<script src="assets/js/exercise-pool-present-simple.js"></script>
+<script src="assets/js/exercise-engine.js"></script>
 <script src="assets/js/workbook.js"></script>
 <script>
 (function () {

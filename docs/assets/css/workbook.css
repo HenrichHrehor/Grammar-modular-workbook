@@ -96,6 +96,49 @@ button:hover {
   background: #28a745;
 }
 
+.check-btn {
+  background: #ff9800;
+}
+
+.new-set-btn {
+  background: #6c5ce7;
+}
+
+.check-result {
+  margin: 12px 0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.check-result--success {
+  background: #d4edda;
+  border: 1px solid #28a745;
+  color: #155724;
+}
+
+.check-result--partial {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  color: #856404;
+}
+
+.exercise-input--correct {
+  border-color: #28a745 !important;
+  background: #f0fff4 !important;
+}
+
+.exercise-input--incorrect {
+  border-color: #dc3545 !important;
+  background: #fff5f5 !important;
+}
+
+.section-instructions {
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
 /* TOP BAR */
 .top-bar {
   display: flex;
@@ -396,7 +439,10 @@ h1 {
 
   .nav-bar,
   .answers-btn,
-  .print-btn {
+  .check-btn,
+  .new-set-btn,
+  .print-btn,
+  .check-result {
     display: none !important;
   }
 

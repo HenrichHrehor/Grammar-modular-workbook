@@ -6,6 +6,9 @@ function toggleAnswers() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  if (document.getElementById("exerciseSections")) {
+    return;
+  }
   document.querySelectorAll(".section").forEach(function (section) {
     var heading = section.querySelector("h2");
     if (!heading || !section.querySelector(".exercise-input")) {
