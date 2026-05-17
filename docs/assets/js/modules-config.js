@@ -5,6 +5,7 @@ window.GRAMMAR_MODULES = {
   "present-simple": {
     id: "present-simple",
     label: "Present Simple",
+    contentsLabel: "Module map",
     icon: "📗",
     status: "active",
     contentsUrl: "present-simple-contents.html",

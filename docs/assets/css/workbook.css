@@ -778,6 +778,22 @@ body.site-home {
   margin-bottom: 32px;
 }
 
+.home-section--module-map-first {
+  margin-bottom: 28px;
+}
+
+.site-modules--featured .site-module--module-map {
+  border-color: #667eea;
+  border-width: 2px;
+  background: #f5f7ff;
+}
+
+@media (min-width: 640px) {
+  .site-modules--featured {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
+
 .home-section-head {
   margin-bottom: 16px;
 }

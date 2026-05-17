@@ -1,66 +1,31 @@
 (function () {
   var HOME = { label: "Home", href: "contents.html" };
+  var MODULE_MAP = { label: "Module map", href: "present-simple-contents.html" };
 
   var ROUTES = {
     "contents.html": [HOME],
     "index.html": [HOME],
-    "present-simple-contents.html": [HOME, { label: "Present Simple", href: "present-simple-contents.html" }, { label: "Module map" }],
+    "present-simple-contents.html": [HOME, { label: "Module map" }],
     "present-continuous-contents.html": [
       HOME,
       { label: "Present Continuous", href: "present-continuous-contents.html" },
       { label: "Module map" }
     ],
-    "present-simple-grammar.html": [
-      HOME,
-      { label: "Present Simple", href: "present-simple-contents.html" },
-      { label: "Grammar" }
-    ],
+    "present-simple-grammar.html": [HOME, MODULE_MAP, { label: "Grammar" }],
     "grammar-appendix-passive.html": [
       HOME,
-      { label: "Present Simple", href: "present-simple-contents.html" },
+      MODULE_MAP,
       { label: "Grammar appendix" },
       { label: "Passive voice" }
     ],
-    "present-simple-exercises.html": [
-      HOME,
-      { label: "Present Simple", href: "present-simple-contents.html" },
-      { label: "Practice" }
-    ],
-    "present-simple-exercises-b2.html": [
-      HOME,
-      { label: "Present Simple", href: "present-simple-contents.html" },
-      { label: "Practice B2" }
-    ],
-    "present-simple-exercises-c1.html": [
-      HOME,
-      { label: "Present Simple", href: "present-simple-contents.html" },
-      { label: "Practice C1" }
-    ],
-    "present-simple-exercises-v2.html": [
-      HOME,
-      { label: "Present Simple", href: "present-simple-contents.html" },
-      { label: "Practice" }
-    ],
-    "present-simple-exercises-protected.html": [
-      HOME,
-      { label: "Present Simple", href: "present-simple-contents.html" },
-      { label: "Protected practice" }
-    ],
-    "present-simple-b1.html": [
-      HOME,
-      { label: "Present Simple", href: "present-simple-contents.html" },
-      { label: "Teacher print B1" }
-    ],
-    "present-simple-b2.html": [
-      HOME,
-      { label: "Present Simple", href: "present-simple-contents.html" },
-      { label: "Teacher print B2" }
-    ],
-    "present-simple-c1.html": [
-      HOME,
-      { label: "Present Simple", href: "present-simple-contents.html" },
-      { label: "Teacher print C1" }
-    ]
+    "present-simple-exercises.html": [HOME, MODULE_MAP, { label: "Practice" }],
+    "present-simple-exercises-b2.html": [HOME, MODULE_MAP, { label: "Practice B2" }],
+    "present-simple-exercises-c1.html": [HOME, MODULE_MAP, { label: "Practice C1" }],
+    "present-simple-exercises-v2.html": [HOME, MODULE_MAP, { label: "Practice" }],
+    "present-simple-exercises-protected.html": [HOME, MODULE_MAP, { label: "Protected practice" }],
+    "present-simple-b1.html": [HOME, MODULE_MAP, { label: "Teacher print B1" }],
+    "present-simple-b2.html": [HOME, MODULE_MAP, { label: "Teacher print B2" }],
+    "present-simple-c1.html": [HOME, MODULE_MAP, { label: "Teacher print C1" }]
   };
 
   function getFileName() {
@@ -78,7 +43,7 @@
         return { label: c.label, href: c.href };
       });
     } else if (file.indexOf("present-simple") === 0) {
-      crumbs = [HOME, { label: "Present Simple", href: "present-simple-contents.html" }, { label: file }];
+      crumbs = [HOME, MODULE_MAP, { label: file }];
     } else {
       crumbs = [HOME, { label: file }];
     }

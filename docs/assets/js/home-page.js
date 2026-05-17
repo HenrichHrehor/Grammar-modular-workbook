@@ -25,8 +25,8 @@
       icon: "❓"
     },
     {
-      title: "Module map — grammar area",
-      desc: "Verb tenses scroll + appendix overview.",
+      title: "Module map",
+      desc: "Present Simple — grammar, practice, and teacher print paths.",
       href: "present-simple-contents.html",
       icon: "📖"
     },
