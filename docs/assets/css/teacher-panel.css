@@ -47,6 +47,10 @@
   min-height: 1.2em;
 }
 
+.teacher-gate .gate-error.gate-error--fail {
+  font-weight: 600;
+}
+
 .teacher-gate-nav {
   margin-top: 20px;
   padding-top: 16px;

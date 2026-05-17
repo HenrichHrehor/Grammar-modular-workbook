@@ -1,8 +1,5 @@
 (function () {
-  function teacherGateSecret() {
-    return atob("QUFCQkhI");
-  }
-  var PASSWORD = teacherGateSecret();
+  var TEACHER_GATE_PASSWORD = "AABBHH";
   var STORAGE_KEYS = {
     b1: "grammar_wb_b1_unlock",
     b2: "grammar_wb_b2_unlock",
@@ -673,10 +670,15 @@
     if (isTeacherPrintV7()) updateTeacherScoreCalculatorDisplay();
   }
 
+  function normalizeGateInput(value) {
+    return String(value || "")
+      .trim()
+      .replace(/\s+/g, "")
+      .toUpperCase();
+  }
+
   function gatePasswordMatches(value) {
-    var entered = String(value || "").trim();
-    if (!entered) return false;
-    return entered === PASSWORD || entered.toUpperCase() === PASSWORD;
+    return normalizeGateInput(value) === TEACHER_GATE_PASSWORD;
   }
 
   function pageHref(subpath) {
@@ -727,9 +729,14 @@
     if (!input) return;
     if (gatePasswordMatches(input.value)) {
       unlock(getLevel());
-      if (err) err.textContent = "";
+      if (err) {
+        err.textContent = "";
+        err.classList.remove("gate-error--fail");
+      }
     } else if (err) {
-      err.textContent = "Incorrect password. Check spelling and try again, or use the links below to go back.";
+      err.classList.add("gate-error--fail");
+      err.textContent =
+        "Incorrect password. Use 6 letters, all caps, no spaces. Or use the links below to go back.";
     }
   }
 
