@@ -80,6 +80,64 @@ window.PRESENT_CONTINUOUS_POOL_C1 = {
         { html: "<strong>9.</strong> The parties are reaching an agreement.<br>→ {{input}} an agreement?", inputType: "phrase", answers: ["are the parties reaching"] },
         { html: "<strong>10.</strong> I am oversimplifying the issue.<br>→ {{input}} the issue?", inputType: "phrase", answers: ["am i oversimplifying"] }
       ]
+    },
+    {
+      id: "ex5",
+      title: "Exercise 5: Transform the affirmative sentence",
+      instructions: "Boxes 1–2: negative. Boxes 3–4: question.",
+      printType: "transform-grid",
+      teacherPrintOnly: true,
+      printCount: 4,
+      items: [
+        {
+          affirmative: "The committee is examining the evidence.",
+          instruction: "Make it negative.",
+          transformType: "negative",
+          answer: "The committee is not examining the evidence."
+        },
+        {
+          affirmative: "Stakeholders are pushing for immediate reform.",
+          instruction: "Make it negative.",
+          transformType: "negative",
+          answer: "Stakeholders are not pushing for immediate reform."
+        },
+        {
+          affirmative: "The government is negotiating the terms of the agreement.",
+          instruction: "Transform to question.",
+          transformType: "question",
+          answer: "Is the government negotiating the terms of the agreement?"
+        },
+        {
+          affirmative: "She is overseeing the independent inquiry.",
+          instruction: "Transform to the question.",
+          transformType: "question",
+          answer: "Is she overseeing the independent inquiry?"
+        },
+        {
+          affirmative: "The figures are improving steadily.",
+          instruction: "Make it negative.",
+          transformType: "negative",
+          answer: "The figures are not improving steadily."
+        },
+        {
+          affirmative: "Ministers are commenting on the record.",
+          instruction: "Make it negative.",
+          transformType: "negative",
+          answer: "Ministers are not commenting on the record."
+        },
+        {
+          affirmative: "The parties are reaching a provisional agreement.",
+          instruction: "Transform to question.",
+          transformType: "question",
+          answer: "Are the parties reaching a provisional agreement?"
+        },
+        {
+          affirmative: "He is misrepresenting the underlying data.",
+          instruction: "Transform to the question.",
+          transformType: "question",
+          answer: "Is he misrepresenting the underlying data?"
+        }
+      ]
     }
   ]
 };

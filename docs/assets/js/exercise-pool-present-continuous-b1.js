@@ -80,6 +80,64 @@ window.PRESENT_CONTINUOUS_POOL_B1 = {
         { html: "<strong>9.</strong> The children are running.<br>→ {{input}} ?", inputType: "phrase", answers: ["are the children running"] },
         { html: "<strong>10.</strong> She is cooking.<br>→ {{input}} ?", inputType: "phrase", answers: ["is she cooking"] }
       ]
+    },
+    {
+      id: "ex5",
+      title: "Exercise 5: Transform the affirmative sentence",
+      instructions: "Boxes 1–2: negative. Boxes 3–4: question.",
+      printType: "transform-grid",
+      teacherPrintOnly: true,
+      printCount: 4,
+      items: [
+        {
+          affirmative: "She is cooking dinner right now.",
+          instruction: "Make it negative.",
+          transformType: "negative",
+          answer: "She is not cooking dinner right now."
+        },
+        {
+          affirmative: "They are waiting for the bus.",
+          instruction: "Make it negative.",
+          transformType: "negative",
+          answer: "They are not waiting for the bus."
+        },
+        {
+          affirmative: "He is doing his homework.",
+          instruction: "Transform to question.",
+          transformType: "question",
+          answer: "Is he doing his homework?"
+        },
+        {
+          affirmative: "We are having lunch.",
+          instruction: "Transform to the question.",
+          transformType: "question",
+          answer: "Are we having lunch?"
+        },
+        {
+          affirmative: "I am working today.",
+          instruction: "Make it negative.",
+          transformType: "negative",
+          answer: "I am not working today."
+        },
+        {
+          affirmative: "The children are running in the park.",
+          instruction: "Make it negative.",
+          transformType: "negative",
+          answer: "The children are not running in the park."
+        },
+        {
+          affirmative: "You are listening to music.",
+          instruction: "Transform to question.",
+          transformType: "question",
+          answer: "Are you listening to music?"
+        },
+        {
+          affirmative: "It is raining.",
+          instruction: "Transform to question.",
+          transformType: "question",
+          answer: "Is it raining?"
+        }
+      ]
     }
   ]
 };

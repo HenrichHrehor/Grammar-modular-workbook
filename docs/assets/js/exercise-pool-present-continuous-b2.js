@@ -80,6 +80,64 @@ window.PRESENT_CONTINUOUS_POOL_B2 = {
         { html: "<strong>9.</strong> They are waiting for a decision.<br>→ {{input}} for a decision?", inputType: "phrase", answers: ["are they waiting"] },
         { html: "<strong>10.</strong> She is taking notes.<br>→ {{input}} notes?", inputType: "phrase", answers: ["is she taking"] }
       ]
+    },
+    {
+      id: "ex5",
+      title: "Exercise 5: Transform the affirmative sentence",
+      instructions: "Boxes 1–2: negative. Boxes 3–4: question.",
+      printType: "transform-grid",
+      teacherPrintOnly: true,
+      printCount: 4,
+      items: [
+        {
+          affirmative: "The manager is reviewing our progress today.",
+          instruction: "Make it negative.",
+          transformType: "negative",
+          answer: "The manager is not reviewing our progress today."
+        },
+        {
+          affirmative: "We are working on the data this week.",
+          instruction: "Make it negative.",
+          transformType: "negative",
+          answer: "We are not working on the data this week."
+        },
+        {
+          affirmative: "They are developing a new product.",
+          instruction: "Transform to question.",
+          transformType: "question",
+          answer: "Are they developing a new product?"
+        },
+        {
+          affirmative: "She is attending online courses this semester.",
+          instruction: "Transform to the question.",
+          transformType: "question",
+          answer: "Is she attending online courses this semester?"
+        },
+        {
+          affirmative: "The company is hiring more staff at the moment.",
+          instruction: "Make it negative.",
+          transformType: "negative",
+          answer: "The company is not hiring more staff at the moment."
+        },
+        {
+          affirmative: "He is dealing with customer complaints today.",
+          instruction: "Make it negative.",
+          transformType: "negative",
+          answer: "He is not dealing with customer complaints today."
+        },
+        {
+          affirmative: "Our office is moving to a new building.",
+          instruction: "Transform to question.",
+          transformType: "question",
+          answer: "Is our office moving to a new building?"
+        },
+        {
+          affirmative: "We are discussing the budget right now.",
+          instruction: "Transform to the question.",
+          transformType: "question",
+          answer: "Are we discussing the budget right now?"
+        }
+      ]
     }
   ]
 };
