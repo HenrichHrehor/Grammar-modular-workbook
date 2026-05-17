@@ -15,7 +15,13 @@ After a minute, the site should be available at:
 
 **https://henrichhrehor.github.io/Grammar-modular-workbook/**
 
-`index.html` redirects visitors to `present-simple-contents.html`.
+Important: GitHub project sites always include the **repository name** in the URL.
+
+| Wrong (404) | Right |
+|-------------|--------|
+| `https://henrichhrehor.github.io/modules/...` | `https://henrichhrehor.github.io/Grammar-modular-workbook/modules/...` |
+
+`index.html` redirects visitors to `contents.html` (home).
 
 ## Local preview
 

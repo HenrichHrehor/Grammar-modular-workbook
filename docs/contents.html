@@ -23,6 +23,10 @@
   <header class="home-hero">
     <h1>Grammar Modular Workbook</h1>
     <p class="subtitle">Follow the book: <strong>Home</strong> → <strong>Module map</strong> → <strong>Module part</strong> → <strong>one activity</strong> (Theory, Exercises, or Teacher test).</p>
+    <p class="home-site-url" id="homeSiteUrl" hidden>
+      Bookmark this address:
+      <a id="homeSiteUrlLink" href="contents.html"></a>
+    </p>
   </header>
 
   <section class="home-section home-section--book" aria-labelledby="homeBookTitle">
@@ -72,7 +76,19 @@
 </div>
 
 <script src="assets/js/modules-registry.js"></script>
-<script src="assets/js/site-paths.js"></script>
+<script src="assets/js/site-paths.js?v=2"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if ((location.hostname || "").indexOf("github.io") < 0) return;
+  var el = document.getElementById("homeSiteUrl");
+  var link = document.getElementById("homeSiteUrlLink");
+  if (!el || !link || !window.SITE) return;
+  var url = location.origin + (window.SITE.pagesBase ? window.SITE.pagesBase() : "/Grammar-modular-workbook/") + "contents.html";
+  link.href = url;
+  link.textContent = url;
+  el.hidden = false;
+});
+</script>
 <script src="assets/js/site-breadcrumbs.js?v=5"></script>
 <script src="assets/js/home-page.js?v=5"></script>
 </body>

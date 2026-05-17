@@ -1705,3 +1705,19 @@ body.leaf-single-level .practice-level-tabs {
   letter-spacing: 0.06em;
   color: #888;
 }
+
+.home-site-url {
+  margin: 12px auto 0;
+  max-width: 520px;
+  padding: 10px 14px;
+  font-size: 13px;
+  line-height: 1.45;
+  background: #e8eaf6;
+  border-radius: 8px;
+  color: #333;
+}
+
+.home-site-url a {
+  word-break: break-all;
+  font-weight: 600;
+}

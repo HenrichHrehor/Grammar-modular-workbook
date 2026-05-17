@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page not found — Grammar Modular Workbook</title>
+  <link rel="stylesheet" href="assets/css/workbook.css?v=site-v7">
+</head>
+<body class="site-hub">
+
+<div class="sheet sheet--grammar" style="max-width: 640px; margin: 24px auto;">
+  <h1>Page not found</h1>
+  <p class="subtitle">This workbook is published as a <strong>GitHub project site</strong>. The site address must include the repository name.</p>
+
+  <div class="box highlight" style="margin: 16px 0;">
+    <p><strong>Correct home page:</strong></p>
+    <p><a id="homeLink" href="contents.html">Open Grammar Modular Workbook</a></p>
+    <p style="font-size: 12px; color: #555; margin-top: 8px;">
+      Full URL:<br>
+      <code id="fullUrl">https://henrichhrehor.github.io/Grammar-modular-workbook/contents.html</code>
+    </p>
+  </div>
+
+  <p><strong>Wrong</strong> (404): <code>https://henrichhrehor.github.io/modules/...</code></p>
+  <p><strong>Right</strong>: <code>https://henrichhrehor.github.io/Grammar-modular-workbook/modules/...</code></p>
+</div>
+
+<script>
+(function () {
+  var base = "/Grammar-modular-workbook/";
+  var home = base + "contents.html";
+  var link = document.getElementById("homeLink");
+  var code = document.getElementById("fullUrl");
+  if (link) link.href = home;
+  if (code) code.textContent = "https://henrichhrehor.github.io" + home;
+})();
+</script>
+</body>
+</html>
