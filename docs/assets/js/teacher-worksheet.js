@@ -718,7 +718,7 @@
       '<a class="teacher-gate-nav-link" href="' + paths.partMap + '">' + paths.partLabel + " — Module map</a>" +
       '<a class="teacher-gate-nav-link" href="' + paths.practice + '">Practice (' + (getLevel() || "b1").toUpperCase() + ")</a>" +
       "</div>" +
-      '<p class="teacher-gate-nav-hint">Students: use <strong>Practice</strong> or <strong>Home</strong>. Teachers: enter the password from your teacher notes (not shown here).</p>";
+      '<p class="teacher-gate-nav-hint">Students: use <strong>Practice</strong> or <strong>Home</strong>. Teachers: enter the password from your teacher notes (not shown here).</p>';
 
     gate.appendChild(nav);
   }
@@ -763,6 +763,7 @@
   window.togglePrintAnswerKey = togglePrintAnswerKey;
   window.toggleWorksheetHtmlCode = toggleWorksheetHtmlCode;
   window.copyWorksheetHtmlCode = copyWorksheetHtmlCode;
+  window.tryTeacherGate = tryGate;
   function setPrintMode(mode) {
     document.body.classList.remove("printing-worksheet", "printing-answers");
     if (mode) {
@@ -793,8 +794,6 @@
   document.addEventListener("DOMContentLoaded", function () {
     var level = getLevel();
     if (!level) return;
-
-    injectTeacherGateNav();
 
     var gateBtn = document.getElementById("gateSubmit");
     var gateInput = document.getElementById("gatePassword");
