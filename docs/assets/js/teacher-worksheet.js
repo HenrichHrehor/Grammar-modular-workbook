@@ -673,15 +673,63 @@
     if (isTeacherPrintV7()) updateTeacherScoreCalculatorDisplay();
   }
 
+  function gatePasswordMatches(value) {
+    var entered = String(value || "").trim();
+    if (!entered) return false;
+    return entered === PASSWORD || entered.toUpperCase() === PASSWORD;
+  }
+
+  function pageHref(subpath) {
+    if (window.SITE && window.SITE.page) return window.SITE.page(subpath);
+    return subpath;
+  }
+
+  function getGateNavPaths() {
+    var isPC = getTeacherModule() === "present-continuous";
+    var partSlug = isPC ? "present-continuous" : "present-simple";
+    var partLabel = isPC ? "Present Continuous" : "Present Simple";
+    var level = getLevel() || "b1";
+    return {
+      partLabel: partLabel,
+      home: pageHref("contents.html"),
+      verbTenses: pageHref("modules/verb-tenses/index.html"),
+      partMap: pageHref("modules/verb-tenses/" + partSlug + "/index.html"),
+      practice: pageHref(
+        "modules/verb-tenses/" + partSlug + "/practice/" + partSlug + "-exercises.html?level=" + level
+      )
+    };
+  }
+
+  function injectTeacherGateNav() {
+    var gate = document.getElementById("teacherGate");
+    if (!gate || gate.querySelector(".teacher-gate-nav")) return;
+
+    var paths = getGateNavPaths();
+    var nav = document.createElement("nav");
+    nav.className = "teacher-gate-nav";
+    nav.setAttribute("aria-label", "Back to workbook");
+    nav.innerHTML =
+      '<p class="teacher-gate-nav-title">Leave this page</p>' +
+      '<div class="teacher-gate-nav-links">' +
+      '<a class="teacher-gate-nav-link" href="' + paths.home + '">Home</a>' +
+      '<a class="teacher-gate-nav-link" href="' + paths.verbTenses + '">Verb Tenses — Module map</a>' +
+      '<a class="teacher-gate-nav-link" href="' + paths.partMap + '">' + paths.partLabel + " — Module map</a>" +
+      '<a class="teacher-gate-nav-link" href="' + paths.practice + '">Practice (' + (getLevel() || "b1").toUpperCase() + ")</a>" +
+      "</div>" +
+      '<p class="teacher-gate-nav-hint">Students: use <strong>Practice</strong> or <strong>Home</strong>. Teachers: enter the password from your teacher notes (not shown here).</p>";
+
+    gate.appendChild(nav);
+  }
+
   function tryGate() {
     var input = document.getElementById("gatePassword");
     var err = document.getElementById("gateError");
     if (!input) return;
-    if (input.value === PASSWORD) {
+    if (gatePasswordMatches(input.value)) {
       unlock(getLevel());
       if (err) err.textContent = "";
     } else if (err) {
-      err.textContent = "Incorrect password. Try again.";
+      err.textContent = "Incorrect password. Check spelling and try again, or use the links below to go back.";
     }
   }
 
@@ -738,6 +786,8 @@
   document.addEventListener("DOMContentLoaded", function () {
     var level = getLevel();
     if (!level) return;
+
+    injectTeacherGateNav();
 
     var gateBtn = document.getElementById("gateSubmit");
     var gateInput = document.getElementById("gatePassword");

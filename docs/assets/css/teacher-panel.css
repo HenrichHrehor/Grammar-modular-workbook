@@ -43,6 +43,54 @@
   min-height: 1.2em;
 }
 
+.teacher-gate-nav {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e4ec;
+  text-align: center;
+}
+
+.teacher-gate-nav-title {
+  margin: 0 0 10px 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #888;
+}
+
+.teacher-gate-nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.teacher-gate-nav-link {
+  display: inline-block;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #5c6bc0;
+  background: #f0f2ff;
+  border: 1px solid #c5cae9;
+  border-radius: 6px;
+}
+
+.teacher-gate-nav-link:hover {
+  background: #e8eaf6;
+  border-color: #667eea;
+}
+
+.teacher-gate-nav-hint {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #666;
+}
+
 .teacher-panel {
   background: linear-gradient(135deg, #f5f7ff 0%, #ede7f6 100%);
   border: 2px solid #667eea;
