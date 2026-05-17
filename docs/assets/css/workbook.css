@@ -308,6 +308,13 @@ body[data-exercise-page] .exercise-actions--bottom::before {
   color: #5d4037;
 }
 
+.exercise-feedback-tip {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #4e342e;
+}
+
 /* TOP BAR */
 .top-bar {
   display: flex;

@@ -173,8 +173,117 @@
     return copy.slice(0, count);
   }
 
+  function itemPlainText(item) {
+    return String(item.html || "")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .toLowerCase();
+  }
+
+  function resolveExplainPresentSimple(sectionId, text, answer) {
+    if (sectionId === "ex1") {
+      return "After he, she, it, or a singular subject, add -s, -es, or -ies.";
+    }
+    if (sectionId === "ex2") {
+      if (text.indexOf("majority of") >= 0) {
+        return "The real subject is the plural noun after of (e.g. respondents) — use a plural verb, no -s.";
+      }
+      if (text.indexOf("neither") >= 0) {
+        return "After Neither + singular noun, use a singular verb (-s).";
+      }
+      if (/\b(each|every)\b/.test(text)) {
+        return "Each/Every + singular noun → singular verb (-s).";
+      }
+      if (/\bmost (students|employees|people|respondents|analysts)\b/.test(text) || /\bmost \w+/.test(text)) {
+        return "Most + plural noun → plural verb (no -s).";
+      }
+      if (/\b(several|many|both|findings|regulations|factors|stakeholders)\b/.test(text)) {
+        return "Plural subject → base verb without -s.";
+      }
+      if (/\b(she|he|it|committee|board|shop|train|cat|baby|law|report|ceo|director|author|policy|framework|evidence)\b/.test(text)) {
+        return "Singular subject → verb + -s (or -es / -ies).";
+      }
+      if (/[^s]s$/.test(answer) || /ies$/.test(answer) || /es$/.test(answer)) {
+        return "This subject is singular — add -s, -es, or -ies to the verb.";
+      }
+      return "Use the base verb (no -s) for plural subjects and I/you/we/they.";
+    }
+    if (sectionId === "ex3") {
+      if (/^does not|^doesn't/.test(answer)) {
+        return "Singular subject → doesn't (does not) + base verb.";
+      }
+      return "Plural subject / I/you/we/they → don't (do not) + base verb.";
+    }
+    if (sectionId === "ex4") {
+      if (/^does /.test(answer)) {
+        return "Singular subject → Does + subject + base verb?";
+      }
+      return "Plural subject → Do + subject + base verb?";
+    }
+    return "";
+  }
+
+  function resolveExplainPresentContinuous(sectionId, text, answer) {
+    if (sectionId === "ex1") {
+      return "Form the -ing spelling (e.g. drop final -e, double the consonant when needed).";
+    }
+    if (sectionId === "ex2") {
+      if (/^is /.test(answer) || /^s /.test(answer)) {
+        return "Singular subject → is + verb-ing.";
+      }
+      if (/^are /.test(answer) || /^re /.test(answer)) {
+        return "Plural subject → are + verb-ing.";
+      }
+      if (/^am /.test(answer)) {
+        return "I → am + verb-ing.";
+      }
+      if (text.indexOf("data") >= 0) {
+        return "Data can be singular or plural; here match the answer shown (is/are + -ing).";
+      }
+      return "Match am / is / are to the subject, then add -ing.";
+    }
+    if (sectionId === "ex3") {
+      if (/^is not|^isn't|^s not|^sn't/.test(answer)) {
+        return "Singular → isn't / is not + verb-ing.";
+      }
+      if (/^are not|^aren't|^re not|^ren't/.test(answer)) {
+        return "Plural → aren't / are not + verb-ing.";
+      }
+      if (/^am not/.test(answer)) {
+        return "I → am not + verb-ing.";
+      }
+      return "Negative: am not / isn't / aren't + verb-ing.";
+    }
+    if (sectionId === "ex4") {
+      if (/^is /.test(answer) || /^s /.test(answer)) {
+        return "Singular → Is + subject + verb-ing?";
+      }
+      if (/^are /.test(answer) || /^re /.test(answer)) {
+        return "Plural → Are + subject + verb-ing?";
+      }
+      if (/^am /.test(answer)) {
+        return "I → Am + verb-ing?";
+      }
+      return "Question: Am / Is / Are + subject + verb-ing?";
+    }
+    return "";
+  }
+
+  function resolveExplain(item, sectionId) {
+    if (item.explain) return item.explain;
+    var text = itemPlainText(item);
+    var answer = normalize((item.answers && item.answers[0]) || "");
+    var mod = document.body.getAttribute("data-exercise-module") || "present-simple";
+    if (mod === "present-continuous") {
+      return resolveExplainPresentContinuous(sectionId, text, answer);
+    }
+    return resolveExplainPresentSimple(sectionId, text, answer);
+  }
+
   function createInput(item, sectionId, index) {
     var answers = item.answers.join("|");
+    var explain = resolveExplain(item, sectionId);
     var field;
     if (item.inputType === "sentence") {
       field = document.createElement("textarea");
@@ -192,6 +301,7 @@
     field.setAttribute("autocomplete", "off");
     field.setAttribute("spellcheck", "false");
     field.setAttribute("data-answers", answers);
+    if (explain) field.setAttribute("data-explain", explain);
     field.setAttribute("data-section", sectionId);
     field.setAttribute("aria-label", sectionId + ", question " + (index + 1));
     return field;
@@ -351,10 +461,18 @@
 
     var fb = document.createElement("div");
     fb.className = "exercise-feedback " + (ok ? "exercise-feedback--ok" : "exercise-feedback--miss");
-    fb.innerHTML =
+    var html =
       (ok ? "✅ " : "📝 ") +
       "<strong>Correct answer:</strong> " +
       escapeHtml(answers.join(" / "));
+    if (!ok) {
+      var explain = field.getAttribute("data-explain");
+      if (explain) {
+        html +=
+          '<p class="exercise-feedback-tip"><strong>Tip:</strong> ' + escapeHtml(explain) + "</p>";
+      }
+    }
+    fb.innerHTML = html;
     item.appendChild(fb);
     markFieldHintVisible(field);
   }

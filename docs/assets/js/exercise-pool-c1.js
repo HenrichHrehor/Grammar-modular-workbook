@@ -37,7 +37,13 @@ window.PRESENT_SIMPLE_POOL_C1 = {
       items: [
         { html: "<strong>1.</strong> The findings (indicate) {{input}} a significant shift.", inputType: "short", answers: ["indicate"] },
         { html: "<strong>2.</strong> Neither candidate (support) {{input}} the proposal.", inputType: "short", answers: ["supports"] },
-        { html: "<strong>3.</strong> The majority of respondents (prefer) {{input}} remote work.", inputType: "phrase", answers: ["prefer"] },
+        {
+          html: "<strong>3.</strong> The majority of respondents (prefer) {{input}} remote work.",
+          inputType: "phrase",
+          answers: ["prefer"],
+          explain:
+            "The real subject is respondents (plural), not majority — use prefer, not prefers."
+        },
         { html: "<strong>4.</strong> Current regulations (require) {{input}} full disclosure.", inputType: "short", answers: ["require"] },
         { html: "<strong>5.</strong> The board (meet) {{input}} quarterly to review strategy.", inputType: "short", answers: ["meets"] },
         { html: "<strong>6.</strong> Several factors (influence) {{input}} the outcome.", inputType: "short", answers: ["influence"] },
