@@ -4,121 +4,76 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Grammar Modular Workbook — Home</title>
-  <link rel="stylesheet" href="assets/css/workbook.css?v=site-v6">
+  <link rel="stylesheet" href="assets/css/workbook.css?v=site-v7">
 </head>
 <body class="site-hub site-home">
 
 <div class="sheet sheet--grammar sheet--home">
-  <div class="nav-bar">
+  <nav class="nav-bar" aria-label="Main">
     <div class="nav-links">
       <a href="contents.html" class="nav-btn active">🏠 Home</a>
-      <a href="modules/verb-tenses/present-simple/index.html" class="nav-btn">📖 Module map</a>
-      <a href="modules/verb-tenses/present-continuous/index.html" class="nav-btn">📘 Present Continuous</a>
+      <a href="modules/verb-tenses/index.html" class="nav-btn">📚 Verb Tenses</a>
     </div>
     <div class="nav-right">
       <button type="button" class="btn-shuffle-tiles" id="btnShuffleTiles">🔀 New shortcuts</button>
       <button type="button" class="print-btn" onclick="window.print()">🖨️ Print</button>
     </div>
-  </div>
+  </nav>
 
   <header class="home-hero">
     <h1>Grammar Modular Workbook</h1>
-    <p class="subtitle">Your home page — open <strong>Verb Tenses → Present Simple → Module map</strong> first, or pick random shortcuts below.</p>
+    <p class="subtitle">Follow the book: <strong>Home</strong> → <strong>Module map</strong> → <strong>Module part</strong> → <strong>one activity</strong> (Theory, Exercises, or Teacher test).</p>
   </header>
 
-  <section class="home-section home-section--module-map-first" aria-labelledby="homeModuleMapTitle">
-    <h2 id="homeModuleMapTitle">Module map</h2>
-    <p class="home-section-lead">Module <strong>Verb Tenses</strong> → part <strong>Present Simple</strong></p>
-    <div class="site-modules site-modules--featured">
-      <a class="site-module site-module--active site-module--module-map" href="modules/verb-tenses/present-simple/index.html">
-        <span class="site-module-icon">📖</span>
-        <div class="site-module-body">
-          <h3>Present Simple — Module map</h3>
-          <p class="site-module-status site-module-status--live">Verb Tenses · available</p>
-          <p>Theory, B1/B2/C1 practice, and teacher print — organized by component folders.</p>
-        </div>
-      </a>
-      <a class="site-module site-module--active" href="modules/verb-tenses/present-continuous/index.html">
-        <span class="site-module-icon">📘</span>
-        <div class="site-module-body">
-          <h3>Present Continuous — Module map</h3>
-          <p class="site-module-status site-module-status--live">Verb Tenses · available</p>
-          <p>Theory, B1/B2/C1 practice, and teacher print — same structure as Present Simple.</p>
-        </div>
-      </a>
-    </div>
+  <section class="home-section home-section--book" aria-labelledby="homeBookTitle">
+    <h2 id="homeBookTitle">How to navigate (like the book)</h2>
+    <ol class="home-book-steps">
+      <li><strong>Box 1 — Module maps:</strong> go deeper (Verb Tenses → Present Simple / Present Continuous).</li>
+      <li><strong>Box 2 — Practice:</strong> random shortcut to one exercise level (full name, e.g. B2 Present Simple Exercises).</li>
+      <li><strong>Box 3 — Teacher:</strong> random printable test (e.g. C1 Present Continuous Teacher Test).</li>
+    </ol>
   </section>
 
-  <section class="home-section" aria-labelledby="homeQuickTitle">
+  <section class="home-section" aria-labelledby="homeMapsTitle">
     <div class="home-section-head">
-      <h2 id="homeQuickTitle">Quick access — 8 shortcuts</h2>
-      <p class="home-section-lead">Randomly chosen for this visit</p>
+      <h2 id="homeMapsTitle">1 — Module maps</h2>
+      <p class="home-section-lead">Always start here to choose a module part (not mixed content)</p>
     </div>
-
-    <div class="home-tile-group">
-      <h3 class="home-tile-group-title">📚 Grammar <span class="home-tile-count">4</span></h3>
-      <div class="home-tile-grid home-tile-grid--4" id="homeTilesGrammar"></div>
-    </div>
-
-    <div class="home-tile-group">
-      <h3 class="home-tile-group-title">✏️ Practice <span class="home-tile-count">2</span> <span class="home-tile-sub">B1 &amp; B2</span></h3>
-      <div class="home-tile-grid home-tile-grid--2" id="homeTilesExercise"></div>
-    </div>
-
-    <div class="home-tile-group home-tile-group--teacher">
-      <h3 class="home-tile-group-title">🧑‍🏫 Teacher printable tests <span class="home-tile-count">2</span></h3>
-      <p class="home-tile-group-note">🔒 Password <code>AABBHH</code> required on each teacher page</p>
-      <div class="home-tile-grid home-tile-grid--2" id="homeTilesTeacher"></div>
-    </div>
+    <div class="home-tile-grid home-tile-grid--3" id="homeTilesModuleMaps"></div>
   </section>
 
-  <section class="home-section home-section--scheme" aria-labelledby="homeSchemeTitle">
-    <h2 id="homeSchemeTitle">Structure at a glance</h2>
-    <p class="home-section-lead">Module → module part → component — hover a group, click to open</p>
-
-    <div class="scheme-interactive" id="homeScheme">
-      <div class="scheme-level scheme-level--root">
-        <button type="button" class="scheme-node scheme-node--root" data-href="modules/verb-tenses/present-simple/index.html" data-scheme-group="module">
-          📖 Verb Tenses / Present Simple
-        </button>
-      </div>
-
-      <div class="scheme-connector" aria-hidden="true"></div>
-
-      <div class="scheme-level scheme-level--branch">
-        <div class="scheme-branch scheme-branch--grammar" data-scheme-group="grammar">
-          <span class="scheme-branch-label">Theory</span>
-          <button type="button" class="scheme-node" data-href="modules/verb-tenses/present-simple/theory/present-simple-grammar.html" data-scheme-group="grammar">Present Simple grammar</button>
-          <button type="button" class="scheme-node" data-href="modules/grammar-appendix/passive-voice/theory/passive-voice-grammar-b1.html" data-scheme-group="grammar">Passive voice</button>
-        </div>
-
-        <div class="scheme-branch scheme-branch--practice" data-scheme-group="practice">
-          <span class="scheme-branch-label">Practice</span>
-          <button type="button" class="scheme-node" data-href="modules/verb-tenses/present-simple/practice/present-simple-exercises.html?level=b1" data-scheme-group="practice">B1 pool</button>
-          <button type="button" class="scheme-node" data-href="modules/verb-tenses/present-simple/practice/present-simple-exercises.html?level=b2" data-scheme-group="practice">B2 pool</button>
-          <button type="button" class="scheme-node" data-href="modules/verb-tenses/present-simple/practice/present-simple-exercises.html?level=c1" data-scheme-group="practice">C1 pool</button>
-        </div>
-
-        <div class="scheme-branch scheme-branch--teacher" data-scheme-group="teacher">
-          <span class="scheme-branch-label">Teacher print</span>
-          <button type="button" class="scheme-node" data-href="modules/verb-tenses/present-simple/teacher/present-simple-teacher-b1.html" data-scheme-group="teacher">B1 A4</button>
-          <button type="button" class="scheme-node" data-href="modules/verb-tenses/present-simple/teacher/present-simple-teacher-b2.html" data-scheme-group="teacher">B2 A4</button>
-          <button type="button" class="scheme-node" data-href="modules/verb-tenses/present-simple/teacher/present-simple-teacher-c1.html" data-scheme-group="teacher">C1 A4</button>
-        </div>
-      </div>
-
-      <p class="scheme-legend">
-        <span class="scheme-legend-item scheme-legend-item--grammar">Theory</span>
-        <span class="scheme-legend-item scheme-legend-item--practice">Practice</span>
-        <span class="scheme-legend-item scheme-legend-item--teacher">Teacher (password)</span>
-      </p>
+  <section class="home-section" aria-labelledby="homePracticeTitle">
+    <div class="home-section-head">
+      <h2 id="homePracticeTitle">2 — Practice</h2>
+      <p class="home-section-lead">3 random shortcuts · changes when you click New shortcuts</p>
     </div>
+    <div class="home-tile-grid home-tile-grid--3" id="homeTilesPractice"></div>
   </section>
+
+  <section class="home-section home-section--teacher" aria-labelledby="homeTeacherTitle">
+    <div class="home-section-head">
+      <h2 id="homeTeacherTitle">3 — Teacher tests</h2>
+      <p class="home-section-lead">3 random shortcuts · password <code>AABBHH</code></p>
+    </div>
+    <div class="home-tile-grid home-tile-grid--3" id="homeTilesTeacher"></div>
+  </section>
+
+  <aside class="book-tree book-tree--home" aria-label="Book outline">
+    <h2>Outline (Verb Tenses branch)</h2>
+    <pre class="structure-tree">1. Home
+1.1 Verb Tenses — Module map
+1.1.1 Present Simple — Module part map
+  1.1.1.1 Theory
+  1.1.1.2 Practice (B1 / B2 / C1)
+  1.1.1.3 Teacher tests (B1 / B2 / C1)
+1.1.2 Present Continuous — Module part map
+  (same structure)</pre>
+  </aside>
 </div>
 
 <script src="assets/js/modules-registry.js"></script>
 <script src="assets/js/site-paths.js"></script>
-<script src="assets/js/site-breadcrumbs.js?v=3"></script>
-<script src="assets/js/home-page.js?v=3"></script>
+<script src="assets/js/site-breadcrumbs.js?v=5"></script>
+<script src="assets/js/home-page.js?v=5"></script>
 </body>
 </html>

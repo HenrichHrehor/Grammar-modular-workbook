@@ -2,7 +2,8 @@
   var VT = "modules/verb-tenses/";
   var PS = VT + "present-simple/";
   var PC = VT + "present-continuous/";
-  var PV = "modules/grammar-appendix/passive-voice/";
+  var GA = "modules/grammar-appendix/";
+  var PV = GA + "passive-voice/";
 
   function pageHref(subpath) {
     if (window.SITE && window.SITE.page) return window.SITE.page(subpath);
@@ -10,11 +11,8 @@
   }
 
   var HOME = { label: "Home", href: "contents.html" };
-  var VERB_TENSES = { label: "Verb Tenses" };
-  var PS_MAP = { label: "Present Simple", href: PS + "index.html" };
-  var PC_MAP = { label: "Present Continuous", href: PC + "index.html" };
-  var APPENDIX = { label: "Grammar Appendix" };
-  var PV_PART = { label: "Passive Voice", href: PV + "index.html" };
+  var VERB_TENSES = { label: "Verb Tenses", href: VT + "index.html" };
+  var GRAMMAR_APPENDIX = { label: "Grammar Appendix", href: GA + "index.html" };
 
   function sitePath() {
     var path = (window.location.pathname || "").replace(/\\/g, "/");
@@ -24,71 +22,118 @@
     return file.split("?")[0];
   }
 
+  function levelFromUrl() {
+    var params = new URLSearchParams(window.location.search);
+    var level = (params.get("level") || "").toLowerCase();
+    if (level === "b1" || level === "b2" || level === "c1") return level;
+    return null;
+  }
+
+  function levelFromTeacherPath(sp) {
+    if (sp.indexOf("-b1.") >= 0 || sp.indexOf("-b1.html") >= 0) return "b1";
+    if (sp.indexOf("-b2.") >= 0 || sp.indexOf("-b2.html") >= 0) return "b2";
+    if (sp.indexOf("-c1.") >= 0 || sp.indexOf("-c1.html") >= 0) return "c1";
+    return null;
+  }
+
+  function partFromRegistry(partId) {
+    var R = window.MODULES_REGISTRY;
+    if (!R || !R.modules || !R.modules["verb-tenses"]) return null;
+    return R.modules["verb-tenses"].parts[partId] || null;
+  }
+
+  function componentLabel(part, kind, level) {
+    if (!part || !part.components) return kind;
+    if (kind === "theory") {
+      return part.components.theory.shortLabel || part.components.theory.label;
+    }
+    if (!level) return kind;
+    var key =
+      (kind === "practice" ? "practice" : "teacher") +
+      level.charAt(0).toUpperCase() +
+      level.slice(1);
+    var c = part.components[key];
+    return c ? c.label : kind;
+  }
+
+  function partMapCrumb(partId) {
+    var part = partFromRegistry(partId);
+    var base = partId === "present-continuous" ? PC : PS;
+    return {
+      label: part ? part.partLabel : partId,
+      href: base + "index.html"
+    };
+  }
+
+  function resolveVerbTensesPart(sp, partId) {
+    var base = partId === "present-continuous" ? PC : PS;
+    var partMap = partMapCrumb(partId);
+
+    if (sp === base + "index.html") {
+      return [HOME, VERB_TENSES, { label: partMap.label + " — Module map" }];
+    }
+
+    if (sp.indexOf(base + "theory/") === 0) {
+      return [
+        HOME,
+        VERB_TENSES,
+        partMap,
+        { label: componentLabel(partFromRegistry(partId), "theory") }
+      ];
+    }
+
+    if (sp.indexOf(base + "practice/") === 0) {
+      var level = levelFromUrl() || "b1";
+      return [
+        HOME,
+        VERB_TENSES,
+        partMap,
+        { label: componentLabel(partFromRegistry(partId), "practice", level) }
+      ];
+    }
+
+    if (sp.indexOf(base + "teacher/") === 0) {
+      var tLevel = levelFromTeacherPath(sp) || "b1";
+      return [
+        HOME,
+        VERB_TENSES,
+        partMap,
+        { label: componentLabel(partFromRegistry(partId), "teacher", tLevel) }
+      ];
+    }
+
+    return null;
+  }
+
   function resolveCrumbs() {
     var sp = sitePath();
 
     if (sp === "contents.html" || sp === "index.html") return [HOME];
 
-    if (sp === PS + "index.html") {
-      return [HOME, VERB_TENSES, { label: "Module map" }];
+    if (sp === VT + "index.html") {
+      return [HOME, { label: "Verb Tenses — Module map" }];
     }
 
-    if (sp.indexOf(PS + "theory/") === 0) {
-      return [HOME, VERB_TENSES, PS_MAP, { label: "Grammar" }];
-    }
+    var vtPart =
+      resolveVerbTensesPart(sp, "present-simple") ||
+      resolveVerbTensesPart(sp, "present-continuous");
+    if (vtPart) return vtPart;
 
-    if (sp.indexOf(PS + "practice/") === 0) {
-      var label = "Practice";
-      if (sp.indexOf("present-simple-exercises.html") >= 0) {
-        var params = new URLSearchParams(window.location.search);
-        var level = params.get("level");
-        if (level) label = "Practice " + level.toUpperCase();
-      } else if (sp.indexOf("protected") >= 0) {
-        label = "Protected practice";
-      }
-      return [HOME, VERB_TENSES, PS_MAP, { label: label }];
-    }
-
-    if (sp.indexOf(PS + "teacher/") === 0) {
-      var t = "Teacher print";
-      if (sp.indexOf("b1") >= 0) t = "Teacher print B1";
-      if (sp.indexOf("b2") >= 0) t = "Teacher print B2";
-      if (sp.indexOf("c1") >= 0) t = "Teacher print C1";
-      return [HOME, VERB_TENSES, PS_MAP, { label: t }];
-    }
-
-    if (sp === PC + "index.html") {
-      return [HOME, VERB_TENSES, { label: "Module map" }];
-    }
-
-    if (sp.indexOf(PC + "theory/") === 0) {
-      return [HOME, VERB_TENSES, PC_MAP, { label: "Grammar" }];
-    }
-
-    if (sp.indexOf(PC + "practice/") === 0) {
-      var pcLabel = "Practice";
-      if (sp.indexOf("present-continuous-exercises.html") >= 0) {
-        var pcParams = new URLSearchParams(window.location.search);
-        var pcLevel = pcParams.get("level");
-        if (pcLevel) pcLabel = "Practice " + pcLevel.toUpperCase();
-      }
-      return [HOME, VERB_TENSES, PC_MAP, { label: pcLabel }];
-    }
-
-    if (sp.indexOf(PC + "teacher/") === 0) {
-      var pcT = "Teacher print";
-      if (sp.indexOf("b1") >= 0) pcT = "Teacher print B1";
-      if (sp.indexOf("b2") >= 0) pcT = "Teacher print B2";
-      if (sp.indexOf("c1") >= 0) pcT = "Teacher print C1";
-      return [HOME, VERB_TENSES, PC_MAP, { label: pcT }];
+    if (sp === GA + "index.html") {
+      return [HOME, { label: "Grammar Appendix — Module map" }];
     }
 
     if (sp === PV + "index.html") {
-      return [HOME, APPENDIX, { label: "Module map" }];
+      return [HOME, GRAMMAR_APPENDIX, { label: "Passive Voice — Module map" }];
     }
 
     if (sp.indexOf(PV + "theory/") === 0) {
-      return [HOME, APPENDIX, PV_PART, { label: "Grammar" }];
+      return [
+        HOME,
+        GRAMMAR_APPENDIX,
+        { label: "Passive Voice", href: PV + "index.html" },
+        { label: "Passive Voice Theory" }
+      ];
     }
 
     return [HOME, { label: sp.split("/").pop() }];
@@ -126,9 +171,51 @@
     else sheet.insertBefore(nav, sheet.firstChild);
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", insertBreadcrumbs);
-  } else {
+  function applyLeafNav() {
+    var sp = sitePath();
+    var navLinks = document.querySelector(".nav-bar .nav-links");
+    if (!navLinks) return;
+
+    var crumbs = resolveCrumbs();
+    if (crumbs.length < 3) return;
+
+    var html = [];
+    crumbs.forEach(function (crumb, i) {
+      var isLast = i === crumbs.length - 1;
+      var href = crumb.href ? pageHref(crumb.href) : null;
+      if (isLast) {
+        html.push('<span class="nav-btn nav-btn--current">' + crumb.label + "</span>");
+      } else if (href) {
+        html.push('<a href="' + href + '" class="nav-btn">' + crumb.label + "</a>");
+      }
+    });
+    navLinks.innerHTML = html.join("");
+
+    if (sp.indexOf("/practice/") >= 0 && levelFromUrl()) {
+      document.body.classList.add("leaf-single-level");
+    }
+    if (sp.indexOf("/teacher/") >= 0) {
+      document.body.classList.add("leaf-single-level");
+    }
+
+    var last = crumbs[crumbs.length - 1];
+    if (last && last.label) {
+      var h1 = document.querySelector(".sheet h1");
+      if (h1 && sp.indexOf("/theory/") >= 0) h1.textContent = last.label;
+      if (h1 && sp.indexOf("/practice/") >= 0) h1.textContent = last.label;
+      if (h1 && sp.indexOf("/teacher/") >= 0) h1.textContent = last.label;
+      document.title = last.label + " — Grammar Modular Workbook";
+    }
+  }
+
+  function init() {
     insertBreadcrumbs();
+    applyLeafNav();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
   }
 })();
