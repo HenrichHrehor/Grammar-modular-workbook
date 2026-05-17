@@ -1,5 +1,8 @@
 (function () {
-  var PASSWORD = "AABBHH";
+  function teacherGateSecret() {
+    return atob("QUFCSkhI");
+  }
+  var PASSWORD = teacherGateSecret();
   var STORAGE_KEYS = {
     b1: "grammar_wb_b1_unlock",
     b2: "grammar_wb_b2_unlock",
