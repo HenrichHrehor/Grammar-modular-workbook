@@ -3,56 +3,119 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grammar Modular Workbook — Contents</title>
-  <link rel="stylesheet" href="assets/css/workbook.css?v=site-v2">
+  <title>Grammar Modular Workbook — Home</title>
+  <link rel="stylesheet" href="assets/css/workbook.css?v=site-v4">
 </head>
-<body class="site-hub">
+<body class="site-hub site-home">
 
-<div class="sheet sheet--grammar">
+<div class="sheet sheet--grammar sheet--home">
   <div class="nav-bar">
     <div class="nav-links">
-      <a href="contents.html" class="nav-btn active">🏠 Site</a>
+      <a href="contents.html" class="nav-btn active">🏠 Home</a>
+      <a href="present-simple-contents.html" class="nav-btn">📗 Present Simple</a>
+      <a href="present-continuous-contents.html" class="nav-btn">📘 Present Continuous</a>
     </div>
     <div class="nav-right">
+      <button type="button" class="btn-shuffle-tiles" id="btnShuffleTiles">🔀 New shortcuts</button>
       <button type="button" class="print-btn" onclick="window.print()">🖨️ Print</button>
     </div>
   </div>
 
-  <div class="hub-hero">
+  <header class="home-hero">
     <h1>Grammar Modular Workbook</h1>
-    <p class="subtitle">Choose a tense module. Each module follows the same path: <strong>Grammar → Practice (pool) → Level tests (print)</strong>.</p>
-  </div>
+    <p class="subtitle">Your home page — pick a shortcut below or open a full module. Shortcuts change each time you load or click <strong>New shortcuts</strong>.</p>
+  </header>
 
-  <div class="site-modules">
-    <a class="site-module site-module--active" href="present-simple-contents.html">
-      <span class="site-module-icon">📗</span>
-      <div class="site-module-body">
-        <h2>Present Simple</h2>
-        <p class="site-module-status site-module-status--live">Available</p>
-        <p>Theory, interactive practice with <strong>New set</strong>, B1 / B2 / C1 pools, teacher A4 worksheets.</p>
+  <section class="home-section" aria-labelledby="homeQuickTitle">
+    <div class="home-section-head">
+      <h2 id="homeQuickTitle">Quick access — 8 shortcuts</h2>
+      <p class="home-section-lead">Randomly chosen for this visit</p>
+    </div>
+
+    <div class="home-tile-group">
+      <h3 class="home-tile-group-title">📚 Grammar <span class="home-tile-count">4</span></h3>
+      <div class="home-tile-grid home-tile-grid--4" id="homeTilesGrammar"></div>
+    </div>
+
+    <div class="home-tile-group">
+      <h3 class="home-tile-group-title">✏️ Practice <span class="home-tile-count">2</span> <span class="home-tile-sub">B1 &amp; B2</span></h3>
+      <div class="home-tile-grid home-tile-grid--2" id="homeTilesExercise"></div>
+    </div>
+
+    <div class="home-tile-group home-tile-group--teacher">
+      <h3 class="home-tile-group-title">🧑‍🏫 Teacher printable tests <span class="home-tile-count">2</span></h3>
+      <p class="home-tile-group-note">🔒 Password <code>AABBHH</code> required on each teacher page</p>
+      <div class="home-tile-grid home-tile-grid--2" id="homeTilesTeacher"></div>
+    </div>
+  </section>
+
+  <section class="home-section home-section--modules" aria-labelledby="homeModulesTitle">
+    <h2 id="homeModulesTitle">Tense modules</h2>
+    <div class="site-modules">
+      <a class="site-module site-module--active" href="present-simple-contents.html">
+        <span class="site-module-icon">📗</span>
+        <div class="site-module-body">
+          <h3>Present Simple</h3>
+          <p class="site-module-status site-module-status--live">Available</p>
+          <p>Full module map — grammar scroll panels, B1/B2/C1 practice, teacher print.</p>
+        </div>
+      </a>
+      <a class="site-module site-module--planned" href="present-continuous-contents.html">
+        <span class="site-module-icon">📘</span>
+        <div class="site-module-body">
+          <h3>Present Continuous</h3>
+          <p class="site-module-status site-module-status--soon">Coming next</p>
+          <p>Same layout as Present Simple.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="home-section home-section--scheme" aria-labelledby="homeSchemeTitle">
+    <h2 id="homeSchemeTitle">Structure at a glance</h2>
+    <p class="home-section-lead">Hover or tap a box to highlight its group — click to open</p>
+
+    <div class="scheme-interactive" id="homeScheme">
+      <div class="scheme-level scheme-level--root">
+        <button type="button" class="scheme-node scheme-node--root" data-href="present-simple-contents.html" data-scheme-group="module">
+          📗 Present Simple module
+        </button>
       </div>
-    </a>
 
-    <a class="site-module site-module--planned" href="present-continuous-contents.html">
-      <span class="site-module-icon">📘</span>
-      <div class="site-module-body">
-        <h2>Present Continuous</h2>
-        <p class="site-module-status site-module-status--soon">Coming next</p>
-        <p>Same modular structure as Present Simple — grammar, pools, levels, print.</p>
+      <div class="scheme-connector" aria-hidden="true"></div>
+
+      <div class="scheme-level scheme-level--branch">
+        <div class="scheme-branch scheme-branch--grammar" data-scheme-group="grammar">
+          <span class="scheme-branch-label">Grammar</span>
+          <button type="button" class="scheme-node" data-href="present-simple-grammar.html" data-scheme-group="grammar">Theory</button>
+          <button type="button" class="scheme-node" data-href="grammar-appendix-passive.html" data-scheme-group="grammar">Appendix</button>
+        </div>
+
+        <div class="scheme-branch scheme-branch--practice" data-scheme-group="practice">
+          <span class="scheme-branch-label">Practice</span>
+          <button type="button" class="scheme-node" data-href="present-simple-exercises.html?level=b1" data-scheme-group="practice">B1 pool</button>
+          <button type="button" class="scheme-node" data-href="present-simple-exercises.html?level=b2" data-scheme-group="practice">B2 pool</button>
+          <button type="button" class="scheme-node" data-href="present-simple-exercises.html?level=c1" data-scheme-group="practice">C1 pool</button>
+        </div>
+
+        <div class="scheme-branch scheme-branch--teacher" data-scheme-group="teacher">
+          <span class="scheme-branch-label">Teacher print</span>
+          <button type="button" class="scheme-node" data-href="present-simple-b1.html" data-scheme-group="teacher">B1 A4</button>
+          <button type="button" class="scheme-node" data-href="present-simple-b2.html" data-scheme-group="teacher">B2 A4</button>
+          <button type="button" class="scheme-node" data-href="present-simple-c1.html" data-scheme-group="teacher">C1 A4</button>
+        </div>
       </div>
-    </a>
-  </div>
 
-  <div class="site-architecture">
-    <h2>How every module is built</h2>
-    <ol class="site-flow">
-      <li><strong>Grammar</strong> — rules students read (source for question topics)</li>
-      <li><strong>Question pools</strong> — B1 / B2 / C1 banks tied to grammar sections</li>
-      <li><strong>Practice</strong> — interactive page; <strong>New set</strong> picks from the pool</li>
-      <li><strong>Teacher print</strong> — versioned A4 tests and answer keys</li>
-    </ol>
-  </div>
+      <p class="scheme-legend">
+        <span class="scheme-legend-item scheme-legend-item--grammar">Grammar</span>
+        <span class="scheme-legend-item scheme-legend-item--practice">Practice</span>
+        <span class="scheme-legend-item scheme-legend-item--teacher">Teacher (password)</span>
+      </p>
+    </div>
+  </section>
 </div>
 
+<script src="assets/js/site-breadcrumbs.js?v=1"></script>
+<script src="assets/js/home-page.js?v=1"></script>
 </body>
 </html>
