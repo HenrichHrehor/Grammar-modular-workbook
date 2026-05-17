@@ -1,6 +1,6 @@
 (function () {
   function teacherGateSecret() {
-    return atob("QUFCSkhI");
+    return atob("QUFCQkhI");
   }
   var PASSWORD = teacherGateSecret();
   var STORAGE_KEYS = {

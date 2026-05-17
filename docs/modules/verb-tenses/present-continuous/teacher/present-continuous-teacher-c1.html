@@ -12,10 +12,20 @@
 <div id="teacherGate" class="teacher-gate">
   <h2>🏆 C1 Teacher access</h2>
   <p>Password needed to open the C1 print panel (advanced / formal present continuous).</p>
-  <input type="password" id="gatePassword" placeholder="Password needed" autocomplete="off">
+  <input type="password" id="gatePassword" placeholder="Password needed" autocomplete="current-password">
   <br>
   <button type="button" id="gateSubmit" class="gate-btn">Unlock C1</button>
   <p id="gateError" class="gate-error" aria-live="polite"></p>
+  <nav class="teacher-gate-nav teacher-gate-nav--static" aria-label="Back to workbook">
+    <p class="teacher-gate-nav-title">Leave this page</p>
+    <div class="teacher-gate-nav-links">
+      <a class="teacher-gate-nav-link" href="../../../../contents.html">Home</a>
+      <a class="teacher-gate-nav-link" href="../../index.html">Verb Tenses — Module map</a>
+      <a class="teacher-gate-nav-link" href="../index.html">Present Continuous — Module map</a>
+      <a class="teacher-gate-nav-link" href="../practice/present-continuous-exercises.html?level=b1">B1 Practice</a>
+    </div>
+    <p class="teacher-gate-nav-hint">Students: use <strong>Practice</strong> or <strong>Home</strong>. Teachers only: unlock with your password.</p>
+  </nav>
 </div>
 
 <div id="teacherApp" hidden>
@@ -107,7 +117,7 @@
 <script src="../../../../assets/js/exercise-pool-present-continuous-b2.js?v=pc-pool-2"></script>
 <script src="../../../../assets/js/exercise-pool-present-continuous-c1.js?v=pc-pool-2"></script>
 <script src="../../../../assets/js/exercise-pools-present-continuous-init.js"></script>
-<script src="../../../../assets/js/teacher-worksheet.js?v=teacher-v14"></script>
+<script src="../../../../assets/js/teacher-worksheet.js?v=teacher-v15"></script>
 <script src="../../../../assets/js/modules-registry.js?v=6"></script>
 <script src="../../../../assets/js/site-breadcrumbs.js?v=5"></script>
 </body>

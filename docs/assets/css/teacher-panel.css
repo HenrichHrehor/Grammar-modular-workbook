@@ -1,12 +1,16 @@
 /* Teacher panel (screen only) */
 .teacher-gate {
-  max-width: 420px;
+  max-width: 480px;
   margin: 40px auto;
   padding: 24px;
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   text-align: center;
+}
+
+#teacherApp[hidden] {
+  display: none !important;
 }
 
 .teacher-gate h2 {
