@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Present Simple — Practice Exercises</title>
+  <link rel="stylesheet" href="../../../../assets/css/workbook.css?v=site-v4">
+</head>
+<body data-exercise-page="practice" data-exercise-level="b1">
+
+<div class="sheet">
+
+  <div class="nav-bar">
+    <div class="nav-links">
+      <a href="../../../../contents.html" class="nav-btn">🏠 Site</a>
+      <a href="../index.html" class="nav-btn">📖 Module map</a>
+      <a href="../theory/present-simple-grammar.html" class="nav-btn">📚 Grammar</a>
+      <a href="present-simple-exercises.html" class="nav-btn active">✏️ Practice</a>
+    </div>
+    <div class="nav-right">
+      <button type="button" class="check-btn" onclick="checkExercises()">✔️ Check</button>
+      <button type="button" class="new-set-btn" onclick="buildNewWorksheet()">🔄 New set</button>
+      <button type="button" class="answers-btn" onclick="toggleAnswers()">✅ Answers</button>
+      <button type="button" class="print-btn" onclick="window.print()">🖨️ Print</button>
+    </div>
+  </div>
+
+  <div class="practice-level-tabs" role="tablist" aria-label="CEFR level">
+    <button type="button" class="practice-level-tab practice-level-tab--active" data-level="b1" aria-pressed="true">B1</button>
+    <button type="button" class="practice-level-tab" data-level="b2" aria-pressed="false">B2</button>
+    <button type="button" class="practice-level-tab" data-level="c1" aria-pressed="false">C1</button>
+  </div>
+
+  <div class="top-bar">
+    <div class="student-info">
+      <div><strong>Student:</strong></div>
+      <div><strong>Date:</strong> <input type="date" class="date-input" aria-label="Worksheet date"></div>
+    </div>
+    <div class="page-tag page-tag--b1">B1 level — present simple practice</div>
+  </div>
+
+  <h1>Present Simple Exercises</h1>
+  <p id="exerciseLevelBadge" class="exercise-level-badge exercise-level-badge--b1">B1 question pool</p>
+  <p id="exerciseLevelSubtitle" class="subtitle">B1: Everyday topics · shorter sentences — same four exercise types, different sentences. Use Check or New set.</p>
+
+  <p class="apostrophe-hint">⌨️ <strong>Apostrophe shortcut:</strong> click a blank, then press <kbd>Alt</kbd> + <kbd>.</kbd> (Windows) or <kbd>Option</kbd> + <kbd>.</kbd> (Mac). <em>dont</em> / <em>doesnt</em> without apostrophe are accepted.</p>
+
+  <div id="checkResult" class="check-result" hidden></div>
+
+  <div id="exerciseSections"></div>
+
+  <div id="exerciseActionsBottom" class="exercise-actions exercise-actions--bottom" aria-label="Check answers at bottom of page">
+    <button type="button" class="check-btn check-btn--large" onclick="checkExercises()">✔️ Check answers</button>
+    <button type="button" class="new-set-btn" onclick="buildNewWorksheet()">🔄 New set</button>
+  </div>
+
+  <div id="answerKey" class="answer-key"></div>
+
+</div>
+
+<script src="../../../../assets/js/exercise-pool-present-simple.js"></script>
+<script src="../../../../assets/js/exercise-pool-b2.js"></script>
+<script src="../../../../assets/js/exercise-pool-c1.js"></script>
+<script src="../../../../assets/js/exercise-pools-init.js"></script>
+<script src="../../../../assets/js/exercise-engine.js?v=site-v3"></script>
+<script src="../../../../assets/js/workbook.js"></script>
+<script src="../../../../assets/js/site-breadcrumbs.js?v=1"></script>
+<script src="../../../../assets/js/site-paths.js"></script>
+<script src="../../../../assets/js/site-breadcrumbs.js?v=3"></script>
+</body>
+</html>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Grammar Modular Workbook — Home</title>
-  <link rel="stylesheet" href="assets/css/workbook.css?v=site-v5">
+  <link rel="stylesheet" href="assets/css/workbook.css?v=site-v6">
 </head>
 <body class="site-hub site-home">
 
@@ -12,8 +12,8 @@
   <div class="nav-bar">
     <div class="nav-links">
       <a href="contents.html" class="nav-btn active">🏠 Home</a>
-      <a href="present-simple-contents.html" class="nav-btn">📖 Module map</a>
-      <a href="present-continuous-contents.html" class="nav-btn">📘 Present Continuous</a>
+      <a href="modules/verb-tenses/present-simple/index.html" class="nav-btn">📖 Module map</a>
+      <a href="modules/verb-tenses/present-continuous/index.html" class="nav-btn">📘 Present Continuous</a>
     </div>
     <div class="nav-right">
       <button type="button" class="btn-shuffle-tiles" id="btnShuffleTiles">🔀 New shortcuts</button>
@@ -23,26 +23,27 @@
 
   <header class="home-hero">
     <h1>Grammar Modular Workbook</h1>
-    <p class="subtitle">Your home page — open the <strong>Module map</strong> first, or pick random shortcuts below. Shortcuts change each time you load or click <strong>New shortcuts</strong>.</p>
+    <p class="subtitle">Your home page — open <strong>Verb Tenses → Present Simple → Module map</strong> first, or pick random shortcuts below.</p>
   </header>
 
   <section class="home-section home-section--module-map-first" aria-labelledby="homeModuleMapTitle">
     <h2 id="homeModuleMapTitle">Module map</h2>
+    <p class="home-section-lead">Module <strong>Verb Tenses</strong> → part <strong>Present Simple</strong></p>
     <div class="site-modules site-modules--featured">
-      <a class="site-module site-module--active site-module--module-map" href="present-simple-contents.html">
+      <a class="site-module site-module--active site-module--module-map" href="modules/verb-tenses/present-simple/index.html">
         <span class="site-module-icon">📖</span>
         <div class="site-module-body">
-          <h3>Module map</h3>
-          <p class="site-module-status site-module-status--live">Present Simple · available</p>
-          <p>Grammar scroll panels, B1/B2/C1 practice, and teacher print — all paths in one place.</p>
+          <h3>Present Simple — Module map</h3>
+          <p class="site-module-status site-module-status--live">Verb Tenses · available</p>
+          <p>Theory, B1/B2/C1 practice, and teacher print — organized by component folders.</p>
         </div>
       </a>
-      <a class="site-module site-module--planned" href="present-continuous-contents.html">
+      <a class="site-module site-module--planned" href="modules/verb-tenses/present-continuous/index.html">
         <span class="site-module-icon">📘</span>
         <div class="site-module-body">
           <h3>Present Continuous</h3>
           <p class="site-module-status site-module-status--soon">Coming next</p>
-          <p>Same layout as Present Simple module map.</p>
+          <p>Same folder layout as Present Simple.</p>
         </div>
       </a>
     </div>
@@ -71,36 +72,14 @@
     </div>
   </section>
 
-  <section class="home-section home-section--modules" aria-labelledby="homeModulesTitle">
-    <h2 id="homeModulesTitle">Tense modules</h2>
-    <div class="site-modules">
-      <a class="site-module site-module--active" href="present-simple-contents.html">
-        <span class="site-module-icon">📗</span>
-        <div class="site-module-body">
-          <h3>Present Simple</h3>
-          <p class="site-module-status site-module-status--live">Available</p>
-          <p>Full module map — grammar scroll panels, B1/B2/C1 practice, teacher print.</p>
-        </div>
-      </a>
-      <a class="site-module site-module--planned" href="present-continuous-contents.html">
-        <span class="site-module-icon">📘</span>
-        <div class="site-module-body">
-          <h3>Present Continuous</h3>
-          <p class="site-module-status site-module-status--soon">Coming next</p>
-          <p>Same layout as Present Simple.</p>
-        </div>
-      </a>
-    </div>
-  </section>
-
   <section class="home-section home-section--scheme" aria-labelledby="homeSchemeTitle">
     <h2 id="homeSchemeTitle">Structure at a glance</h2>
-    <p class="home-section-lead">Hover or tap a box to highlight its group — click to open</p>
+    <p class="home-section-lead">Module → module part → component — hover a group, click to open</p>
 
     <div class="scheme-interactive" id="homeScheme">
       <div class="scheme-level scheme-level--root">
-        <button type="button" class="scheme-node scheme-node--root" data-href="present-simple-contents.html" data-scheme-group="module">
-          📖 Module map
+        <button type="button" class="scheme-node scheme-node--root" data-href="modules/verb-tenses/present-simple/index.html" data-scheme-group="module">
+          📖 Verb Tenses / Present Simple
         </button>
       </div>
 
@@ -108,28 +87,28 @@
 
       <div class="scheme-level scheme-level--branch">
         <div class="scheme-branch scheme-branch--grammar" data-scheme-group="grammar">
-          <span class="scheme-branch-label">Grammar</span>
-          <button type="button" class="scheme-node" data-href="present-simple-grammar.html" data-scheme-group="grammar">Theory</button>
-          <button type="button" class="scheme-node" data-href="grammar-appendix-passive.html" data-scheme-group="grammar">Appendix</button>
+          <span class="scheme-branch-label">Theory</span>
+          <button type="button" class="scheme-node" data-href="modules/verb-tenses/present-simple/theory/present-simple-grammar.html" data-scheme-group="grammar">Present Simple grammar</button>
+          <button type="button" class="scheme-node" data-href="modules/grammar-appendix/passive-voice/theory/passive-voice-grammar-b1.html" data-scheme-group="grammar">Passive voice</button>
         </div>
 
         <div class="scheme-branch scheme-branch--practice" data-scheme-group="practice">
           <span class="scheme-branch-label">Practice</span>
-          <button type="button" class="scheme-node" data-href="present-simple-exercises.html?level=b1" data-scheme-group="practice">B1 pool</button>
-          <button type="button" class="scheme-node" data-href="present-simple-exercises.html?level=b2" data-scheme-group="practice">B2 pool</button>
-          <button type="button" class="scheme-node" data-href="present-simple-exercises.html?level=c1" data-scheme-group="practice">C1 pool</button>
+          <button type="button" class="scheme-node" data-href="modules/verb-tenses/present-simple/practice/present-simple-exercises.html?level=b1" data-scheme-group="practice">B1 pool</button>
+          <button type="button" class="scheme-node" data-href="modules/verb-tenses/present-simple/practice/present-simple-exercises.html?level=b2" data-scheme-group="practice">B2 pool</button>
+          <button type="button" class="scheme-node" data-href="modules/verb-tenses/present-simple/practice/present-simple-exercises.html?level=c1" data-scheme-group="practice">C1 pool</button>
         </div>
 
         <div class="scheme-branch scheme-branch--teacher" data-scheme-group="teacher">
           <span class="scheme-branch-label">Teacher print</span>
-          <button type="button" class="scheme-node" data-href="present-simple-b1.html" data-scheme-group="teacher">B1 A4</button>
-          <button type="button" class="scheme-node" data-href="present-simple-b2.html" data-scheme-group="teacher">B2 A4</button>
-          <button type="button" class="scheme-node" data-href="present-simple-c1.html" data-scheme-group="teacher">C1 A4</button>
+          <button type="button" class="scheme-node" data-href="modules/verb-tenses/present-simple/teacher/present-simple-teacher-b1.html" data-scheme-group="teacher">B1 A4</button>
+          <button type="button" class="scheme-node" data-href="modules/verb-tenses/present-simple/teacher/present-simple-teacher-b2.html" data-scheme-group="teacher">B2 A4</button>
+          <button type="button" class="scheme-node" data-href="modules/verb-tenses/present-simple/teacher/present-simple-teacher-c1.html" data-scheme-group="teacher">C1 A4</button>
         </div>
       </div>
 
       <p class="scheme-legend">
-        <span class="scheme-legend-item scheme-legend-item--grammar">Grammar</span>
+        <span class="scheme-legend-item scheme-legend-item--grammar">Theory</span>
         <span class="scheme-legend-item scheme-legend-item--practice">Practice</span>
         <span class="scheme-legend-item scheme-legend-item--teacher">Teacher (password)</span>
       </p>
@@ -137,7 +116,9 @@
   </section>
 </div>
 
-<script src="assets/js/site-breadcrumbs.js?v=2"></script>
-<script src="assets/js/home-page.js?v=2"></script>
+<script src="assets/js/modules-registry.js"></script>
+<script src="assets/js/site-paths.js"></script>
+<script src="assets/js/site-breadcrumbs.js?v=3"></script>
+<script src="assets/js/home-page.js?v=3"></script>
 </body>
 </html>
