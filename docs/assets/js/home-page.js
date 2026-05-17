@@ -7,6 +7,9 @@
   var teacherB1 = P ? P.teacherB1 : "modules/verb-tenses/present-simple/teacher/present-simple-teacher-b1.html";
   var teacherB2 = P ? P.teacherB2 : "modules/verb-tenses/present-simple/teacher/present-simple-teacher-b2.html";
   var presentContinuous = P ? P.presentContinuousMap : "modules/verb-tenses/present-continuous/index.html";
+  var pcGrammar = P ? P.presentContinuousGrammar : "modules/verb-tenses/present-continuous/theory/present-continuous-grammar.html";
+  var pcPractice = P ? P.presentContinuousPractice : "modules/verb-tenses/present-continuous/practice/present-continuous-exercises.html";
+  var pcTeacherB1 = P ? P.presentContinuousTeacherB1 : "modules/verb-tenses/present-continuous/teacher/present-continuous-teacher-b1.html";
 
   var GRAMMAR_TILES = [
     { title: "Present Simple — full grammar", desc: "Rules for -s/-es, affirmative, negative, and questions.", href: grammar, icon: "📚" },
@@ -16,7 +19,8 @@
     { title: "Module map", desc: "Verb Tenses → Present Simple — all components.", href: moduleMap, icon: "📖" },
     { title: "Passive voice appendix", desc: "Grammar Appendix → Passive Voice theory.", href: passive, icon: "📎" },
     { title: "Why verbs matter", desc: "Core grammar introduction (section 1).", href: grammar, icon: "🔑" },
-    { title: "Present Continuous", desc: "Next tense module — structure preview.", href: presentContinuous, icon: "📘" }
+    { title: "Present Continuous — grammar", desc: "am/is/are + verb-ing · now & temporary.", href: pcGrammar, icon: "📘" },
+    { title: "Present Continuous — module map", desc: "Verb Tenses → practice & teacher print.", href: presentContinuous, icon: "🗺️" }
   ];
 
   var EXERCISE_TILES = [

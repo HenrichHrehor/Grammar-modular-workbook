@@ -53,9 +53,35 @@
           "present-continuous": {
             label: "Present Continuous",
             icon: "📘",
-            status: "planned",
+            status: "active",
             mapUrl: PC + "index.html",
-            components: {}
+            components: {
+              grammar: {
+                label: "Grammar",
+                type: "theory",
+                url: PC + "theory/present-continuous-grammar.html"
+              },
+              practice: {
+                label: "Practice",
+                type: "practice",
+                url: PC + "practice/present-continuous-exercises.html"
+              },
+              teacherB1: {
+                label: "Teacher B1",
+                type: "teacher",
+                url: PC + "teacher/present-continuous-teacher-b1.html"
+              },
+              teacherB2: {
+                label: "Teacher B2",
+                type: "teacher",
+                url: PC + "teacher/present-continuous-teacher-b2.html"
+              },
+              teacherC1: {
+                label: "Teacher C1",
+                type: "teacher",
+                url: PC + "teacher/present-continuous-teacher-c1.html"
+              }
+            }
           }
         }
       },
@@ -96,6 +122,11 @@
     teacherB2: ps.components.teacherB2.url,
     teacherC1: ps.components.teacherC1.url,
     passiveGrammar: R.modules["grammar-appendix"].parts["passive-voice"].components.grammar.url,
-    presentContinuousMap: R.modules["verb-tenses"].parts["present-continuous"].mapUrl
+    presentContinuousMap: PC + "index.html",
+    presentContinuousGrammar: PC + "theory/present-continuous-grammar.html",
+    presentContinuousPractice: PC + "practice/present-continuous-exercises.html",
+    presentContinuousTeacherB1: PC + "teacher/present-continuous-teacher-b1.html",
+    presentContinuousTeacherB2: PC + "teacher/present-continuous-teacher-b2.html",
+    presentContinuousTeacherC1: PC + "teacher/present-continuous-teacher-c1.html"
   };
 })();

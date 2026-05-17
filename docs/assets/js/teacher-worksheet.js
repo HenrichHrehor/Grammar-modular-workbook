@@ -52,10 +52,40 @@
     return document.body.getAttribute("data-teacher-level");
   }
 
+  function getTeacherModule() {
+    return document.body.getAttribute("data-teacher-module") || "present-simple";
+  }
+
+  function getTenseTitle() {
+    return getTeacherModule() === "present-continuous" ? "Present Continuous" : "Present Simple";
+  }
+
+  function getPoolRegistry() {
+    if (getTeacherModule() === "present-continuous") return window.PRESENT_CONTINUOUS_POOLS;
+    return window.PRESENT_SIMPLE_POOLS;
+  }
+
+  function getSectionPrintLabels() {
+    if (getTeacherModule() === "present-continuous") {
+      return {
+        ex1: { title: "1. -ing form", hint: "spelling" },
+        ex2: { title: "2. Affirmative", hint: "am / is / are + -ing" },
+        ex3: { title: "3. Negative", hint: "not + -ing" },
+        ex4: { title: "4. Questions", hint: "Am / Is / Are" },
+        ex5: {
+          title: "5. Transform the sentence",
+          hint: "follow the instruction under each sentence"
+        }
+      };
+    }
+    return SECTION_PRINT_LABELS;
+  }
+
   function getPool(level) {
-    var pools = window.PRESENT_SIMPLE_POOLS;
+    var pools = getPoolRegistry();
     var key = level || getLevel();
     if (pools && key && pools[key]) return pools[key];
+    if (getTeacherModule() === "present-continuous") return window.PRESENT_CONTINUOUS_POOL_B1;
     return window.PRESENT_SIMPLE_POOL;
   }
 
@@ -65,7 +95,7 @@
     return {
       id: "ex6",
       title: "6. Writing",
-      hint: "Write 5–6 sentences. Use present simple.",
+      hint: "Write 5–6 sentences. Use " + getTenseTitle().toLowerCase() + ".",
       sampleAnswer: "",
       points: WRITING_POINTS
     };
@@ -408,7 +438,7 @@
         getLayoutTag(level) +
         "</span></span></div>";
     }
-    sheetHtml += '<h1 class="print-title">Present Simple — ' + level.toUpperCase() + "</h1>";
+    sheetHtml += '<h1 class="print-title">' + getTenseTitle() + " — " + level.toUpperCase() + "</h1>";
     sheetHtml += '<div class="print-worksheet-grid print-worksheet-grid--core">';
 
     pool.sections.forEach(function (section) {
@@ -422,7 +452,8 @@
         randomSeed,
         sectionSalt
       );
-      var labels = SECTION_PRINT_LABELS[section.id] || { title: section.title, hint: "" };
+      var printLabels = getSectionPrintLabels();
+      var labels = printLabels[section.id] || { title: section.title, hint: "" };
       sectionsData.push({ title: section.title, items: picked });
       var sectionTitle = labels.title;
       if (labels.hint) {
@@ -457,7 +488,7 @@
     }
     if (transformSection) {
       var pickedTransform = pickTransformItems(transformSection.items, versionMode, level, randomSeed);
-      var transformLabels = SECTION_PRINT_LABELS.ex5;
+      var transformLabels = getSectionPrintLabels().ex5;
       var transformTitle = transformLabels.title;
       if (transformLabels.hint) {
         transformTitle += ' <span class="section-hint-inline">(' + transformLabels.hint + ")</span>";

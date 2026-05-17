@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Present Continuous — B1 Teacher Print</title>
+  <link rel="stylesheet" href="../../../../assets/css/workbook.css?v=site-v4">
+  <link rel="stylesheet" href="../../../../assets/css/teacher-panel.css?v=teacher-v11">
+</head>
+<body class="teacher-level" data-teacher-module="present-continuous" data-teacher-level="b1">
+
+<div id="teacherGate" class="teacher-gate">
+  <h2>🎯 B1 Teacher access</h2>
+  <p>Enter the teacher password to open the print panel and worksheet generator.</p>
+  <input type="password" id="gatePassword" placeholder="Password" autocomplete="off">
+  <br>
+  <button type="button" id="gateSubmit" class="gate-btn">Unlock B1</button>
+  <p id="gateError" class="gate-error" aria-live="polite"></p>
+</div>
+
+<div id="teacherApp" hidden>
+
+  <div class="nav-bar">
+    <div class="nav-links">
+      <a href="../../../../contents.html" class="nav-btn">🏠 Site</a>
+      <a href="../index.html" class="nav-btn">📖 Module map</a>
+      <a href="../theory/present-continuous-grammar.html" class="nav-btn">📚 Grammar</a>
+      <a href="../practice/present-continuous-exercises.html" class="nav-btn">✏️ Practice</a>
+      <a href="present-continuous-teacher-b1.html" class="nav-btn active">🎯 B1</a>
+      <a href="present-continuous-teacher-b2.html" class="nav-btn">🚀 B2</a>
+      <a href="present-continuous-teacher-c1.html" class="nav-btn">🏆 C1</a>
+    </div>
+  </div>
+
+  <div class="sheet sheet--grammar">
+
+    <div class="teacher-panel">
+      <h2>🧑‍🏫 B1 Teacher panel — print worksheet generator</h2>
+      <p class="teacher-panel-note">CEFR B1 test — six parts, total <strong>/29</strong>. Grade <strong>1 = best</strong>, <strong>5 = not pass</strong>. Layout <strong>B1-6PART-v7</strong>. Max page height <strong>1039px</strong> (monitor below worksheet).</p>
+      <div class="teacher-panel-grid">
+        <div class="teacher-panel-block">
+          <label for="teacherStudentName">Student name (optional)</label>
+          <input type="text" id="teacherStudentName" placeholder="Leave blank for a line on the sheet">
+        </div>
+        <div class="teacher-panel-block">
+          <label for="teacherDate">Worksheet date</label>
+          <input type="date" id="teacherDate" aria-label="Pick worksheet date">
+        </div>
+        <div class="teacher-panel-block">
+          <label for="versionSelect">Worksheet version</label>
+          <select id="versionSelect">
+            <option value="1">Version 1</option>
+            <option value="2">Version 2</option>
+            <option value="3">Version 3</option>
+            <option value="4">Version 4</option>
+            <option value="5">Version 5</option>
+            <option value="random">Random new version</option>
+          </select>
+        </div>
+        <div class="teacher-panel-block teacher-panel-block--wide">
+          <label for="scoreTotal">Total points (max 29)</label>
+          <div class="teacher-score-simple">
+            <input type="number" class="score-input score-input--total" id="scoreTotal" min="0" max="29" step="1" value="" placeholder="0–29">
+            <span class="teacher-score-result" id="teacherScoreResult" aria-live="polite">
+              → Grade: <strong id="scoreGradeDisplay">—</strong><span id="scoreGradeNote"></span>
+            </span>
+          </div>
+          <div class="teacher-grade-scale" aria-label="Points to grade scale">
+            <p class="teacher-grade-scale-title"><strong>Grade scale</strong> (1 = best · 5 = not pass)</p>
+            <ul class="teacher-grade-scale-list">
+              <li><strong>1</strong> Excellent — <span>26–29</span> pts</li>
+              <li><strong>2</strong> Good — <span>22–25</span> pts</li>
+              <li><strong>3</strong> Satisfactory — <span>18–21</span> pts</li>
+              <li><strong>4</strong> Borderline — <span>15–17</span> pts</li>
+              <li><strong>5</strong> Not pass — <span>0–14</span> pts</li>
+            </ul>
+          </div>
+          <button type="button" id="btnApplyScoreToSheet" class="btn-score-apply">Apply to worksheet</button>
+        </div>
+      </div>
+      <p style="font-size:12px;margin:10px 0 0 0;color:#555;"><strong>Current version ID:</strong> <span id="versionLabel">—</span></p>
+      <div class="teacher-panel-actions">
+        <button type="button" id="btnGenerate" class="btn-generate">🔄 Generate worksheet</button>
+        <button type="button" id="btnTogglePrintAnswers" class="btn-answers">Show answer key</button>
+        <button type="button" id="btnToggleHtmlCode" class="btn-html-code">View HTML code</button>
+        <button type="button" id="btnPrintSheet" class="btn-print">🖨️ Print worksheet (front)</button>
+        <button type="button" id="btnPrintAnswerReverse" class="btn-print-reverse">🖨️ Print answer key (reverse)</button>
+      </div>
+      <div id="teacherHtmlCodePanel" class="teacher-html-code-panel" hidden>
+        <div class="teacher-html-code-toolbar">
+          <strong>Worksheet HTML</strong>
+          <button type="button" id="btnCopyHtmlCode" class="btn-copy-html">Copy to clipboard</button>
+        </div>
+        <textarea id="teacherHtmlCode" class="teacher-html-code" readonly rows="14" spellcheck="false" aria-label="Generated worksheet HTML"></textarea>
+      </div>
+    </div>
+
+    <div class="sheet sheet--print-a4" id="printWorksheet"></div>
+    <p id="printHeightMonitor" class="print-height-monitor" aria-live="polite"></p>
+    <div class="print-answer-key" id="printAnswerKey"></div>
+
+  </div>
+</div>
+
+<script src="../../../../assets/js/exercise-pool-present-continuous-b1.js"></script>
+<script src="../../../../assets/js/exercise-pool-present-continuous-b2.js"></script>
+<script src="../../../../assets/js/exercise-pool-present-continuous-c1.js"></script>
+<script src="../../../../assets/js/exercise-pools-present-continuous-init.js"></script>
+<script src="../../../../assets/js/teacher-worksheet.js?v=teacher-v12"></script>
+<script src="../../../../assets/js/site-paths.js"></script>
+<script src="../../../../assets/js/site-breadcrumbs.js?v=3"></script>
+</body>
+</html>

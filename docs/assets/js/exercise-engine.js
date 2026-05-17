@@ -1,8 +1,21 @@
 (function () {
+  function getPoolRegistry() {
+    var mod = document.body.getAttribute("data-exercise-module") || "present-simple";
+    if (mod === "present-continuous") return window.PRESENT_CONTINUOUS_POOLS;
+    return window.PRESENT_SIMPLE_POOLS;
+  }
+
+  function getTenseLabel() {
+    var mod = document.body.getAttribute("data-exercise-module") || "present-simple";
+    return mod === "present-continuous" ? "present continuous" : "present simple";
+  }
+
   function resolvePool() {
     var level = document.body.getAttribute("data-exercise-level");
-    if (level && window.PRESENT_SIMPLE_POOLS && window.PRESENT_SIMPLE_POOLS[level]) {
-      return window.PRESENT_SIMPLE_POOLS[level];
+    var pools = getPoolRegistry();
+    if (level && pools && pools[level]) return pools[level];
+    if (document.body.getAttribute("data-exercise-module") === "present-continuous") {
+      return window.PRESENT_CONTINUOUS_POOL_B1;
     }
     return window.PRESENT_SIMPLE_POOL;
   }
@@ -38,7 +51,7 @@
     var meta = LEVEL_META[level] || LEVEL_META.b1;
     var tag = document.querySelector(".page-tag");
     if (tag) {
-      tag.textContent = meta.label + " level — present simple practice";
+      tag.textContent = meta.label + " level — " + getTenseLabel() + " practice";
       tag.className = "page-tag " + meta.tagClass;
     }
     var badge = document.getElementById("exerciseLevelBadge");

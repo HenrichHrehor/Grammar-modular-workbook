@@ -1,6 +1,7 @@
 (function () {
   var VT = "modules/verb-tenses/";
   var PS = VT + "present-simple/";
+  var PC = VT + "present-continuous/";
   var PV = "modules/grammar-appendix/passive-voice/";
 
   function pageHref(subpath) {
@@ -11,6 +12,7 @@
   var HOME = { label: "Home", href: "contents.html" };
   var VERB_TENSES = { label: "Verb Tenses" };
   var PS_MAP = { label: "Present Simple", href: PS + "index.html" };
+  var PC_MAP = { label: "Present Continuous", href: PC + "index.html" };
   var APPENDIX = { label: "Grammar Appendix" };
   var PV_PART = { label: "Passive Voice", href: PV + "index.html" };
 
@@ -55,8 +57,30 @@
       return [HOME, VERB_TENSES, PS_MAP, { label: t }];
     }
 
-    if (sp === VT + "present-continuous/index.html") {
-      return [HOME, VERB_TENSES, { label: "Present Continuous" }];
+    if (sp === PC + "index.html") {
+      return [HOME, VERB_TENSES, { label: "Module map" }];
+    }
+
+    if (sp.indexOf(PC + "theory/") === 0) {
+      return [HOME, VERB_TENSES, PC_MAP, { label: "Grammar" }];
+    }
+
+    if (sp.indexOf(PC + "practice/") === 0) {
+      var pcLabel = "Practice";
+      if (sp.indexOf("present-continuous-exercises.html") >= 0) {
+        var pcParams = new URLSearchParams(window.location.search);
+        var pcLevel = pcParams.get("level");
+        if (pcLevel) pcLabel = "Practice " + pcLevel.toUpperCase();
+      }
+      return [HOME, VERB_TENSES, PC_MAP, { label: pcLabel }];
+    }
+
+    if (sp.indexOf(PC + "teacher/") === 0) {
+      var pcT = "Teacher print";
+      if (sp.indexOf("b1") >= 0) pcT = "Teacher print B1";
+      if (sp.indexOf("b2") >= 0) pcT = "Teacher print B2";
+      if (sp.indexOf("c1") >= 0) pcT = "Teacher print C1";
+      return [HOME, VERB_TENSES, PC_MAP, { label: pcT }];
     }
 
     if (sp === PV + "index.html") {
