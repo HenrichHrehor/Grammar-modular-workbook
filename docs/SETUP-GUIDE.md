@@ -27,9 +27,9 @@ Important: GitHub project sites always include the **repository name** in the UR
 
 Open `docs/present-simple-contents.html` in a browser, or run a static server from the `docs` directory if you prefer correct `file://` behavior for all assets.
 
-## Password page (teachers)
+## Password (teachers only)
 
-`present-simple-exercises-protected.html` uses the default password **`teacher123`**. Change it in the second `<script>` block at the bottom of that file. This is **not** secure against anyone who can read your repository; it is only a light classroom gate.
+Teacher tests and the protected practice answer key require a password. Students see **“Password needed”** only — the value is set in `assets/js/teacher-worksheet.js` (and in the protected practice page script). Do not show the password on the public site. This is a light classroom gate, not strong security (anyone can read the repository).
 
 ## Adding more tenses
 

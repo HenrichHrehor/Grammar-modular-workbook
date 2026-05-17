@@ -70,7 +70,7 @@
       answers.classList.add("active");
       return;
     }
-    var input = window.prompt("Teacher password to show answers:");
+    var input = window.prompt("Password needed to show answers:");
     if (input === TEACHER_KEY) {
       sessionStorage.setItem("grammar_wb_unlock", "1");
       answers.classList.add("active");

@@ -211,7 +211,7 @@
         var c = p.components[ckey];
         out.push({
           title: c.label,
-          desc: "Password AABBHH · printable A4 test",
+          desc: "Password needed · printable A4 test",
           href: c.url,
           icon: "🖨️",
           level: c.level,
