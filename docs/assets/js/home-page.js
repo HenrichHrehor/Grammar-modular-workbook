@@ -16,6 +16,15 @@
     return shuffle(tiles).slice(0, Math.min(count, tiles.length));
   }
 
+  /** Verb Tenses module map (always) + 2 random part maps — 3 tiles total. */
+  function pickModuleMapTiles() {
+    var all = R.homeModuleMapTiles();
+    if (!all.length) return [];
+    var mandatory = all[0];
+    var optional = all.slice(1);
+    return [mandatory].concat(pickUnique(optional, 2));
+  }
+
   function renderTile(tile, extraClass) {
     var cls = "home-tile " + (extraClass || "");
     if (tile.level) cls += " home-tile--" + tile.level;
@@ -36,7 +45,7 @@
     var teacherEl = document.getElementById("homeTilesTeacher");
     if (!mapsEl || !practiceEl || !teacherEl) return;
 
-    mapsEl.innerHTML = R.homeModuleMapTiles()
+    mapsEl.innerHTML = pickModuleMapTiles()
       .map(function (t) {
         return renderTile(t, "home-tile--module-map");
       })
