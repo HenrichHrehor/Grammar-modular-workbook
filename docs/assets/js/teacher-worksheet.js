@@ -56,18 +56,28 @@
     return document.body.getAttribute("data-teacher-module") || "present-simple";
   }
 
-  function getTenseTitle() {
-    return getTeacherModule() === "present-continuous" ? "Present Continuous" : "Present Simple";
-  }
-
-  function getPoolRegistry() {
-    if (getTeacherModule() === "present-continuous") return window.PRESENT_CONTINUOUS_POOLS;
-    return window.PRESENT_SIMPLE_POOLS;
-  }
-
-  function getSectionPrintLabels() {
-    if (getTeacherModule() === "present-continuous") {
-      return {
+  var TEACHER_MODULE_META = {
+    "present-simple": {
+      title: "Present Simple",
+      slug: "present-simple",
+      pools: function () {
+        return window.PRESENT_SIMPLE_POOLS;
+      },
+      fallback: function () {
+        return window.PRESENT_SIMPLE_POOL;
+      },
+      sectionLabels: null
+    },
+    "present-continuous": {
+      title: "Present Continuous",
+      slug: "present-continuous",
+      pools: function () {
+        return window.PRESENT_CONTINUOUS_POOLS;
+      },
+      fallback: function () {
+        return window.PRESENT_CONTINUOUS_POOL_B1;
+      },
+      sectionLabels: {
         ex1: { title: "1. -ing form", hint: "spelling" },
         ex2: { title: "2. Affirmative", hint: "am / is / are + -ing" },
         ex3: { title: "3. Negative", hint: "not + -ing" },
@@ -76,17 +86,53 @@
           title: "5. Transform the sentence",
           hint: "follow the instruction under each sentence"
         }
-      };
+      }
+    },
+    "past-simple": {
+      title: "Past Simple",
+      slug: "past-simple",
+      pools: function () {
+        return window.PAST_SIMPLE_POOLS;
+      },
+      fallback: function () {
+        return window.PAST_SIMPLE_POOL_B1;
+      },
+      sectionLabels: {
+        ex1: { title: "1. Past form", hint: "-ed / irregular" },
+        ex2: { title: "2. Affirmative", hint: "past verb" },
+        ex3: { title: "3. Negative", hint: "didn't + base" },
+        ex4: { title: "4. Questions", hint: "Did + base" },
+        ex5: {
+          title: "5. Transform the sentence",
+          hint: "follow the instruction under each sentence"
+        }
+      }
     }
-    return SECTION_PRINT_LABELS;
+  };
+
+  function getTeacherModuleMeta() {
+    var id = getTeacherModule();
+    return TEACHER_MODULE_META[id] || TEACHER_MODULE_META["present-simple"];
+  }
+
+  function getTenseTitle() {
+    return getTeacherModuleMeta().title;
+  }
+
+  function getPoolRegistry() {
+    return getTeacherModuleMeta().pools();
+  }
+
+  function getSectionPrintLabels() {
+    var labels = getTeacherModuleMeta().sectionLabels;
+    return labels || SECTION_PRINT_LABELS;
   }
 
   function getPool(level) {
     var pools = getPoolRegistry();
     var key = level || getLevel();
     if (pools && key && pools[key]) return pools[key];
-    if (getTeacherModule() === "present-continuous") return window.PRESENT_CONTINUOUS_POOL_B1;
-    return window.PRESENT_SIMPLE_POOL;
+    return getTeacherModuleMeta().fallback();
   }
 
   function getWritingSection(level) {
@@ -687,9 +733,9 @@
   }
 
   function getGateNavPaths() {
-    var isPC = getTeacherModule() === "present-continuous";
-    var partSlug = isPC ? "present-continuous" : "present-simple";
-    var partLabel = isPC ? "Present Continuous" : "Present Simple";
+    var meta = getTeacherModuleMeta();
+    var partSlug = meta.slug;
+    var partLabel = meta.title;
     var level = getLevel() || "b1";
     return {
       partLabel: partLabel,

@@ -1,23 +1,53 @@
 (function () {
-  function getPoolRegistry() {
+  var EXERCISE_MODULE_META = {
+    "present-simple": {
+      label: "present simple",
+      pools: function () {
+        return window.PRESENT_SIMPLE_POOLS;
+      },
+      fallback: function () {
+        return window.PRESENT_SIMPLE_POOL;
+      }
+    },
+    "present-continuous": {
+      label: "present continuous",
+      pools: function () {
+        return window.PRESENT_CONTINUOUS_POOLS;
+      },
+      fallback: function () {
+        return window.PRESENT_CONTINUOUS_POOL_B1;
+      }
+    },
+    "past-simple": {
+      label: "past simple",
+      pools: function () {
+        return window.PAST_SIMPLE_POOLS;
+      },
+      fallback: function () {
+        return window.PAST_SIMPLE_POOL_B1;
+      }
+    }
+  };
+
+  function getExerciseModuleMeta() {
     var mod = document.body.getAttribute("data-exercise-module") || "present-simple";
-    if (mod === "present-continuous") return window.PRESENT_CONTINUOUS_POOLS;
-    return window.PRESENT_SIMPLE_POOLS;
+    return EXERCISE_MODULE_META[mod] || EXERCISE_MODULE_META["present-simple"];
+  }
+
+  function getPoolRegistry() {
+    var meta = getExerciseModuleMeta();
+    return meta.pools();
   }
 
   function getTenseLabel() {
-    var mod = document.body.getAttribute("data-exercise-module") || "present-simple";
-    return mod === "present-continuous" ? "present continuous" : "present simple";
+    return getExerciseModuleMeta().label;
   }
 
   function resolvePool() {
     var level = document.body.getAttribute("data-exercise-level");
     var pools = getPoolRegistry();
     if (level && pools && pools[level]) return pools[level];
-    if (document.body.getAttribute("data-exercise-module") === "present-continuous") {
-      return window.PRESENT_CONTINUOUS_POOL_B1;
-    }
-    return window.PRESENT_SIMPLE_POOL;
+    return getExerciseModuleMeta().fallback();
   }
 
   var pool = resolvePool();
@@ -224,6 +254,34 @@
     return "";
   }
 
+  function resolveExplainPastSimple(sectionId, text, answer) {
+    if (sectionId === "ex1") {
+      if (/\b(go|see|buy|have|do|eat|meet|write|take|give|come|draw)\b/.test(text)) {
+        return "Irregular verb — learn the past form (went, saw, bought…).";
+      }
+      return "Regular verbs: add -ed (watch → watched). Check spelling (-ied, double consonant).";
+    }
+    if (sectionId === "ex2") {
+      if (text.indexOf("majority of") >= 0) {
+        return "Subject = plural noun after of (e.g. respondents) → past form without -s (preferred).";
+      }
+      if (text.indexOf("neither") >= 0) {
+        return "Neither + singular noun → past form with -ed (accepted).";
+      }
+      if (/\b(several|most|they|we|findings|stakeholders)\b/.test(text)) {
+        return "Plural subject → past form for plural (often same as base: preferred, raised).";
+      }
+      return "Use the past tense form of the verb in brackets.";
+    }
+    if (sectionId === "ex3") {
+      return "Past negative: didn't (did not) + base verb for all subjects.";
+    }
+    if (sectionId === "ex4") {
+      return "Past question: Did + subject + base verb?";
+    }
+    return "";
+  }
+
   function resolveExplainPresentContinuous(sectionId, text, answer) {
     if (sectionId === "ex1") {
       return "Form the -ing spelling (e.g. drop final -e, double the consonant when needed).";
@@ -277,6 +335,9 @@
     var mod = document.body.getAttribute("data-exercise-module") || "present-simple";
     if (mod === "present-continuous") {
       return resolveExplainPresentContinuous(sectionId, text, answer);
+    }
+    if (mod === "past-simple") {
+      return resolveExplainPastSimple(sectionId, text, answer);
     }
     return resolveExplainPresentSimple(sectionId, text, answer);
   }
@@ -505,7 +566,7 @@
     {
       id: 5,
       status: "Excellent",
-      message: "Almost perfect — brilliant Present Simple practice!",
+      message: "Almost perfect — brilliant grammar practice!",
       resultClass: "check-result--level-5"
     }
   ];

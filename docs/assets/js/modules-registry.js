@@ -6,6 +6,7 @@
   var VT = "modules/verb-tenses/";
   var PS = VT + "present-simple/";
   var PC = VT + "present-continuous/";
+  var PAS = VT + "past-simple/";
   var GA = "modules/grammar-appendix/";
   var PV = GA + "passive-voice/";
 
@@ -62,6 +63,52 @@
       teacherC1: {
         label: "C1 Present Simple Teacher Test",
         url: PS + "teacher/present-simple-teacher-c1.html",
+        level: "c1"
+      }
+    }
+  );
+
+  var pastSimple = partDef(
+    "past-simple",
+    "verb-tenses",
+    "Verb Tenses",
+    "Past Simple",
+    "📙",
+    PAS,
+    {
+      theory: {
+        label: "Theory",
+        shortLabel: "Past Simple Theory",
+        url: PAS + "theory/past-simple-grammar.html"
+      },
+      practiceB1: {
+        label: "B1 Past Simple Exercises",
+        url: PAS + "practice/past-simple-exercises.html?level=b1",
+        level: "b1"
+      },
+      practiceB2: {
+        label: "B2 Past Simple Exercises",
+        url: PAS + "practice/past-simple-exercises.html?level=b2",
+        level: "b2"
+      },
+      practiceC1: {
+        label: "C1 Past Simple Exercises",
+        url: PAS + "practice/past-simple-exercises.html?level=c1",
+        level: "c1"
+      },
+      teacherB1: {
+        label: "B1 Past Simple Teacher Test",
+        url: PAS + "teacher/past-simple-teacher-b1.html",
+        level: "b1"
+      },
+      teacherB2: {
+        label: "B2 Past Simple Teacher Test",
+        url: PAS + "teacher/past-simple-teacher-b2.html",
+        level: "b2"
+      },
+      teacherC1: {
+        label: "C1 Past Simple Teacher Test",
+        url: PAS + "teacher/past-simple-teacher-c1.html",
         level: "c1"
       }
     }
@@ -139,7 +186,8 @@
         mapUrl: VT + "index.html",
         parts: {
           "present-simple": presentSimple,
-          "present-continuous": presentContinuous
+          "present-continuous": presentContinuous,
+          "past-simple": pastSimple
         }
       },
       "grammar-appendix": {
@@ -166,7 +214,7 @@
     var tiles = [
       {
         title: "Verb Tenses — Module map",
-        desc: "Choose Present Simple or Present Continuous",
+        desc: "Present Simple, Present Continuous, or Past Simple",
         href: R.modules["verb-tenses"].mapUrl,
         icon: R.modules["verb-tenses"].icon
       }
@@ -184,9 +232,13 @@
     return tiles;
   }
 
+  function verbTensesPartIds() {
+    return Object.keys(window.MODULES_REGISTRY.modules["verb-tenses"].parts);
+  }
+
   function homePracticeTiles() {
     var out = [];
-    ["present-simple", "present-continuous"].forEach(function (key) {
+    verbTensesPartIds().forEach(function (key) {
       var p = window.MODULES_REGISTRY.modules["verb-tenses"].parts[key];
       ["practiceB1", "practiceB2", "practiceC1"].forEach(function (ckey) {
         var c = p.components[ckey];
@@ -205,7 +257,7 @@
 
   function homeTeacherTiles() {
     var out = [];
-    ["present-simple", "present-continuous"].forEach(function (key) {
+    verbTensesPartIds().forEach(function (key) {
       var p = window.MODULES_REGISTRY.modules["verb-tenses"].parts[key];
       ["teacherB1", "teacherB2", "teacherC1"].forEach(function (ckey) {
         var c = p.components[ckey];
@@ -225,6 +277,8 @@
   var R = window.MODULES_REGISTRY;
   R.presentSimple = presentSimple;
   R.presentContinuous = presentContinuous;
+  R.pastSimple = pastSimple;
+  R.verbTensesPartIds = verbTensesPartIds;
   R.homeModuleMapTiles = homeModuleMapTiles;
   R.homePracticeTiles = homePracticeTiles;
   R.homeTeacherTiles = homeTeacherTiles;

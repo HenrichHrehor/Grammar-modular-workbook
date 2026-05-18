@@ -2,6 +2,7 @@
   var VT = "modules/verb-tenses/";
   var PS = VT + "present-simple/";
   var PC = VT + "present-continuous/";
+  var PAS = VT + "past-simple/";
   var GA = "modules/grammar-appendix/";
   var PV = GA + "passive-voice/";
 
@@ -56,9 +57,15 @@
     return c ? c.label : kind;
   }
 
+  function verbTensesPartBase(partId) {
+    if (partId === "present-continuous") return PC;
+    if (partId === "past-simple") return PAS;
+    return PS;
+  }
+
   function partMapCrumb(partId) {
     var part = partFromRegistry(partId);
-    var base = partId === "present-continuous" ? PC : PS;
+    var base = verbTensesPartBase(partId);
     return {
       label: part ? part.partLabel : partId,
       href: base + "index.html"
@@ -66,7 +73,7 @@
   }
 
   function resolveVerbTensesPart(sp, partId) {
-    var base = partId === "present-continuous" ? PC : PS;
+    var base = verbTensesPartBase(partId);
     var partMap = partMapCrumb(partId);
 
     if (sp === base + "index.html") {
@@ -116,7 +123,8 @@
 
     var vtPart =
       resolveVerbTensesPart(sp, "present-simple") ||
-      resolveVerbTensesPart(sp, "present-continuous");
+      resolveVerbTensesPart(sp, "present-continuous") ||
+      resolveVerbTensesPart(sp, "past-simple");
     if (vtPart) return vtPart;
 
     if (sp === GA + "index.html") {
