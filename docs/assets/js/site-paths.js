@@ -68,4 +68,24 @@
       return pagesBase() + "contents.html";
     }
   };
+
+  function injectFavicon() {
+    if (!document.head || document.querySelector('link[rel="icon"][data-site-favicon]')) {
+      return;
+    }
+    var href = window.SITE.asset("favicon.svg");
+    var icon = document.createElement("link");
+    icon.rel = "icon";
+    icon.type = "image/svg+xml";
+    icon.href = href;
+    icon.setAttribute("data-site-favicon", "1");
+    document.head.appendChild(icon);
+    var shortcut = document.createElement("link");
+    shortcut.rel = "shortcut icon";
+    shortcut.href = href;
+    shortcut.setAttribute("data-site-favicon", "1");
+    document.head.appendChild(shortcut);
+  }
+
+  injectFavicon();
 })();

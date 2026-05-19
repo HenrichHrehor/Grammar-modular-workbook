@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Grammar Modular Workbook">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#667eea"/>
+      <stop offset="100%" stop-color="#764ba2"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="7" fill="url(#bg)"/>
+  <path fill="#ffffff" d="M9 7h9.2c1.1 0 2 .9 2 2v14.8c0 .9-1 .9-1.4.5l-2.3-2.1-2.3 2.1c-.4.4-1.4.1-1.4-.5V9c0-1.1.9-2 2-2z"/>
+  <path fill="#ffc107" d="M20.5 10.5h2.8c.6 0 1 .5 1 1.1v9.8c0 .6-.4 1.1-1 1.1h-2.8a1 1 0 0 1-1-1v-9.8c0-.6.4-1.1 1-1.1z"/>
+  <text x="21.9" y="19.5" font-family="Georgia, 'Times New Roman', serif" font-size="9" font-weight="700" fill="#ffffff">G</text>
+</svg>
