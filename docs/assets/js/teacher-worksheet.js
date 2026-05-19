@@ -107,6 +107,26 @@
           hint: "follow the instruction under each sentence"
         }
       }
+    },
+    "past-continuous": {
+      title: "Past Continuous",
+      slug: "past-continuous",
+      pools: function () {
+        return window.PAST_CONTINUOUS_POOLS;
+      },
+      fallback: function () {
+        return window.PAST_CONTINUOUS_POOL_B1;
+      },
+      sectionLabels: {
+        ex1: { title: "1. -ing form", hint: "spelling" },
+        ex2: { title: "2. Affirmative", hint: "was / were + -ing" },
+        ex3: { title: "3. Negative", hint: "wasn't / weren't" },
+        ex4: { title: "4. Questions", hint: "Was / Were" },
+        ex5: {
+          title: "5. Transform the sentence",
+          hint: "follow the instruction under each sentence"
+        }
+      }
     }
   };
 

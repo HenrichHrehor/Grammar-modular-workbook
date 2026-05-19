@@ -26,6 +26,15 @@
       fallback: function () {
         return window.PAST_SIMPLE_POOL_B1;
       }
+    },
+    "past-continuous": {
+      label: "past continuous",
+      pools: function () {
+        return window.PAST_CONTINUOUS_POOLS;
+      },
+      fallback: function () {
+        return window.PAST_CONTINUOUS_POOL_B1;
+      }
     }
   };
 
@@ -282,6 +291,40 @@
     return "";
   }
 
+  function resolveExplainPastContinuous(sectionId, text, answer) {
+    if (sectionId === "ex1") {
+      return "Form the -ing spelling (drop -e, double consonant when needed).";
+    }
+    if (sectionId === "ex2") {
+      if (/^was /.test(answer) || /^s /.test(answer)) {
+        return "Singular subject → was + verb-ing.";
+      }
+      if (/^were /.test(answer) || /^re /.test(answer)) {
+        return "Plural subject → were + verb-ing.";
+      }
+      return "Match was / were to the subject, then add -ing.";
+    }
+    if (sectionId === "ex3") {
+      if (/^was not|^wasn't|^s not|^sn't/.test(answer)) {
+        return "Singular → wasn't / was not + verb-ing.";
+      }
+      if (/^were not|^weren't|^re not|^ren't/.test(answer)) {
+        return "Plural → weren't / were not + verb-ing.";
+      }
+      return "Negative: wasn't / weren't + verb-ing.";
+    }
+    if (sectionId === "ex4") {
+      if (/^was /.test(answer) || /^s /.test(answer)) {
+        return "Singular → Was + subject + verb-ing?";
+      }
+      if (/^were /.test(answer) || /^re /.test(answer)) {
+        return "Plural → Were + subject + verb-ing?";
+      }
+      return "Question: Was / Were + subject + verb-ing?";
+    }
+    return "";
+  }
+
   function resolveExplainPresentContinuous(sectionId, text, answer) {
     if (sectionId === "ex1") {
       return "Form the -ing spelling (e.g. drop final -e, double the consonant when needed).";
@@ -338,6 +381,9 @@
     }
     if (mod === "past-simple") {
       return resolveExplainPastSimple(sectionId, text, answer);
+    }
+    if (mod === "past-continuous") {
+      return resolveExplainPastContinuous(sectionId, text, answer);
     }
     return resolveExplainPresentSimple(sectionId, text, answer);
   }
