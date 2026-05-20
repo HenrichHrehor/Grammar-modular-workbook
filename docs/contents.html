@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Grammar Modular Workbook — Home</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/workbook.css?v=site-v9">
+  <link rel="stylesheet" href="assets/css/workbook.css?v=site-v10">
 </head>
 <body class="site-hub site-home">
 
@@ -30,40 +30,59 @@
     </p>
   </header>
 
-  <section class="search-panel" aria-label="Search workbook materials">
-    <div class="search-panel-toolbar">
-      <button type="button" class="check-btn" id="btnToggleSearch" aria-expanded="false">
-        Toggle Search
+  <section class="search-panel" aria-label="Find workbook pages">
+    <div class="search-panel-head">
+      <div>
+        <h2 class="search-panel-title">Find a page</h2>
+        <p class="search-panel-lead">Search all theory, practice, and teacher tests. Click a result to open it.</p>
+      </div>
+      <button type="button" class="new-set-btn" id="btnToggleSearch" aria-expanded="true" aria-controls="advanced-search">
+        Hide search
       </button>
     </div>
-    <div id="advanced-search" style="display: none;">
+    <div id="advanced-search" class="search-panel-body">
       <div class="search-container">
-        <input
-          type="search"
-          id="search-input"
-          class="search-input"
-          placeholder="Search title, topic, or level…"
-          autocomplete="off"
-        />
-        <select id="filter-topic" class="filter-select" aria-label="Filter by topic">
-          <option value="">All topics</option>
-        </select>
-        <select id="filter-type" class="filter-select" aria-label="Filter by type">
-          <option value="">All types</option>
-          <option value="theory">Theory</option>
-          <option value="practice">Practice</option>
-          <option value="teacher">Teacher</option>
-          <option value="map">Module map</option>
-        </select>
-        <select id="filter-level" class="filter-select" aria-label="Filter by level">
-          <option value="">All levels</option>
-          <option value="b1">B1</option>
-          <option value="b2">B2</option>
-          <option value="c1">C1</option>
-        </select>
-        <button type="button" class="check-btn" id="btnSearch">Search</button>
-        <button type="button" class="new-set-btn" id="btnClearSearch">Clear</button>
+        <label class="search-field search-field--grow">
+          <span class="search-field-label">Keywords</span>
+          <input
+            type="search"
+            id="search-input"
+            class="search-input"
+            placeholder="e.g. past simple, B2 practice, continuous…"
+            autocomplete="off"
+          />
+        </label>
+        <label class="search-field">
+          <span class="search-field-label">Grammar topic</span>
+          <select id="filter-topic" class="filter-select" aria-label="Filter by grammar topic">
+            <option value="">All topics</option>
+          </select>
+        </label>
+        <label class="search-field">
+          <span class="search-field-label">Activity</span>
+          <select id="filter-type" class="filter-select" aria-label="Filter by activity type">
+            <option value="">All activities</option>
+            <option value="theory">Theory</option>
+            <option value="practice">Practice exercises</option>
+            <option value="teacher">Teacher test</option>
+            <option value="map">Module map</option>
+          </select>
+        </label>
+        <label class="search-field">
+          <span class="search-field-label">Level</span>
+          <select id="filter-level" class="filter-select" aria-label="Filter by CEFR level">
+            <option value="">All levels</option>
+            <option value="b1">B1</option>
+            <option value="b2">B2</option>
+            <option value="c1">C1</option>
+          </select>
+        </label>
+        <div class="search-actions">
+          <button type="button" class="check-btn" id="btnSearch">Search</button>
+          <button type="button" class="new-set-btn" id="btnClearSearch">Clear</button>
+        </div>
       </div>
+      <p id="search-results-summary" class="search-results-summary" hidden></p>
       <div id="search-results" class="search-results"></div>
     </div>
   </section>
@@ -125,6 +144,6 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 <script src="assets/js/site-breadcrumbs.js?v=6"></script>
 <script src="assets/js/home-page.js?v=7"></script>
-<script src="assets/js/grammar-search.js?v=1"></script>
+<script src="assets/js/grammar-search.js?v=2"></script>
 </body>
 </html>

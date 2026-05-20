@@ -1729,43 +1729,98 @@ body.leaf-single-level .practice-level-tabs {
   font-weight: 600;
 }
 
-/* Home — grammar search panel */
+/* Home — find a page search */
 .search-panel {
   background: #d8dde6;
-  padding: 15px 20px;
+  padding: 16px 20px 18px;
   border-bottom: 2px solid #0077cc;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   border-radius: 8px;
 }
 
-.search-panel-toolbar {
+.search-panel-head {
   display: flex;
-  justify-content: flex-end;
-  margin-bottom: 10px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.search-panel-title {
+  margin: 0 0 4px 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.search-panel-lead {
+  margin: 0;
+  font-size: 13px;
+  color: #555;
+  max-width: 520px;
+}
+
+.search-panel-body--hidden {
+  display: none !important;
 }
 
 .search-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
+  gap: 12px 10px;
+  align-items: flex-end;
+}
+
+.search-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 120px;
+}
+
+.search-field--grow {
+  flex: 1 1 220px;
+  min-width: 200px;
+}
+
+.search-field-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #555;
 }
 
 .search-input {
-  flex: 1 1 200px;
-  min-width: 160px;
+  width: 100%;
   padding: 8px 12px;
   font-size: 14px;
   border: 2px solid #0077cc;
   border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .filter-select {
+  width: 100%;
   padding: 8px 10px;
   font-size: 14px;
   border: 1px solid #bbb;
   border-radius: 4px;
   background: #ffffff;
+}
+
+.search-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.search-results-summary {
+  margin: 12px 0 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
 }
 
 .search-results {
@@ -1841,4 +1896,15 @@ body.leaf-single-level .practice-level-tabs {
   background: #e3f2fd;
   border-radius: 4px;
   color: #1565c0;
+}
+
+.tag-badge--level {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+@media print {
+  .search-panel {
+    display: none !important;
+  }
 }
