@@ -151,7 +151,7 @@
           "<strong>" +
           escapeHtml(topic.title) +
           "</strong>" +
-          "<span class="result-item-subtitle">" +
+          '<span class="result-item-subtitle">' +
           escapeHtml(topic.subtitle) +
           "</span>" +
           '<span class="result-item-tags">' +
