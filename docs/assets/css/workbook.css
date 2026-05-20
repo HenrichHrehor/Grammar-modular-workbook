@@ -1728,3 +1728,117 @@ body.leaf-single-level .practice-level-tabs {
   word-break: break-all;
   font-weight: 600;
 }
+
+/* Home — grammar search panel */
+.search-panel {
+  background: #d8dde6;
+  padding: 15px 20px;
+  border-bottom: 2px solid #0077cc;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+.search-panel-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.search-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.search-input {
+  flex: 1 1 200px;
+  min-width: 160px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 2px solid #0077cc;
+  border-radius: 4px;
+}
+
+.filter-select {
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  background: #ffffff;
+}
+
+.search-results {
+  display: none;
+  max-height: 400px;
+  overflow-y: auto;
+  margin-top: 12px;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-results--visible {
+  display: block;
+}
+
+.search-results-empty {
+  margin: 0;
+  padding: 16px;
+  text-align: center;
+  color: #666;
+}
+
+.result-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  border-bottom: 1px solid #e8e8e8;
+  background: #ffffff;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.result-item:last-child {
+  border-bottom: none;
+}
+
+.result-item:hover {
+  background: #f0f7ff;
+}
+
+.result-item-icon {
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.result-item-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.result-item-subtitle {
+  font-size: 13px;
+  color: #555;
+}
+
+.result-item-tags {
+  margin-top: 4px;
+}
+
+.tag-badge {
+  display: inline-block;
+  margin-right: 6px;
+  margin-bottom: 4px;
+  padding: 2px 8px;
+  font-size: 11px;
+  background: #e3f2fd;
+  border-radius: 4px;
+  color: #1565c0;
+}

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Grammar Modular Workbook — Home</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/workbook.css?v=site-v8">
+  <link rel="stylesheet" href="assets/css/workbook.css?v=site-v9">
 </head>
 <body class="site-hub site-home">
 
@@ -29,6 +29,44 @@
       <a id="homeSiteUrlLink" href="contents.html"></a>
     </p>
   </header>
+
+  <section class="search-panel" aria-label="Search workbook materials">
+    <div class="search-panel-toolbar">
+      <button type="button" class="check-btn" id="btnToggleSearch" aria-expanded="false">
+        Toggle Search
+      </button>
+    </div>
+    <div id="advanced-search" style="display: none;">
+      <div class="search-container">
+        <input
+          type="search"
+          id="search-input"
+          class="search-input"
+          placeholder="Search title, topic, or level…"
+          autocomplete="off"
+        />
+        <select id="filter-topic" class="filter-select" aria-label="Filter by topic">
+          <option value="">All topics</option>
+        </select>
+        <select id="filter-type" class="filter-select" aria-label="Filter by type">
+          <option value="">All types</option>
+          <option value="theory">Theory</option>
+          <option value="practice">Practice</option>
+          <option value="teacher">Teacher</option>
+          <option value="map">Module map</option>
+        </select>
+        <select id="filter-level" class="filter-select" aria-label="Filter by level">
+          <option value="">All levels</option>
+          <option value="b1">B1</option>
+          <option value="b2">B2</option>
+          <option value="c1">C1</option>
+        </select>
+        <button type="button" class="check-btn" id="btnSearch">Search</button>
+        <button type="button" class="new-set-btn" id="btnClearSearch">Clear</button>
+      </div>
+      <div id="search-results" class="search-results"></div>
+    </div>
+  </section>
 
   <section class="home-section" aria-labelledby="homeMapsTitle">
     <div class="home-section-head">
@@ -71,7 +109,7 @@
   </aside>
 </div>
 
-<script src="assets/js/modules-registry.js?v=6"></script>
+<script src="assets/js/modules-registry.js?v=7"></script>
 <script src="assets/js/site-paths.js?v=3"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -87,5 +125,6 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 <script src="assets/js/site-breadcrumbs.js?v=6"></script>
 <script src="assets/js/home-page.js?v=7"></script>
+<script src="assets/js/grammar-search.js?v=1"></script>
 </body>
 </html>
